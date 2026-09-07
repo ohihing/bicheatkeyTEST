@@ -1,4 +1,3 @@
-// \n 기호를 사용하면 화면에서 줄바꿈이 적용됩니다. (원하시는 대로 자유롭게 수정하세요)
 const questions = [
     {
         q: "\"연봉 얼마 받아요?\"\n선 넘는 질문을 받는다면?",
@@ -152,25 +151,11 @@ const results = {
 let currentQuestion = 0;
 let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
-// 🌟 [추가됨] 이미지 딜레이로 인한 깜빡임 방지용 프리로드 함수
-function preloadImages() {
-    const imageUrls = [];
-    questions.forEach(q => imageUrls.push(q.img));
-    Object.values(results).forEach(r => imageUrls.push(r.img));
-    imageUrls.push("assets/main_image.png", "assets/book.png");
-
-    imageUrls.forEach(url => {
-        const img = new Image();
-        img.src = url;
-    });
-}
-// 스크립트가 실행될 때 이미지 캐싱 시작
-preloadImages();
-
 const mainScreen = document.getElementById("main-screen");
 const qScreen = document.getElementById("question-screen");
 const loadingScreen = document.getElementById("loading-screen");
 const resultScreen = document.getElementById("result-screen");
+const qContent = document.getElementById("q-content");
 
 document.getElementById("start-btn").addEventListener("click", startTest);
 document.getElementById("restart-btn").addEventListener("click", () => location.reload());
@@ -179,20 +164,19 @@ document.getElementById("share-btn").addEventListener("click", shareResult);
 function startTest() {
     mainScreen.classList.remove("active");
     qScreen.classList.add("active");
-    showQuestion();
+    
+    // 1번 문항 로드
+    renderQuestionData();
+    qContent.className = "is-entering";
+    void qContent.offsetWidth;
+    qContent.className = "";
 }
 
-function showQuestion() {
-    if (currentQuestion >= questions.length) {
-        showLoading();
-        return;
-    }
-
+function renderQuestionData() {
     const qData = questions[currentQuestion];
     document.getElementById("current-q").innerText = currentQuestion + 1;
     document.getElementById("progress-bar").style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
     
-    // .innerText 를 .innerHTML 로 변경하여 CSS의 white-space 인식 적용
     document.getElementById("question-text").innerHTML = qData.q;
     document.getElementById("q-image").src = qData.img;
 
@@ -202,24 +186,41 @@ function showQuestion() {
     
     btns[1].innerHTML = qData.options[1].text;
     btns[1].onclick = () => selectOption(qData.options[1].type);
-
-    const qContent = document.getElementById("q-content");
-    qContent.classList.remove("fade-out-content");
-    void qContent.offsetWidth;
-    qContent.classList.add("fade-in-content");
 }
 
 function selectOption(type) {
     scores[type]++;
     currentQuestion++;
-    
-    const qContent = document.getElementById("q-content");
-    qContent.classList.remove("fade-in-content");
-    qContent.classList.add("fade-out-content");
-    
+
+    // 1. 기존 화면을 위로 보내며 완전히 투명하게 숨김 (0.25초)
+    qContent.classList.add("is-hidden");
+
     setTimeout(() => {
-        showQuestion();
-    }, 300);
+        if (currentQuestion >= questions.length) {
+            showLoading();
+            return;
+        }
+
+        // 2. 화면이 완전히 숨겨진 상태에서 데이터 교체
+        renderQuestionData();
+
+        // 3. 🌟 핵심: 새 이미지가 브라우저 그래픽 메모리에 완전히 그려졌을 때만 페이드인 시작
+        const qImage = document.getElementById("q-image");
+        
+        const showNext = () => {
+            // 보이지 않는 상태로 아래쪽 위치로 세팅
+            qContent.className = "is-entering";
+            void qContent.offsetWidth; // 렌더링 강제 반영
+            // 클래스 제거 -> 부드럽게 원위치로 페이드인
+            qContent.className = "";
+        };
+
+        if (qImage.decode) {
+            qImage.decode().then(showNext).catch(showNext);
+        } else {
+            showNext();
+        }
+    }, 250);
 }
 
 function showLoading() {
