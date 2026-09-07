@@ -31,7 +31,8 @@ body {
     display: none;
     flex-direction: column;
     align-items: center;
-    padding: 30px 20px;
+    justify-content: center; /* PC/모바일에서 컨텐츠를 화면 수직 중앙에 배치 */
+    padding: 40px 20px; /* 위아래 여유 공간 확대 */
     width: 100%;
     min-height: 100vh;
     animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -68,21 +69,21 @@ body {
     text-align: center;
     margin: 20px 0;
     color: #333;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 .subtitle {
     font-size: 15px;
     text-align: center;
     color: #666;
     margin-bottom: 40px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .main-image-placeholder, 
 .question-image-placeholder, 
 .result-image-placeholder {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* 이미지 아래 여백 확대 */
     text-align: center;
 }
 .main-image-placeholder img,
@@ -97,12 +98,12 @@ body {
 
 .book-image-placeholder {
     width: 100%;
-    margin: 15px 0;
+    margin: 20px 0;
     text-align: center;
 }
 .book-image-placeholder img {
-    width: 60%; 
-    max-width: 200px;
+    width: 55%; 
+    max-width: 180px;
     height: auto;
     border-radius: 8px;
     object-fit: contain;
@@ -114,7 +115,7 @@ body {
     height: 8px;
     background-color: #eee;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     overflow: hidden;
 }
 .progress-bar {
@@ -126,16 +127,17 @@ body {
 .question-count {
     font-size: 14px;
     color: #999;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* 진행바와 질문 사이 여백 확대 */
 }
 
 .question-text {
     font-size: 20px;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     word-break: keep-all;
-    line-height: 1.4;
+    line-height: 1.5;
+    white-space: pre-wrap; /* JS에서 \n 입력 시 줄바꿈 적용되도록 설정 */
 }
 
 .btn-primary, .btn-secondary, .btn-outline {
@@ -147,7 +149,7 @@ body {
     cursor: pointer;
     border: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
@@ -166,15 +168,16 @@ body {
     border: 2px solid #f0f0f0;
     border-radius: 16px;
     text-align: center;
-    padding: 22px 20px;
+    padding: 24px 20px; /* 선택지 버튼 안쪽 여백 확대 */
     font-size: 15px;
     font-weight: 700;
-    line-height: 1.4;
+    line-height: 1.5;
     word-break: keep-all;
     cursor: pointer;
-    margin-bottom: 12px;
+    margin-bottom: 16px; /* 버튼 사이 여백 확대 */
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: pre-wrap; /* 선택지 텍스트 \n 줄바꿈 적용 */
 }
 .btn-option:hover {
     transform: translateY(-3px);
@@ -191,29 +194,31 @@ body {
     font-size: 28px;
     font-weight: 800;
     color: #4CAF50;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: center;
 }
 .result-desc-box, .result-solution-box {
     background-color: #f8f9fa;
     border-radius: 16px;
-    padding: 24px;
+    padding: 28px 24px; /* 결과창 안쪽 패딩 확대 */
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 24px; /* 박스 사이 간격 확대 */
 }
 .result-desc-box h3, .result-solution-box h3 {
     font-size: 17px;
     font-weight: 800;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     color: #222;
+    text-align: center; /* 제목 가운데 정렬 */
 }
 .result-solution-box p, .result-desc-box p {
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.7; /* 글 줄 간격(행간) 넓힘 */
     color: #555;
-    white-space: pre-wrap;
+    white-space: pre-wrap; /* \n 줄바꿈 적용 */
+    text-align: center; /* 결과 텍스트 가운데 정렬 적용 */
 }
-.action-buttons { width: 100%; margin-top: 20px; }
+.action-buttons { width: 100%; margin-top: 24px; }
 
 .spinner {
     width: 50px; height: 50px;
