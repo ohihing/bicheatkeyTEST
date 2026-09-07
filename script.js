@@ -300,3 +300,25 @@ function renderOtherTypes() {
 }
 function openModal() { document.getElementById("other-modal").classList.remove("hidden"); }
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
+
+// 🌟 이스터에그: 푸터 로고 5번 연속 클릭 시 관리자 페이지(admin.html)로 이동
+const footerLogo = document.querySelector('.app-footer img');
+let logoClickCount = 0;
+let logoClickTimer;
+
+if (footerLogo) {
+    footerLogo.addEventListener('click', () => {
+        logoClickCount++;
+        
+        // 5번 클릭이 누적되면 관리자 페이지로 이동
+        if (logoClickCount >= 5) {
+            window.location.href = 'admin.html';
+        }
+
+        // 2초 동안 추가 클릭이 없으면 카운트 초기화 (오작동 방지)
+        clearTimeout(logoClickTimer);
+        logoClickTimer = setTimeout(() => {
+            logoClickCount = 0;
+        }, 2000);
+    });
+}
