@@ -239,7 +239,9 @@ function showLoading() {
     updateHeader();
     qScreen.classList.remove("active");
     loadingScreen.classList.add("active");
-    setTimeout(calculateResult, 1500);
+    
+    // 로딩 대기 시간을 2.5초(2500ms)로 증가
+    setTimeout(calculateResult, 2500);
 }
 
 function calculateResult() {
@@ -298,6 +300,7 @@ function renderOtherTypes() {
         grid.innerHTML += `<div class="type-card"><img src="${val.img}" alt="${val.title}"><p>${val.title}</p></div>`;
     }
 }
+
 function openModal() { document.getElementById("other-modal").classList.remove("hidden"); }
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
 
@@ -309,13 +312,9 @@ let logoClickTimer;
 if (footerLogo) {
     footerLogo.addEventListener('click', () => {
         logoClickCount++;
-        
-        // 5번 클릭이 누적되면 관리자 페이지로 이동
         if (logoClickCount >= 5) {
             window.location.href = 'admin.html';
         }
-
-        // 2초 동안 추가 클릭이 없으면 카운트 초기화 (오작동 방지)
         clearTimeout(logoClickTimer);
         logoClickTimer = setTimeout(() => {
             logoClickCount = 0;
