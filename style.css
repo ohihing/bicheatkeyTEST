@@ -1,9 +1,11 @@
-/* 기본 초기화 */
+/* 부드러운 느낌의 나눔스퀘어라운드 웹 폰트 적용 */
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: 'NanumSquareRound', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 body {
@@ -13,7 +15,6 @@ body {
     min-height: 100vh;
 }
 
-/* 모바일 뷰 컨테이너 */
 .app-container {
     width: 100%;
     max-width: 480px;
@@ -33,14 +34,31 @@ body {
     padding: 30px 20px;
     width: 100%;
     min-height: 100vh;
-    animation: fadeIn 0.4s ease;
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .screen.active {
     display: flex;
 }
 
+/* 문항 전환을 위한 부드러운 모션 클래스 */
+.fade-in-content {
+    animation: smoothFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.fade-out-content {
+    animation: smoothFadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes smoothFadeIn {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes smoothFadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-15px); }
+}
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -60,7 +78,6 @@ body {
     line-height: 1.5;
 }
 
-/* 반응형 이미지 스타일 */
 .main-image-placeholder, 
 .question-image-placeholder, 
 .result-image-placeholder {
@@ -78,14 +95,13 @@ body {
     border-radius: 12px;
 }
 
-/* 도서 이미지 스타일 */
 .book-image-placeholder {
     width: 100%;
     margin: 15px 0;
     text-align: center;
 }
 .book-image-placeholder img {
-    width: 60%; /* 도서 이미지는 너무 크지 않게 조절 */
+    width: 60%; 
     max-width: 200px;
     height: auto;
     border-radius: 8px;
@@ -105,7 +121,7 @@ body {
     height: 100%;
     background-color: #4CAF50;
     width: 0%;
-    transition: width 0.3s ease;
+    transition: width 0.4s ease;
 }
 .question-count {
     font-size: 14px;
@@ -122,36 +138,54 @@ body {
     line-height: 1.4;
 }
 
-.btn-primary, .btn-secondary, .btn-outline, .btn-option {
+.btn-primary, .btn-secondary, .btn-outline {
     width: 100%;
-    padding: 16px;
-    border-radius: 12px;
+    padding: 18px;
+    border-radius: 16px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 800;
     cursor: pointer;
     border: none;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .btn-primary { background-color: #333; color: white; }
-.btn-primary:active { background-color: #555; }
+.btn-primary:active { transform: scale(0.98); }
 .btn-secondary { background-color: #4CAF50; color: white; }
-.btn-secondary:active { background-color: #45a049; }
-.btn-outline { background-color: white; color: #333; border: 1px solid #ddd; }
-.btn-outline:active { background-color: #f9f9f9; }
+.btn-secondary:active { transform: scale(0.98); }
+.btn-outline { background-color: white; color: #333; border: 2px solid #eee; box-shadow: none; }
+.btn-outline:active { background-color: #f9f9f9; transform: scale(0.98); }
 
 .options-container { width: 100%; }
 .btn-option {
-    background-color: #f8f9fa;
+    width: 100%;
+    background-color: #ffffff;
     color: #333;
-    border: 1px solid #e9ecef;
+    border: 2px solid #f0f0f0;
+    border-radius: 16px;
     text-align: center;
-    padding: 20px;
+    padding: 22px 20px;
+    font-size: 15px;
+    font-weight: 700;
     line-height: 1.4;
     word-break: keep-all;
+    cursor: pointer;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.btn-option:active { background-color: #e9ecef; }
+.btn-option:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border-color: #e2e8f0;
+}
+.btn-option:active {
+    transform: translateY(1px);
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
 
 .result-title {
     font-size: 28px;
@@ -162,15 +196,16 @@ body {
 }
 .result-desc-box, .result-solution-box {
     background-color: #f8f9fa;
-    border-radius: 12px;
-    padding: 20px;
+    border-radius: 16px;
+    padding: 24px;
     width: 100%;
     margin-bottom: 20px;
 }
 .result-desc-box h3, .result-solution-box h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #222;
 }
 .result-solution-box p, .result-desc-box p {
     font-size: 15px;
@@ -182,7 +217,7 @@ body {
 
 .spinner {
     width: 50px; height: 50px;
-    border: 5px solid #f3f3f3; border-top: 5px solid #333;
+    border: 5px solid #f3f3f3; border-top: 5px solid #4CAF50;
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 50px auto 20px;
