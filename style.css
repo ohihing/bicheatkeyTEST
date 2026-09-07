@@ -156,7 +156,7 @@ body {
     margin-top: auto;
 }
 .app-footer img { 
-    height: 9px; /* 기존 16px의 2/3 크기로 축소 */
+    height: 9.5px; /* 기존 16px의 2/3 크기로 축소 */
     margin-bottom: 6px; 
     object-fit: contain; 
     filter: grayscale(100%) opacity(40%); 
