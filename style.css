@@ -31,35 +31,40 @@ body {
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* PC/모바일에서 컨텐츠를 화면 수직 중앙에 배치 */
-    padding: 40px 20px; /* 위아래 여유 공간 확대 */
+    justify-content: center;
+    padding: 40px 20px;
     width: 100%;
     min-height: 100vh;
-    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .screen.active {
     display: flex;
 }
 
-/* 문항 전환을 위한 부드러운 모션 클래스 */
-.fade-in-content {
-    animation: smoothFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-.fade-out-content {
-    animation: smoothFadeOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+/* 🌟 부드러운 문항 전환 모션 (깜빡임 완벽 차단) */
+#q-content {
+    width: 100%;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes smoothFadeIn {
-    0% { opacity: 0; transform: translateY(15px); }
-    100% { opacity: 1; transform: translateY(0); }
+/* 페이드아웃 상태 (완전 투명 및 중복클릭 방지) */
+#q-content.is-hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
 }
-@keyframes smoothFadeOut {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-15px); }
+
+/* 새 문항 진입 대기 위치 (화면에 보이지 않게 아래 대기) */
+#q-content.is-entering {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: none !important;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -83,7 +88,7 @@ body {
 .question-image-placeholder, 
 .result-image-placeholder {
     width: 100%;
-    margin-bottom: 30px; /* 이미지 아래 여백 확대 */
+    margin-bottom: 30px;
     text-align: center;
 }
 .main-image-placeholder img,
@@ -122,12 +127,12 @@ body {
     height: 100%;
     background-color: #4CAF50;
     width: 0%;
-    transition: width 0.4s ease;
+    transition: width 0.35s ease;
 }
 .question-count {
     font-size: 14px;
     color: #999;
-    margin-bottom: 30px; /* 진행바와 질문 사이 여백 확대 */
+    margin-bottom: 30px;
 }
 
 .question-text {
@@ -137,7 +142,7 @@ body {
     margin-bottom: 30px;
     word-break: keep-all;
     line-height: 1.5;
-    white-space: pre-wrap; /* JS에서 \n 입력 시 줄바꿈 적용되도록 설정 */
+    white-space: pre-wrap;
 }
 
 .btn-primary, .btn-secondary, .btn-outline {
@@ -168,16 +173,16 @@ body {
     border: 2px solid #f0f0f0;
     border-radius: 16px;
     text-align: center;
-    padding: 24px 20px; /* 선택지 버튼 안쪽 여백 확대 */
+    padding: 24px 20px;
     font-size: 15px;
     font-weight: 700;
     line-height: 1.5;
     word-break: keep-all;
     cursor: pointer;
-    margin-bottom: 16px; /* 버튼 사이 여백 확대 */
+    margin-bottom: 16px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    white-space: pre-wrap; /* 선택지 텍스트 \n 줄바꿈 적용 */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: pre-wrap;
 }
 .btn-option:hover {
     transform: translateY(-3px);
@@ -200,23 +205,23 @@ body {
 .result-desc-box, .result-solution-box {
     background-color: #f8f9fa;
     border-radius: 16px;
-    padding: 28px 24px; /* 결과창 안쪽 패딩 확대 */
+    padding: 28px 24px;
     width: 100%;
-    margin-bottom: 24px; /* 박스 사이 간격 확대 */
+    margin-bottom: 24px;
 }
 .result-desc-box h3, .result-solution-box h3 {
     font-size: 17px;
     font-weight: 800;
     margin-bottom: 16px;
     color: #222;
-    text-align: center; /* 제목 가운데 정렬 */
+    text-align: center;
 }
 .result-solution-box p, .result-desc-box p {
     font-size: 15px;
-    line-height: 1.7; /* 글 줄 간격(행간) 넓힘 */
+    line-height: 1.7;
     color: #555;
-    white-space: pre-wrap; /* \n 줄바꿈 적용 */
-    text-align: center; /* 결과 텍스트 가운데 정렬 적용 */
+    white-space: pre-wrap;
+    text-align: center;
 }
 .action-buttons { width: 100%; margin-top: 24px; }
 
