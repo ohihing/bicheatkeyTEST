@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>오피스 생존을 위한 나의 선 긋기 유형</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 1. 메인 화면 -->
+        <section id="main-screen" class="screen active">
+            <div class="main-image-placeholder">
+                <img src="assets/main_image.png" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
+            </div>
+            <h1 class="title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
+            <p class="subtitle">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
+            <button id="start-btn" class="btn-primary">테스트 시작하기</button>
+        </section>
+
+        <!-- 2. 질문 화면 -->
+        <section id="question-screen" class="screen">
+            <div class="progress-bar-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div class="question-count"><span id="current-q">1</span> / 12</div>
+            
+            <h2 id="question-text" class="question-text">질문 텍스트</h2>
+            
+            <div class="question-image-placeholder">
+                <img id="q-image" src="" alt="질문 이미지" onerror="this.src='https://via.placeholder.com/400x300?text=Question+Image'">
+            </div>
+            
+            <div class="options-container">
+                <button class="btn-option" onclick="selectOption(0)"></button>
+                <button class="btn-option" onclick="selectOption(1)"></button>
+            </div>
+        </section>
+
+        <!-- 3. 로딩 화면 -->
+        <section id="loading-screen" class="screen">
+            <div class="spinner"></div>
+            <h2>결과 분석 중...</h2>
+            <p>나의 선 긋기 유형을 찾고 있습니다.</p>
+        </section>
+
+        <!-- 4. 결과 화면 -->
+        <section id="result-screen" class="screen">
+            <h2 id="result-title" class="result-title">결과 타이틀</h2>
+            
+            <div class="result-image-placeholder">
+                <img id="result-image" src="" alt="결과 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Result+Image'">
+            </div>
+            
+            <div class="result-desc-box">
+                <h3>유형 해설</h3>
+                <p id="result-desc">결과 설명이 여기에 들어갑니다.</p>
+            </div>
+            
+            <div class="result-solution-box">
+                <h3>📖 &lt;감정을 읽는 사람은 다르게 말한다&gt; 처방전</h3>
+                <div class="book-image-placeholder">
+                    <img src="assets/book.png" alt="도서 이미지" onerror="this.src='https://via.placeholder.com/200x250?text=Book+Image'">
+                </div>
+                <p id="result-solution">책 내용 기반 솔루션</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="share-btn" class="btn-secondary">테스트 공유하기</button>
+                <button id="restart-btn" class="btn-outline">다시하기</button>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
