@@ -185,12 +185,27 @@ function showQuestion() {
     
     btns[1].innerText = qData.options[1].text;
     btns[1].onclick = () => selectOption(qData.options[1].type);
+
+    // 새 문항이 나타날 때 페이드 인 모션 리셋
+    const qContent = document.getElementById("q-content");
+    qContent.classList.remove("fade-out-content");
+    void qContent.offsetWidth; // 브라우저가 애니메이션을 다시 읽도록 강제 실행
+    qContent.classList.add("fade-in-content");
 }
 
 function selectOption(type) {
     scores[type]++;
     currentQuestion++;
-    showQuestion();
+    
+    // 버튼을 누르는 순간 기존 문항을 부드럽게 페이드 아웃
+    const qContent = document.getElementById("q-content");
+    qContent.classList.remove("fade-in-content");
+    qContent.classList.add("fade-out-content");
+    
+    // 모션이 끝나는 0.3초 뒤에 다음 문항 렌더링
+    setTimeout(() => {
+        showQuestion();
+    }, 300);
 }
 
 function showLoading() {
