@@ -1,98 +1,99 @@
+// \n 기호를 사용하면 화면에서 줄바꿈이 적용됩니다. (원하시는 대로 자유롭게 수정하세요)
 const questions = [
     {
-        q: "선 넘는 질문('연봉 얼마 받아요?')을 받는다면?",
+        q: "\"연봉 얼마 받아요?\"\n선 넘는 질문을 받는다면?",
         img: "assets/q001.png",
         options: [
-            { text: "그게 왜 궁금한데요? 라며 불쾌함을 표현한다.", type: "A" },
-            { text: "요즘 그 연차 평균 연봉이 어떻게 되죠? 라며 말을 돌린다.", type: "B" }
+            { text: "\"그게 왜 궁금한데요?\"\n라며 불쾌함을 표현한다", type: "A" },
+            { text: "\"요즘 그 연차 평균 연봉이 어떻게 되죠?"\"\n라며 말을 돌린다", type: "B" }
         ]
     },
     {
-        q: "상대가 나에게 언성을 높이며 불만을 쏟아낸다면?",
+        q: "상대가 나에게 언성을 높이며\n불만을 쏟아낸다면?",
         img: "assets/q002.png",
         options: [
-            { text: "제가 잘못했다는 건가요? 충동적으로 맞받아친다.", type: "A" },
-            { text: "우선 자리를 옮기실까요? 감정의 흐름을 정돈한다.", type: "B" }
+            { text: "\"제가 잘못했다는 건가요?"\"\n충동적으로 맞받아친다", type: "A" },
+            { text: "\"우선 자리를 옮기실까요?"\"\n감정의 흐름을 정돈한다", type: "B" }
         ]
     },
     {
-        q: "지각을 밥 먹듯 하는 후배에게 쓴소리를 한다면?",
+        q: "지각을 밥 먹듯 하는 후배에게\n쓴소리를 한다면?",
         img: "assets/q003.png",
         options: [
-            { text: "n번이나 늦으셨어요. 시간 지켜주세요. 사실을 짚는다.", type: "A" },
-            { text: "자꾸 늦으시니 조금 걱정돼요. 내 감정을 전한다.", type: "B" }
+            { text: "\"n번이나 늦으셨어요, 시간 지켜주세요"\"\n사실을 짚어 준다", type: "A" },
+            { text: "\"자꾸 늦으시니 조금 걱정돼요"\"\n내 감정을 전한다", type: "B" }
         ]
     },
     {
-        q: "업무 방향을 두고 의견이 갈린다면?",
+        q: "업무 방향을 두고\n의견이 갈린다면?",
         img: "assets/q004.png",
         options: [
-            { text: "누구의 논리가 현실적이고 합리적인지 따져본다.", type: "A" },
-            { text: "어떤 경험으로 그런 생각을 하게 됐나요? 배경을 묻는다.", type: "B" }
+            { text: "누구의 논리가\n현실적이고 합리적인지 따져본다", type: "A" },
+            { text: "\"어떤 경험으로 그런 생각을 하게 됐나요?"\"\n배경을 묻는다", type: "B" }
         ]
     },
     {
-        q: "상사가 '오늘 술 한잔하자'며 곤란한 부탁을 한다면?",
+        q: "상사가 "\"오늘 술 한잔하자"\"며\n곤란한 부탁을 한다면?",
         img: "assets/q005.png",
         options: [
-            { text: "내키지 않아도 일단 나가는 게 사회생활이다.", type: "C" },
-            { text: "오늘은 일이 있지만 다음 주는 괜찮습니다. 일정을 제안한다.", type: "D" }
+            { text: "내키지 않아도\n일단 나가는 게 사회생활이다", type: "C" },
+            { text: "\"오늘은 일이 있지만 다음 주는 괜찮습니다"\"\n일정을 제안한다", type: "D" }
         ]
     },
     {
         q: "회의 중 두 가지 시안을 골라야 한다면?",
         img: "assets/q006.png",
         options: [
-            { text: "보통 B가 더 낫다고들 하네요. 주어를 뺀다.", type: "C" },
-            { text: "저는 A보단 B가 괜찮아 보이네요. 나를 주어로 쓴다.", type: "D" }
+            { text: "\"보통 B가 더 낫다고들 하네요"\"\n주어를 뺀다", type: "C" },
+            { text: "\"저는 A보단 B가 괜찮아 보이네요"\"\n나를 주어로 쓴다", type: "D" }
         ]
     },
     {
         q: "누군가 나를 칭찬한다면?",
         img: "assets/q007.png",
         options: [
-            { text: "과찬이세요. 반사적으로 부정한다.", type: "C" },
-            { text: "과장님도 오늘 멋지신데요? 칭찬을 되돌려준다.", type: "D" }
+            { text: "\"아유 과찬이세요"\"\n반사적으로 부정한다", type: "C" },
+            { text: "\"과장님도 오늘 멋지신데요?"\"\n칭찬을 되돌려준다", type: "D" }
         ]
     },
     {
         q: "메시지를 보냈는데 n시간째 안 읽는다면?",
         img: "assets/q008.png",
         options: [
-            { text: "내가 뭐 실수했나? 불안해서 덧붙일 말을 찾는다.", type: "C" },
-            { text: "아무것도 안 하는 것도 방법이니 그냥 기다린다.", type: "D" }
+            { text: "\"내가 뭐 실수했나?"\"\n불안해서 덧붙일 말을 찾는다", type: "C" },
+            { text: "아무것도 안 하는 것도 방법이니\n그냥 기다린다", type: "D" }
         ]
     },
     {
         q: "다른 팀에 부탁할 일이 생긴다면?",
         img: "assets/q009.png",
         options: [
-            { text: "이거 어렵지 않은 부탁입니다. 금방 끝나요! 장점만 어필.", type: "E" },
-            { text: "조금 번거로우실 텐데, 도와주시면 감사하겠습니다. 불편함 인정.", type: "F" }
+            { text: "\"이거 어렵지 않은 부탁입니다, 금방 끝나요!"\"\n장점만 어필한다", type: "E" },
+            { text: "\"조금 번거로우실 텐데, 도와주시면 감사하겠습니다"\"\n불편함을 인정한다.", type: "F" }
         ]
     },
     {
-        q: "타인이 상식에 어긋나는 행동을 할때 드는 생각은?",
+        q: "타인이 상식에 어긋나는 행동을 할 때\n드는 생각은?",
         img: "assets/q010.png",
         options: [
-            { text: "그건 상식적으로 틀린 행동이지. 도덕적인 관점으로 판단한다.", type: "E" },
-            { text: "내 가치관으로는 그 행동이 좀 불편하네. 개인의 가치관으로 판단한다.", type: "F" }
+            { text: "'그건 상식적으로 틀린 행동이지'\n도덕적인 관점으로 판단한다", type: "E" },
+            { text: "'내 가치관으로는 그 행동이 좀 불편하네'\n개인의 가치관으로 판단한다", type: "F" }
         ]
     },
     {
         q: "내 의견을 강하게 주장해야 한다면?",
         img: "assets/q011.png",
         options: [
-            { text: "이게 확실히 맞습니다. 흔들림 없이 말한다.", type: "E" },
-            { text: "의견이 다를 수도 있지만, 제 생각은~ 이라며 여지를 둔다.", type: "F" }
+            { text: "\"이게 확실히 맞습니다."\"\n흔들림 없이 말한다", type: "E" },
+            { text: "\"의견이 다를 수도 있지만, 제 생각은~"\"\n이라며 여지를 둔다", type: "F" }
         ]
     },
     {
-        q: "인사를 건넨 상사의 표정이 굳어 있을때 드는 생각은?",
+        q: "인사를 건넨 상사의 표정이\n굳어 있을 때 드는 생각은?",
         img: "assets/q012.png",
         options: [
-            { text: "내 기획안이 맘에 안 들었나? 복잡한 이유들이 떠오른다.", type: "E" },
-            { text: "어제 잠을 못 잤나? 단순한 이유를 떠올린다.", type: "F" }
+            { text: "'내 기획안이 맘에 안 들었나?'\n복잡한 이유들이 떠오른다", type: "E" },
+            { text: "어'제 잠을 못 잤나?'\n단순한 이유를 떠올린다", type: "F" }
         ]
     }
 ];
@@ -151,6 +152,21 @@ const results = {
 let currentQuestion = 0;
 let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
 
+// 🌟 [추가됨] 이미지 딜레이로 인한 깜빡임 방지용 프리로드 함수
+function preloadImages() {
+    const imageUrls = [];
+    questions.forEach(q => imageUrls.push(q.img));
+    Object.values(results).forEach(r => imageUrls.push(r.img));
+    imageUrls.push("assets/main_image.png", "assets/book.png");
+
+    imageUrls.forEach(url => {
+        const img = new Image();
+        img.src = url;
+    });
+}
+// 스크립트가 실행될 때 이미지 캐싱 시작
+preloadImages();
+
 const mainScreen = document.getElementById("main-screen");
 const qScreen = document.getElementById("question-screen");
 const loadingScreen = document.getElementById("loading-screen");
@@ -176,20 +192,20 @@ function showQuestion() {
     document.getElementById("current-q").innerText = currentQuestion + 1;
     document.getElementById("progress-bar").style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
     
-    document.getElementById("question-text").innerText = qData.q;
+    // .innerText 를 .innerHTML 로 변경하여 CSS의 white-space 인식 적용
+    document.getElementById("question-text").innerHTML = qData.q;
     document.getElementById("q-image").src = qData.img;
 
     const btns = document.querySelectorAll(".btn-option");
-    btns[0].innerText = qData.options[0].text;
+    btns[0].innerHTML = qData.options[0].text;
     btns[0].onclick = () => selectOption(qData.options[0].type);
     
-    btns[1].innerText = qData.options[1].text;
+    btns[1].innerHTML = qData.options[1].text;
     btns[1].onclick = () => selectOption(qData.options[1].type);
 
-    // 새 문항이 나타날 때 페이드 인 모션 리셋
     const qContent = document.getElementById("q-content");
     qContent.classList.remove("fade-out-content");
-    void qContent.offsetWidth; // 브라우저가 애니메이션을 다시 읽도록 강제 실행
+    void qContent.offsetWidth;
     qContent.classList.add("fade-in-content");
 }
 
@@ -197,12 +213,10 @@ function selectOption(type) {
     scores[type]++;
     currentQuestion++;
     
-    // 버튼을 누르는 순간 기존 문항을 부드럽게 페이드 아웃
     const qContent = document.getElementById("q-content");
     qContent.classList.remove("fade-in-content");
     qContent.classList.add("fade-out-content");
     
-    // 모션이 끝나는 0.3초 뒤에 다음 문항 렌더링
     setTimeout(() => {
         showQuestion();
     }, 300);
@@ -225,9 +239,9 @@ function calculateResult() {
     loadingScreen.classList.remove("active");
     resultScreen.classList.add("active");
 
-    document.getElementById("result-title").innerText = resData.title;
-    document.getElementById("result-desc").innerText = resData.desc;
-    document.getElementById("result-solution").innerText = resData.solution;
+    document.getElementById("result-title").innerHTML = resData.title;
+    document.getElementById("result-desc").innerHTML = resData.desc;
+    document.getElementById("result-solution").innerHTML = resData.solution;
     
     document.getElementById("result-image").src = resData.img;
 }
