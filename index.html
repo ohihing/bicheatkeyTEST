@@ -25,15 +25,18 @@
             </div>
             <div class="question-count"><span id="current-q">1</span> / 12</div>
             
-            <h2 id="question-text" class="question-text">질문 텍스트</h2>
-            
-            <div class="question-image-placeholder">
-                <img id="q-image" src="" alt="질문 이미지" onerror="this.src='https://via.placeholder.com/400x300?text=Question+Image'">
-            </div>
-            
-            <div class="options-container">
-                <button class="btn-option" onclick="selectOption(0)"></button>
-                <button class="btn-option" onclick="selectOption(1)"></button>
+            <!-- 부드러운 모션을 위한 감싸기 영역 -->
+            <div id="q-content" class="fade-in-content" style="width:100%;">
+                <h2 id="question-text" class="question-text">질문 텍스트</h2>
+                
+                <div class="question-image-placeholder">
+                    <img id="q-image" src="" alt="질문 이미지" onerror="this.src='https://via.placeholder.com/400x300?text=Question+Image'">
+                </div>
+                
+                <div class="options-container">
+                    <button class="btn-option" onclick="selectOption(0)"></button>
+                    <button class="btn-option" onclick="selectOption(1)"></button>
+                </div>
             </div>
         </section>
 
