@@ -11,7 +11,7 @@
     <div class="app-container">
         <header class="app-header">
             <button id="back-btn" class="header-btn hidden">❮</button>
-            <img src="assets/logo.png" class="header-logo" alt="로고" onerror="this.src='https://via.placeholder.com/100x30?text=LOGO'">
+            <img src="assets/header.png" class="header-logo" alt="헤더" onerror="this.style.opacity='0'">
             <div class="header-btn placeholder"></div>
         </header>
 
@@ -20,7 +20,7 @@
                 <img src="assets/main_image.png" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
             </div>
             <h1 class="title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
-            <p class="subtitle">직장에서 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
+            <p class="subtitle">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
             <button id="start-btn" class="btn-primary">테스트 시작하기</button>
         </section>
 
@@ -59,7 +59,7 @@
                     <p id="result-desc">결과 설명이 여기에 들어갑니다.</p>
                 </div>
                 <div class="result-solution-box">
-                    <h3>💊 멘탈을 위한 맞춤 처방전</h3>
+                    <h3>💊 흔들리지 않는 멘탈을 위한 맞춤 처방전</h3>
                     <div class="book-image-placeholder">
                         <img src="assets/book.png" alt="도서 이미지" onerror="this.src='https://via.placeholder.com/200x250?text=Book+Image'">
                     </div>
@@ -78,22 +78,28 @@
             <div class="bookstore-section">
                 <h3>도서 자세히 보기</h3>
                 <div class="bookstore-links">
-                    <a href="#" target="_blank" class="store-btn"><img src="assets/ci_kyobo.png" alt="교보문고" onerror="this.src='https://via.placeholder.com/80x30?text=KYOBO'"></a>
-                    <a href="#" target="_blank" class="store-btn"><img src="assets/ci_aladin.png" alt="알라딘" onerror="this.src='https://via.placeholder.com/80x30?text=ALADIN'"></a>
-                    <a href="#" target="_blank" class="store-btn"><img src="assets/ci_yes24.png" alt="YES24" onerror="this.src='https://via.placeholder.com/80x30?text=YES24'"></a>
+                    <a href="https://product.kyobobook.co.kr/detail/S000221031963" target="_blank" rel="noopener noreferrer" class="store-btn">
+                        <img src="assets/ci_kyobo.png" alt="교보문고" onerror="this.src='https://via.placeholder.com/80x30?text=KYOBO'">
+                    </a>
+                    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400985198" target="_blank" rel="noopener noreferrer" class="store-btn">
+                        <img src="assets/ci_aladin.png" alt="알라딘" onerror="this.src='https://via.placeholder.com/80x30?text=ALADIN'">
+                    </a>
+                    <a href="https://www.yes24.com/product/goods/195429331" target="_blank" rel="noopener noreferrer" class="store-btn">
+                        <img src="assets/ci_yes24.png" alt="YES24" onerror="this.src='https://via.placeholder.com/80x30?text=YES24'">
+                    </a>
                 </div>
             </div>
         </section>
 
         <footer class="app-footer">
-            <img src="assets/ci_kyobo.png" alt="푸터 로고" onerror="this.src='https://via.placeholder.com/100x30?text=LOGO'">
+            <img src="assets/logo.png" alt="푸터 로고" onerror="this.src='https://via.placeholder.com/100x30?text=LOGO'">
             <p>&copy; 2026 KYOBO BOOK CENTRE. All rights reserved.</p>
         </footer>
 
         <div id="other-modal" class="modal-overlay hidden">
             <div class="modal-content">
                 <button class="modal-close" onclick="closeModal()">✕</button>
-                <h3>전체 유형 보기</h3>
+                <h3>전체 8가지 유형 보기</h3>
                 <div class="types-grid" id="types-grid">
                     </div>
             </div>
