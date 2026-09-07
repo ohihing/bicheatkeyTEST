@@ -63,6 +63,17 @@ body {
 }
 .screen.active { display: flex; }
 
+/* 로딩 화면 완벽한 중앙 정렬을 위한 추가 설정 */
+#loading-screen {
+    justify-content: center; 
+    text-align: center;
+}
+#loading-screen h2 {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
 /* 문항 전환 애니메이션 */
 #q-content {
     opacity: 1; transform: translateY(0);
@@ -135,24 +146,46 @@ body {
 .store-btn:active { background: #f5f5f5; }
 .store-btn img { max-width: 100%; height: 24px; object-fit: contain; }
 
-/* 하단 푸터 */
+/* 하단 푸터 (수정 완료) */
 .app-footer {
-    width: 100%; padding: 40px 20px; text-align: center; background-color: #ffffff; border-top: 1px solid #f9f9f9; margin-top: auto;
+    width: 100%; padding: 30px 20px; text-align: center; background-color: #ffffff; border-top: 1px solid #f9f9f9; margin-top: auto;
 }
-.app-footer img { height: 24px; margin-bottom: 12px; object-fit: contain; }
-.app-footer p { font-size: 12px; color: #999; }
+.app-footer img { height: 16px; margin-bottom: 8px; object-fit: contain; filter: grayscale(100%) opacity(40%); }
+.app-footer p { font-size: 11px; color: #b0b0b0; }
 
 /* 로딩 스피너 */
-.spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #4CAF50; border-radius: 50%; animation: spin 1s linear infinite; margin: 50px auto 20px; }
+.spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #4CAF50; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* 다른 유형 모달 */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: flex; justify-content: center; align-items: flex-end; opacity: 1; transition: opacity 0.3s; }
 .modal-overlay.hidden { opacity: 0; pointer-events: none; }
-.modal-content { background: white; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 30px 20px 50px; position: relative; max-height: 80vh; overflow-y: auto; }
-.modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; cursor: pointer; color: #666; }
-.modal-content h3 { text-align: center; margin-bottom: 24px; font-size: 20px; font-weight: 800; }
+.modal-content { background: white; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 20px 20px 50px; position: relative; max-height: 80vh; overflow-y: auto; }
+
+/* 모달 X 닫기 버튼 (스크롤 시 우측 상단 고정, 검은 반투명 원형) */
+.modal-close { 
+    position: sticky; top: 0px; float: right; 
+    background: rgba(0,0,0,0.3); color: white; 
+    width: 32px; height: 32px; border-radius: 50%; 
+    border: none; font-size: 16px; font-weight: bold;
+    cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+}
+.modal-content h3 { clear: both; text-align: center; padding-top: 10px; margin-bottom: 24px; font-size: 20px; font-weight: 800; }
+
 .types-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.type-card { background: #f8f9fa; border-radius: 12px; padding: 16px; text-align: center; }
-.type-card img { width: 80%; height: auto; margin-bottom: 10px; border-radius: 8px; }
-.type-card p { font-size: 14px; font-weight: 700; color: #333; }
+.type-card { 
+    background: #f8f9fa; border-radius: 12px; padding: 16px 12px; 
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+}
+
+/* 모달창 안쪽 이미지 1:1 자동 꽉 차게 맞춤 (머리 기준) */
+.type-card img { 
+    width: 100%; 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover; 
+    object-position: top; 
+    margin-bottom: 12px; border-radius: 8px; 
+}
+.type-card p { font-size: 14px; font-weight: 700; color: #333; margin: 0; line-height: 1.4; word-break: keep-all; }
