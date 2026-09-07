@@ -162,6 +162,7 @@ backBtn.addEventListener("click", goBack);
 
 function startTest() {
     if (!imagesLoaded) return;
+    window.scrollTo(0, 0); // 화면 최상단으로 스크롤 이동
     mainScreen.classList.remove("active");
     qScreen.classList.add("active");
     renderQuestionData();
@@ -207,6 +208,10 @@ function selectOption(type) {
             showLoading();
             return;
         }
+        
+        // 🌟 새로 추가됨: 다음 문제 렌더링 전 스크롤을 무조건 맨 위로 올려줌
+        window.scrollTo(0, 0);
+
         renderQuestionData();
         const qImage = document.getElementById("q-image");
         const showNext = () => {
@@ -225,6 +230,9 @@ function goBack() {
     
     qContent.classList.add("is-hidden");
     setTimeout(() => {
+        // 🌟 새로 추가됨: 이전 문제로 돌아갈 때도 스크롤 맨 위로 올려줌
+        window.scrollTo(0, 0);
+
         renderQuestionData();
         const qImage = document.getElementById("q-image");
         const showNext = () => {
@@ -237,10 +245,10 @@ function goBack() {
 
 function showLoading() {
     updateHeader();
+    window.scrollTo(0, 0); // 로딩 화면 진입 시 스크롤 위로
     qScreen.classList.remove("active");
     loadingScreen.classList.add("active");
     
-    // 로딩 대기 시간을 2.5초(2500ms)로 증가
     setTimeout(calculateResult, 2500);
 }
 
@@ -304,7 +312,7 @@ function renderOtherTypes() {
 function openModal() { document.getElementById("other-modal").classList.remove("hidden"); }
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
 
-// 🌟 이스터에그: 푸터 로고 5번 연속 클릭 시 관리자 페이지(admin.html)로 이동
+// 관리자 페이지 이스터에그
 const footerLogo = document.querySelector('.app-footer img');
 let logoClickCount = 0;
 let logoClickTimer;
