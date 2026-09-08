@@ -173,37 +173,50 @@ function startTest() {
     scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
     historyLog = [];
     
-    // 부드러운 화면 전환
     mainScreen.style.animation = "fadeOutDown 0.3s ease forwards";
     setTimeout(() => {
         mainScreen.classList.remove("active");
-        mainScreen.style.animation = ""; // 초기화
+        mainScreen.style.animation = ""; 
         qScreen.classList.add("active");
         qScreen.scrollTo(0, 0); 
-        renderQuestionData();
-        updateBackBtn();
+        
+        // 문항 렌더링 호출
+        renderNextQuestion();
     }, 300);
 }
 
-
-function renderQuestionData() {
+// 🌟 깜빡임 방지용: 다음 이미지를 완전히 불러온 후 텍스트와 함께 DOM을 교체하는 함수
+function renderNextQuestion() {
     const qData = questions[currentQuestion];
+    
+    // 1. 프로그레스바 및 상단 진행도 즉시 업데이트
     document.getElementById("current-q").innerText = currentQuestion + 1;
     document.getElementById("progress-bar").style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
     
-    document.getElementById("question-text").innerHTML = qData.q;
-    document.getElementById("q-image").src = qData.img;
-
-    const btns = document.querySelectorAll(".btn-option");
-    btns[0].innerHTML = qData.options[0].text;
-    btns[0].onclick = () => selectOption(qData.options[0].type);
-    
-    btns[1].innerHTML = qData.options[1].text;
-    btns[1].onclick = () => selectOption(qData.options[1].type);
+    // 2. 이미지를 메모리에 먼저 로딩
+    const imgPreloader = new Image();
+    imgPreloader.onload = () => {
+        // 이미지가 로드되면 화면 텍스트 및 속성 업데이트
+        document.getElementById("question-text").innerHTML = qData.q;
+        document.getElementById("q-image").src = qData.img;
+        
+        const btns = document.querySelectorAll(".btn-option");
+        btns[0].innerHTML = qData.options[0].text;
+        btns[0].onclick = () => selectOption(qData.options[0].type);
+        
+        btns[1].innerHTML = qData.options[1].text;
+        btns[1].onclick = () => selectOption(qData.options[1].type);
+        
+        updateBackBtn();
+        
+        // 애니메이션 적용
+        qContent.className = "q-content-box fade-in-up"; 
+    };
+    // 캐시가 있어도 렌더링 동기화를 위해 src 할당
+    imgPreloader.src = qData.img;
 }
 
 function updateBackBtn() {
-    // 이제 문항 1번에서도 뒤로가기 버튼이 항상 보입니다.
     backBtn.classList.remove("hidden");
 }
 
@@ -212,7 +225,6 @@ function selectOption(type) {
     scores[type]++;
     currentQuestion++;
     
-    // 기존 컨텐츠가 부드럽게 사라짐
     qContent.className = "q-content-box fade-out-down";
     
     setTimeout(() => {
@@ -220,17 +232,14 @@ function selectOption(type) {
             showLoading();
             return;
         }
-        
         qScreen.scrollTo(0,0);
-        renderQuestionData();
-        updateBackBtn();
-        // 새 컨텐츠가 부드럽게 나타남
-        qContent.className = "q-content-box fade-in-up"; 
+        // 애니메이션 클래스를 뺀 상태에서 로드 대기 (안정성 확보)
+        qContent.className = "q-content-box is-hidden";
+        renderNextQuestion();
     }, 300);
 }
 
 function goBack() {
-    // 1번 문항에서 누르면 메인으로
     if (currentQuestion === 0) {
         qScreen.style.animation = "fadeOutDown 0.3s ease forwards";
         setTimeout(() => {
@@ -241,7 +250,6 @@ function goBack() {
         return;
     }
     
-    // 그 외는 이전 문항으로
     const lastType = historyLog.pop();
     scores[lastType]--;
     currentQuestion--;
@@ -250,9 +258,8 @@ function goBack() {
     
     setTimeout(() => {
         qScreen.scrollTo(0,0);
-        renderQuestionData();
-        updateBackBtn();
-        qContent.className = "q-content-box fade-in-up"; 
+        qContent.className = "q-content-box is-hidden";
+        renderNextQuestion();
     }, 300);
 }
 
