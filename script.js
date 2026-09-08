@@ -243,13 +243,15 @@ function goBack() {
     }, 250);
 }
 
+// 기존 코드
 function showLoading() {
     updateHeader();
-    window.scrollTo(0, 0); // 로딩 화면 진입 시 스크롤 위로
+    window.scrollTo(0, 0); 
     qScreen.classList.remove("active");
     loadingScreen.classList.add("active");
     
-    setTimeout(calculateResult, 2500);
+    // 로딩 대기 시간을 애니메이션 감상을 위해 3초(3000ms)로 증가
+    setTimeout(calculateResult, 3000);
 }
 
 function calculateResult() {
