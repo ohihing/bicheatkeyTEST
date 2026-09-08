@@ -63,11 +63,100 @@ body {
 }
 .screen.active { display: flex; }
 
+/* 🌟 고급스러운 레이어 로딩 화면 애니메이션 */
 #loading-screen {
-    justify-content: center; 
-    text-align: center;
+    padding: 0; /* 화면 꽉 차게 */
+    justify-content: center;
+    background-color: #e9eaec; /* 로딩 배경 이미지와 유사한 기본 배경색 */
+    overflow: hidden;
 }
-#loading-screen h2 { margin-top: 24px; margin-bottom: 12px; line-height: 1.6; }
+
+.custom-loading-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 480px; /* 모바일 비율 유지 */
+    aspect-ratio: 9 / 16; /* 1080x1920 비율 유지 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 모든 레이어는 겹쳐서 동일한 위치/크기로 배치 */
+.loading-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0; /* 처음엔 모두 숨김 */
+}
+
+/* 모션 1: 배경은 가장 먼저 부드럽게 나타남 */
+#loading-screen.active .bg-layer {
+    animation: fadeInBg 0.8s ease forwards;
+}
+
+/* 모션 2: 상단 카피 (조금 늦게 페이드인) */
+#loading-screen.active .copy1-layer {
+    animation: fadeInText 0.8s ease 0.5s forwards;
+}
+
+/* 모션 3: 도서 제목 (살짝 위로 올라오며 페이드인) */
+#loading-screen.active .copy2-layer {
+    animation: slideUpText 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards;
+}
+
+/* 모션 4: 도서 이미지 (역동적으로 솟아오르며 둥둥 떠 있는 효과 연결) */
+#loading-screen.active .book-layer {
+    animation: slideUpBook 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1s forwards, 
+               floatBook 3s ease-in-out 2s infinite alternate;
+}
+
+/* 로딩 스피너 오버레이 (가운데 살짝 띄움) */
+.loading-spinner-overlay {
+    position: absolute;
+    bottom: 10%; /* 책 이미지 피해서 아래쪽에 배치 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: fadeInText 0.5s ease 1.5s forwards;
+}
+
+.loading-spinner-overlay p {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* 애니메이션 키프레임 정의 */
+@keyframes fadeInBg {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUpText {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUpBook {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatBook {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
 
 /* 문항 전환 애니메이션 */
 #q-content {
@@ -184,10 +273,6 @@ body {
 }
 .app-footer img { height: 11px; margin-bottom: 6px; object-fit: contain; filter: grayscale(100%) opacity(40%); }
 .app-footer p { font-size: 10px; color: #b0b0b0; }
-
-/* 로딩 스피너 */
-.spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #4CAF50; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
 /* 다른 유형 모달 */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: flex; justify-content: center; align-items: flex-end; opacity: 1; transition: opacity 0.3s; }
