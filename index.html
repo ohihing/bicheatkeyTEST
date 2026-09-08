@@ -4,46 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오피스 생존을 위한 나의 선 긋기 유형</title>
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="app-container">
         
-        <section id="main-screen" class="screen active smore-style-main">
-            <div class="main-logo-wrap">
-                <img src="assets/header.png" alt="로고" class="main-top-logo" onerror="this.style.opacity='0'">
+        <section id="main-screen" class="screen active smore-main">
+            <div class="main-logo-area">
+                <img src="assets/header.png" alt="로고" class="main-header-img" onerror="this.style.opacity='0'">
             </div>
-            <div class="main-img-wrap">
-                <img src="assets/main_image.png" class="main-center-img" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
+            
+            <div class="main-img-area">
+                <img src="assets/main_image.png" class="main-img" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
             </div>
-            <div class="main-content-wrap">
+            
+            <div class="main-text-area">
                 <h1 class="main-title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
-                <p class="main-subtitle">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
+                <p class="main-desc">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
             </div>
-            <div class="main-btn-wrap">
-                <button id="start-btn" class="btn-primary start-btn-smore">테스트 시작하기</button>
+            
+            <div class="main-btn-area">
+                <button id="start-btn" class="btn-smore">테스트 시작하기</button>
             </div>
         </section>
 
-        <section id="question-screen" class="screen question-layout">
-            <div class="q-header">
-                <img src="assets/header.png" alt="로고" class="q-logo" onerror="this.style.opacity='0'">
-                <div class="q-progress-area">
+        <section id="question-screen" class="screen q-layout">
+            <div class="q-header-box">
+                <div class="q-logo-wrap">
+                    <img src="assets/header.png" alt="로고" class="q-logo" onerror="this.style.opacity='0'">
+                </div>
+                
+                <div class="q-progress-wrap">
                     <button id="back-btn" class="q-back-btn">❮</button>
                     <div class="progress-bar-container">
                         <div id="progress-bar" class="progress-bar"></div>
                     </div>
-                    <span class="q-count-text"><span id="current-q">1</span>/12</span>
+                    <span class="q-count"><span id="current-q">1</span>/12</span>
                 </div>
             </div>
             
-            <div id="q-content" class="q-content-area">
-                <h2 id="question-text" class="question-text">질문 텍스트</h2>
-                <div class="question-image-placeholder">
+            <div id="q-content" class="q-content-box fade-in-up">
+                <h2 id="question-text" class="q-title">질문 텍스트</h2>
+                <div class="q-img-wrap">
                     <img id="q-image" src="" alt="질문 이미지" onerror="this.src='https://via.placeholder.com/400x300?text=Question+Image'">
                 </div>
-                <div class="options-container">
+                <div class="options-wrap">
                     <button class="btn-option" onclick="selectOption(0)"></button>
                     <button class="btn-option" onclick="selectOption(1)"></button>
                 </div>
@@ -51,12 +57,12 @@
         </section>
 
         <section id="loading-screen" class="screen loading-layout">
-            <div class="loading-content">
-                 <img src="assets/loading_bg.png" class="l-bg" onerror="this.style.display='none'">
-                 <img src="assets/loading_copy1.png" class="l-copy1" onerror="this.style.display='none'">
-                 <img src="assets/loading_copy2.png" class="l-copy2" onerror="this.style.display='none'">
-                 <img src="assets/loading_book.png" class="l-book" onerror="this.style.display='none'">
-                 <div class="l-spinner-box">
+            <div class="loading-wrapper">
+                 <img src="assets/loading_bg.png" class="l-layer l-bg" onerror="this.style.display='none'">
+                 <img src="assets/loading_copy1.png" class="l-layer l-copy1" onerror="this.style.display='none'">
+                 <img src="assets/loading_copy2.png" class="l-layer l-copy2" onerror="this.style.display='none'">
+                 <img src="assets/loading_book.png" class="l-layer l-book" onerror="this.style.display='none'">
+                 <div class="l-spinner-container">
                      <div class="spinner"></div>
                      <p>결과 분석 중...</p>
                  </div>
@@ -64,42 +70,45 @@
         </section>
 
         <section id="result-screen" class="screen result-layout">
-            <div id="capture-area" class="capture-wrap">
-                <h2 id="result-title" class="result-title">결과 타이틀</h2>
-                <div class="result-image-placeholder">
+            <div id="capture-area" class="capture-box">
+                <h2 id="result-title" class="r-title">결과 타이틀</h2>
+                <div class="r-img-wrap">
                     <img id="result-image" src="" alt="결과 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Result+Image'">
                 </div>
-                <div class="result-desc-box">
+                
+                <div class="r-desc-box">
                     <h3>유형 해설</h3>
                     <p id="result-desc">결과 설명이 여기에 들어갑니다.</p>
                 </div>
-                <div class="result-solution-box">
+                
+                <div class="r-solution-box">
                     <h3>💊 흔들리지 않는 멘탈을 위한 맞춤 처방전</h3>
-                    <div class="book-image-placeholder">
+                    <div class="r-book-wrap">
                         <img src="assets/book.png" alt="도서 이미지" onerror="this.src='https://via.placeholder.com/200x250?text=Book+Image'">
                     </div>
                     <p id="result-solution">책 내용 기반 솔루션</p>
                 </div>
             </div>
-            <div class="action-buttons">
-                <button id="save-img-btn" class="btn-primary">📸 내 유형 이미지로 저장하기</button>
-                <button id="share-btn" class="btn-secondary">🔗 테스트 링크 공유하기</button>
-                <div class="flex-btn-group">
-                    <button id="other-types-btn" class="btn-outline half-btn">다른 유형 보기</button>
-                    <button id="restart-btn" class="btn-outline half-btn">다시하기</button>
+            
+            <div class="r-btn-group">
+                <button id="save-img-btn" class="btn-smore-dark">📸 내 유형 이미지로 저장하기</button>
+                <button id="share-btn" class="btn-smore-green">🔗 테스트 링크 공유하기</button>
+                <div class="btn-row">
+                    <button id="other-types-btn" class="btn-smore-outline">다른 유형 보기</button>
+                    <button id="restart-btn" class="btn-smore-outline">다시하기</button>
                 </div>
             </div>
 
-            <div class="bookstore-section">
+            <div class="bookstore-box">
                 <h3>도서 자세히 보기</h3>
-                <div class="bookstore-links">
-                    <a href="https://product.kyobobook.co.kr/detail/S000221031963" target="_blank" rel="noopener noreferrer" class="store-btn">
+                <div class="store-links">
+                    <a href="https://product.kyobobook.co.kr/detail/S000221031963" target="_blank" rel="noopener noreferrer" class="store-item">
                         <img src="assets/ci_kyobo.png" alt="교보문고" onerror="this.src='https://via.placeholder.com/80x30?text=KYOBO'">
                     </a>
-                    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400985198" target="_blank" rel="noopener noreferrer" class="store-btn">
+                    <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=400985198" target="_blank" rel="noopener noreferrer" class="store-item">
                         <img src="assets/ci_aladin.png" alt="알라딘" onerror="this.src='https://via.placeholder.com/80x30?text=ALADIN'">
                     </a>
-                    <a href="https://www.yes24.com/product/goods/195429331" target="_blank" rel="noopener noreferrer" class="store-btn">
+                    <a href="https://www.yes24.com/product/goods/195429331" target="_blank" rel="noopener noreferrer" class="store-item">
                         <img src="assets/ci_yes24.png" alt="YES24" onerror="this.src='https://via.placeholder.com/80x30?text=YES24'">
                     </a>
                 </div>
