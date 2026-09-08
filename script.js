@@ -136,7 +136,7 @@ function preloadAllImages() {
     const imageUrls = [];
     questions.forEach(q => imageUrls.push(q.img));
     Object.values(results).forEach(r => imageUrls.push(r.img));
-    imageUrls.push("assets/main_image.png", "assets/book.png", "assets/logo.png", "assets/ci_kyobo.png", "assets/ci_aladin.png", "assets/ci_yes24.png");
+    imageUrls.push("assets/main_image.png", "assets/book2.png", "assets/logo.png", "assets/ci_kyobo.png", "assets/ci_aladin.png", "assets/ci_yes24.png");
 
     let loadedCount = 0;
     const hiddenContainer = document.createElement("div");
