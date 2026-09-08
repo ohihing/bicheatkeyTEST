@@ -1,4 +1,4 @@
-/* 1. 폰트 오류 해결: 올바른 웹폰트 호출 방식 적용 */
+/* 1. 폰트: 모든 기기(모바일/윈도우/맥)에서 나눔스퀘어라운드 정상 출력 */
 @font-face {
     font-family: 'NanumSquareRound';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
@@ -32,7 +32,9 @@ body {
     flex-direction: column;
 }
 
-/* 상단 고정 헤더 */
+/* =========================================
+   상단 고정 헤더
+   ========================================= */
 .app-header {
     position: sticky;
     top: 0;
@@ -69,148 +71,163 @@ body {
 }
 .screen.active { display: flex; }
 
-/* 고급스러운 레이어 로딩 화면 애니메이션 */
-#loading-screen {
-    padding: 0; 
-    justify-content: center;
-    background-color: #e9eaec; 
-    overflow: hidden;
-}
-
-.custom-loading-container {
+/* =========================================
+   🌟 1. 스모어(Smore) 스타일 메인 화면 전용 디자인
+   ========================================= */
+.smore-style-main {
+    padding: 0 !important; /* 기존 여백 무시하고 화면 꽉 채움 */
     position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 480px; 
-    aspect-ratio: 9 / 16; 
+    overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end; /* 텍스트를 하단으로 밀어냄 */
+    background-color: #111; /* 이미지 로딩 전 검은 배경 */
 }
 
-.loading-layer {
+/* 메인 화면일 때 헤더 완벽 투명화 */
+body:has(#main-screen.active) .app-header {
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+.main-bg-img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    opacity: 0; 
+    object-fit: cover; /* 여백 없이 꽉 참 */
+    z-index: 1;
+    animation: zoomInBg 4s ease-out forwards; /* 부드러운 줌인 모션 */
 }
+
+.main-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%; 
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+    z-index: 2;
+}
+
+.main-content-wrap {
+    position: relative;
+    z-index: 3;
+    padding: 0 24px 30px;
+    width: 100%;
+    text-align: center;
+    color: white; 
+    opacity: 0;
+    animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
+}
+
+.main-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+}
+
+.main-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85); 
+    margin-bottom: 0;
+}
+
+.main-btn-wrap {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 0 20px 40px; 
+    opacity: 0;
+    animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+}
+
+.start-btn-smore {
+    background-color: #28549e; 
+    color: white;
+    font-size: 18px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(40, 84, 158, 0.4);
+    letter-spacing: 0.5px;
+    width: 100%;
+    font-weight: 800;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.1s;
+}
+.start-btn-smore:active { transform: scale(0.98); }
+
+@keyframes zoomInBg { from { transform: scale(1.05); } to { transform: scale(1); } }
+@keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+/* =========================================
+   🌟 2. 고급스러운 레이어 로딩 화면 애니메이션
+   ========================================= */
+#loading-screen { padding: 0; justify-content: center; background-color: #e9eaec; overflow: hidden; }
+.custom-loading-container { position: relative; width: 100%; height: 100%; max-width: 480px; aspect-ratio: 9 / 16; display: flex; justify-content: center; align-items: center; }
+.loading-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 
 #loading-screen.active .bg-layer { animation: fadeInBg 0.8s ease forwards; }
 #loading-screen.active .copy1-layer { animation: fadeInText 0.8s ease 0.5s forwards; }
 #loading-screen.active .copy2-layer { animation: slideUpText 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards; }
-#loading-screen.active .book-layer {
-    animation: slideUpBook 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1s forwards, 
-               floatBook 3s ease-in-out 2s infinite alternate;
-}
+#loading-screen.active .book-layer { animation: slideUpBook 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1s forwards, floatBook 3s ease-in-out 2s infinite alternate; }
 
-.loading-spinner-overlay {
-    position: absolute;
-    top: 32%; 
-    left: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0;
-    z-index: 100; 
-    animation: fadeInText 0.5s ease 1.5s forwards;
-}
-
-.spinner { 
-    width: 44px; 
-    height: 44px; 
-    border: 5px solid rgba(0, 0, 0, 0.08); 
-    border-top: 5px solid #28549e; 
-    border-radius: 50%; 
-    animation: spin 1s linear infinite; 
-    margin: 0 0 12px 0; 
-}
-
+.loading-spinner-overlay { position: absolute; top: 32%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; opacity: 0; z-index: 100; animation: fadeInText 0.5s ease 1.5s forwards; }
+.spinner { width: 44px; height: 44px; border: 5px solid rgba(0, 0, 0, 0.08); border-top: 5px solid #28549e; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 0 12px 0; }
 .loading-spinner-overlay p { margin: 0; font-size: 15px; font-weight: 800; color: #333; }
 
-@keyframes spin { 
-    0% { transform: rotate(0deg); } 
-    100% { transform: rotate(360deg); } 
-}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes fadeInBg { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeInText { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUpText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes slideUpBook { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes floatBook { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
-/* 문항 전환 애니메이션 */
-#q-content {
-    opacity: 1; transform: translateY(0);
-    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* =========================================
+   🌟 3. 문항 화면 (1:1 이미지 및 플로팅 버튼)
+   ========================================= */
+#q-content { opacity: 1; transform: translateY(0); transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
 #q-content.is-hidden { opacity: 0; transform: translateY(-10px); pointer-events: none; }
 #q-content.is-entering { opacity: 0; transform: translateY(12px); transition: none !important; }
-
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-.title { font-size: 26px; font-weight: 800; text-align: center; margin: 20px 0; color: #333; line-height: 1.5; }
-.subtitle { font-size: 15px; text-align: center; color: #666; margin-bottom: 40px; line-height: 1.6; }
-
-.question-image-placeholder img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: contain; 
-    border-radius: 16px;
-    margin-bottom: 0; 
-    box-shadow: none; 
-}
-
-.main-image-placeholder img,
-.result-image-placeholder img {
-    width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 12px; margin-bottom: 25px;
-}
-.book-image-placeholder img { width: 55%; max-width: 180px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0; }
-.book-image-placeholder { text-align: center; }
 
 .progress-bar-container { width: 100%; height: 8px; background-color: #eee; border-radius: 4px; margin-bottom: 12px; overflow: hidden; }
 .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; transition: width 0.35s ease; }
 .question-count { font-size: 14px; color: #999; margin-bottom: 25px; }
 .question-text { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 25px; word-break: keep-all; line-height: 1.5; white-space: pre-wrap; }
 
-.btn-primary, .btn-secondary, .btn-outline {
-    width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 800; cursor: pointer; border: none; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.1s;
-}
+.question-image-placeholder img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 16px; margin-bottom: 0; box-shadow: none; }
+
+.options-container { width: 100%; margin-top: -30px; position: relative; z-index: 10; padding: 0 10px; }
+.btn-option { width: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #333; border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 16px; padding: 22px 20px; font-size: 15px; font-weight: 700; line-height: 1.5; word-break: keep-all; cursor: pointer; margin-bottom: 14px; white-space: pre-wrap; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.btn-option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background-color: rgba(255, 255, 255, 0.95); }
+.btn-option:active { transform: translateY(1px); background-color: rgba(245, 245, 245, 0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+/* =========================================
+   🌟 4. 결과 화면 및 버튼
+   ========================================= */
+.result-image-placeholder img { width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 12px; margin-bottom: 25px; }
+.book-image-placeholder img { width: 55%; max-width: 180px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0; }
+.book-image-placeholder { text-align: center; }
+
+.btn-primary, .btn-secondary, .btn-outline { width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 800; cursor: pointer; border: none; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.1s; }
 .btn-primary { background-color: #333; color: white; }
 .btn-primary:active { transform: scale(0.98); }
 .btn-secondary { background-color: #4CAF50; color: white; }
 .btn-secondary:active { transform: scale(0.98); }
 .btn-outline { background-color: white; color: #333; border: 2px solid #eee; box-shadow: none; }
 .btn-outline:active { background-color: #f9f9f9; transform: scale(0.98); }
-
 .flex-btn-group { display: flex; gap: 12px; width: 100%; }
 .half-btn { flex: 1; margin-bottom: 0; }
-
-.options-container { 
-    width: 100%; 
-    margin-top: -30px; 
-    position: relative; 
-    z-index: 10; 
-    padding: 0 10px; 
-}
-.btn-option {
-    width: 100%; 
-    background-color: rgba(255, 255, 255, 0.85); 
-    backdrop-filter: blur(12px); 
-    -webkit-backdrop-filter: blur(12px); 
-    color: #333; 
-    border: 1px solid rgba(255, 255, 255, 0.8); 
-    border-radius: 16px; 
-    padding: 22px 20px; 
-    font-size: 15px; font-weight: 700; line-height: 1.5; word-break: keep-all; 
-    cursor: pointer; margin-bottom: 14px; white-space: pre-wrap; 
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
-}
-.btn-option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background-color: rgba(255, 255, 255, 0.95); }
-.btn-option:active { transform: translateY(1px); background-color: rgba(245, 245, 245, 0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
 .capture-wrap { width: 100%; background-color: #ffffff; padding: 10px 0 20px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; }
 .result-title { font-size: 28px; font-weight: 800; color: #4CAF50; margin-bottom: 24px; text-align: center; }
@@ -226,117 +243,46 @@ body {
 .store-btn:active { background: #f5f5f5; }
 .store-btn img { max-width: 100%; height: 24px; object-fit: contain; }
 
+/* =========================================
+   하단 푸터
+   ========================================= */
 .app-footer { width: 100%; padding: 24px 20px; text-align: center; background-color: #ffffff; border-top: 1px solid #f9f9f9; margin-top: auto; }
 .app-footer img { height: 11px; margin-bottom: 6px; object-fit: contain; filter: grayscale(100%) opacity(40%); }
 .app-footer p { font-size: 10px; color: #b0b0b0; }
 
+/* =========================================
+   🌟 5. 다른 유형 모달창 및 버튼 디자인
+   ========================================= */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: flex; justify-content: center; align-items: flex-end; opacity: 1; transition: opacity 0.3s; }
 .modal-overlay.hidden { opacity: 0; pointer-events: none; }
 .modal-content { background: white; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 20px 20px 50px; position: relative; max-height: 80vh; overflow-y: auto; }
 
-.modal-close { 
-    position: sticky; top: 0px; float: right; 
-    background: rgba(0,0,0,0.3); color: white; 
-    width: 32px; height: 32px; border-radius: 50%; 
-    border: none; font-size: 16px; font-weight: bold;
-    cursor: pointer; z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(4px);
-}
+.modal-close { position: sticky; top: 0px; float: right; background: rgba(0,0,0,0.3); color: white; width: 32px; height: 32px; border-radius: 50%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .modal-content h3 { clear: both; text-align: center; padding-top: 10px; margin-bottom: 24px; font-size: 20px; font-weight: 800; }
 
 .types-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-/* 다른 유형 모달 카드 디자인 개선 */
-.type-card { 
-    background: #f8f9fa; 
-    border-radius: 12px; 
-    padding: 16px 12px 14px; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: flex-start;
-    cursor: pointer; /* 누를 수 있는 손가락 모양 표시 */
-    transition: transform 0.15s ease, background-color 0.15s ease;
-    border: 1px solid #f0f0f0;
-}
+.type-card { background: #f8f9fa; border-radius: 12px; padding: 16px 12px 14px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; border: 1px solid #f0f0f0; }
+.type-card:hover { background-color: #f1f3f5; transform: translateY(-2px); }
+.type-card:active { transform: scale(0.97); background-color: #e9ecef; }
+.type-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; margin-bottom: 10px; border-radius: 8px; }
+.type-card p { font-size: 14px; font-weight: 700; color: #333; margin: 0 0 6px 0; line-height: 1.4; word-break: keep-all; text-align: center; }
+.type-badge { font-size: 11px; font-weight: 700; color: #28549e; margin-top: auto; }
 
-/* 마우스를 올리거나 터치할 때의 피드백 */
-.type-card:hover {
-    background-color: #f1f3f5;
-    transform: translateY(-2px);
-}
-.type-card:active {
-    transform: scale(0.97);
-    background-color: #e9ecef;
-}
-
-.type-card img { 
-    width: 100%; 
-    aspect-ratio: 1 / 1; 
-    object-fit: cover; 
-    object-position: top; 
-    margin-bottom: 10px; 
-    border-radius: 8px; 
-}
-
-.type-card p { 
-    font-size: 14px; 
-    font-weight: 700; 
-    color: #333; 
-    margin: 0 0 6px 0; 
-    line-height: 1.4; 
-    word-break: keep-all; 
-    text-align: center;
-}
-
-/* 카드 하단 결과 보기 안내 텍스트 */
-.type-badge {
-    font-size: 11px;
-    font-weight: 700;
-    color: #28549e; /* 도서 포인트 컬러 */
-    margin-top: auto;
-}
-
-/* 📱 2. 모바일 반응형 최적화 (768px 이하 해상도 적용) */
+/* =========================================
+   📱 6. 모바일 반응형 최적화 (768px 이하 적용)
+   ========================================= */
 @media (max-width: 768px) {
     /* 모바일에서는 헤더 영역을 공간 차지 없이 투명하게 띄움 */
-    .app-header {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: auto;
-        height: auto;
-        background: transparent;
-        border: none;
-        backdrop-filter: none;
-        padding: 0;
-        z-index: 100;
-    }
-    .header-logo, .placeholder {
-        display: none; /* 모바일에서 로고 숨김 */
-    }
-    /* 뒤로가기 버튼을 떠있는 둥근 버튼 형태로 변경 */
-    .header-btn {
-        background-color: rgba(255, 255, 255, 0.95);
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        width: 38px;
-        height: 38px;
-        font-size: 18px;
-    }
+    .app-header { position: absolute; top: 10px; left: 10px; width: auto; height: auto; background: transparent; border: none; backdrop-filter: none; padding: 0; z-index: 100; }
+    .header-logo, .placeholder { display: none; } /* 모바일에서 헤더 로고 숨김 */
     
-    /* 세로 공간 확보를 위해 전체 패딩 및 폰트 크기 미세 축소 */
+    /* 뒤로가기 버튼을 떠있는 둥근 버튼 형태로 변경 */
+    .header-btn { background-color: rgba(255, 255, 255, 0.95); border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); width: 38px; height: 38px; font-size: 18px; }
+    
     .screen { padding: 20px 20px 40px; }
-    .title { font-size: 24px; margin: 15px 0; }
-    .subtitle { margin-bottom: 25px; }
     .question-count { margin-bottom: 15px; }
     .question-text { font-size: 18px; margin-bottom: 15px; }
     
-    /* 선택지 버튼 세로 길이 최적화 */
     .options-container { margin-top: -25px; }
-    .btn-option {
-        padding: 16px 14px;
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
+    .btn-option { padding: 16px 14px; font-size: 14px; margin-bottom: 10px; }
 }
