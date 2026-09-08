@@ -50,7 +50,7 @@ const questions = [
         q: "회의 중 두 가지 시안을 골라야 한다면?",
         img: "assets/q006.png",
         options: [
-            { text: "\"보통 B가 더 낫다고들 하네요.\"\n주어를 뺀다.", type: "C" },
+            { text: "\"보통 B가 더낫다고들 하네요.\"\n주어를 뺀다.", type: "C" },
             { text: "\"저는 A보단 B가 괜찮아 보이네요.\"\n나를 주어로 쓴다.", type: "D" }
         ]
     },
@@ -265,17 +265,23 @@ function calculateResult() {
     const type3 = scores.E > scores.F ? "E" : "F";
     
     const finalType = type1 + type2 + type3;
-    const resData = results[finalType];
 
     loadingScreen.classList.remove("active");
     resultScreen.classList.add("active");
+
+    displayResult(finalType);
+    renderOtherTypes();
+}
+
+// 🌟 선택된 유형의 상세 결과 데이터를 화면에 보여주고 최상단으로 스크롤하는 공통 함수
+function displayResult(typeKey) {
+    const resData = results[typeKey];
+    if (!resData) return;
 
     document.getElementById("result-title").innerHTML = resData.title;
     document.getElementById("result-desc").innerHTML = resData.desc;
     document.getElementById("result-solution").innerHTML = resData.solution;
     document.getElementById("result-image").src = resData.img;
-    
-    renderOtherTypes();
 
     requestAnimationFrame(() => {
         window.scrollTo(0, 0);
@@ -292,6 +298,27 @@ function calculateResult() {
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
     }, 50);
+}
+
+// 🌟 다른 유형 모달에서 특정 유형 카드를 클릭했을 때 실행되는 함수
+function selectOtherType(typeKey) {
+    closeModal();
+    displayResult(typeKey);
+}
+window.selectOtherType = selectOtherType; // 전역 스코프 등록
+
+function renderOtherTypes() {
+    const grid = document.getElementById("types-grid");
+    grid.innerHTML = "";
+    for (const [key, val] of Object.entries(results)) {
+        grid.innerHTML += `
+            <div class="type-card" onclick="selectOtherType('${key}')">
+                <img src="${val.img}" alt="${val.title}">
+                <p>${val.title}</p>
+                <span class="type-badge">결과 보기 &gt;</span>
+            </div>
+        `;
+    }
 }
 
 function saveAsImage() {
@@ -321,14 +348,6 @@ function shareResult() {
         navigator.share({ title: '나의 선 긋기 유형', text: '나의 직장생활 멘탈 보호 유형을 확인해보세요!', url: url });
     } else {
         navigator.clipboard.writeText(url).then(() => alert("링크가 복사되었습니다."));
-    }
-}
-
-function renderOtherTypes() {
-    const grid = document.getElementById("types-grid");
-    grid.innerHTML = "";
-    for (const [key, val] of Object.entries(results)) {
-        grid.innerHTML += `<div class="type-card"><img src="${val.img}" alt="${val.title}"><p>${val.title}</p></div>`;
     }
 }
 
