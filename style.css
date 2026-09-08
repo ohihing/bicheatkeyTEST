@@ -114,31 +114,35 @@ body {
                floatBook 3s ease-in-out 2s infinite alternate;
 }
 
-/* 로딩 스피너 오버레이 (가운데 빨간 원 위치로 이동) */
+/* 로딩 스피너 오버레이 (위치 및 z-index 강화) */
 .loading-spinner-overlay {
     position: absolute;
-    top: 32%; /* 상단 카피와 책 이미지 사이의 빈 공간으로 끌어올림 */
+    top: 32%; /* 상단 카피와 책 사이 공간 */
     left: 0;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     opacity: 0;
-    z-index: 50; /* 책 이미지보다 확실하게 앞으로(위로) 나오도록 설정 */
+    z-index: 100; /* 책 레이어 등 모든 이미지보다 무조건 최상단에 뜨도록 보장 */
     animation: fadeInText 0.5s ease 1.5s forwards;
 }
 
-.loading-spinner-overlay p {
-    margin-top: 15px; /* 스피너와 글씨 사이의 간격을 살짝 띄움 */
-    font-size: 15px;
-    font-weight: 800;
-    color: #333;
+/* 🌟 빙글빙글 스피너 디자인 (가시성 대폭 강화 및 찌그러짐 방지) */
+.spinner { 
+    width: 44px; 
+    height: 44px; 
+    border: 5px solid rgba(0, 0, 0, 0.08); /* 연한 회색 원형 배경 */
+    border-top: 5px solid #28549e; /* 도서 표지 색상과 어울리는 짙은 파란색 포인트 */
+    border-radius: 50%; 
+    animation: spin 1s linear infinite; 
+    margin: 0 0 12px 0; /* 불필요한 중앙 여백 속성을 지워 스피너가 안 보이던 문제 해결 */
 }
 
 .loading-spinner-overlay p {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 700;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
     color: #333;
 }
 
