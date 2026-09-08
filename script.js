@@ -1,101 +1,103 @@
-// 🌟 여기에 단독으로 가장 먼저 작성합니다!
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+// 🌟 브라우저 스크롤 기억 방지 (화면 새로고침 시 무조건 맨 위로)
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
 
 const questions = [
     {
         q: "\"연봉 얼마 받아요?\"\n선 넘는 질문을 받는다면?",
         img: "assets/q001.png",
         options: [
-            { text: "\"그게 왜 궁금한데요?\"\n라며 불쾌함을 표현한다", type: "A" },
-            { text: "\"요즘 그 연차 평균 연봉이 어떻게 되죠?\"\n라며 말을 돌린다", type: "B" }
+            { text: "\"그게 왜 궁금한데요?\"\n라며 불쾌함을 표현한다.", type: "A" },
+            { text: "\"요즘 그 연차 평균 연봉이 어떻게 되죠?\"\n라며 말을 돌린다.", type: "B" }
         ]
     },
     {
         q: "상대가 나에게 언성을 높이며\n불만을 쏟아낸다면?",
         img: "assets/q002.png",
         options: [
-            { text: "\"제가 잘못했다는 건가요?\"\n충동적으로 맞받아친다", type: "A" },
-            { text: "\"우선 자리를 옮기실까요?\"\n감정의 흐름을 정돈한다", type: "B" }
+            { text: "\"제가 잘못했다는 건가요?\"\n충동적으로 맞받아친다.", type: "A" },
+            { text: "\"우선 자리를 옮기실까요?\"\n감정의 흐름을 정돈한다.", type: "B" }
         ]
     },
     {
         q: "지각을 밥 먹듯 하는 후배에게\n쓴소리를 한다면?",
         img: "assets/q003.png",
         options: [
-            { text: "\"n번이나 늦으셨어요, 시간 지켜주세요\"\n사실을 짚어 준다", type: "A" },
-            { text: "\"자꾸 늦으시니 조금 걱정돼요\"\n내 감정을 전한다", type: "B" }
+            { text: "\"n번이나 늦으셨어요, 시간 지켜주세요.\"\n사실을 짚어 준다.", type: "A" },
+            { text: "\"자꾸 늦으시니 조금 걱정돼요.\"\n내 감정을 전한다.", type: "B" }
         ]
     },
     {
         q: "업무 방향을 두고\n의견이 갈린다면?",
         img: "assets/q004.png",
         options: [
-            { text: "누구의 논리가\n현실적이고 합리적인지 따져본다", type: "A" },
-            { text: "\"어떤 경험으로 그런 생각을 하게 됐나요?\"\n배경을 묻는다", type: "B" }
+            { text: "누구의 논리가\n현실적이고 합리적인지 따져본다.", type: "A" },
+            { text: "\"어떤 경험으로 그런 생각을 하게 됐나요?\"\n배경을 묻는다.", type: "B" }
         ]
     },
     {
-        q: "상사가 \"오늘 술 한잔하자\"며\n곤란한 부탁을 한다면?",
+        q: "상사가 '오늘 술 한잔하자'며\n곤란한 부탁을 한다면?",
         img: "assets/q005.png",
         options: [
-            { text: "내키지 않아도\n일단 나가는 게 사회생활이다", type: "C" },
-            { text: "\"오늘은 일이 있지만 다음 주는 괜찮습니다\"\n일정을 제안한다", type: "D" }
+            { text: "내키지 않아도\n일단 나가는 게 사회생활이다.", type: "C" },
+            { text: "\"오늘은 일이 있지만 다음 주는 괜찮습니다.\"\n일정을 제안한다.", type: "D" }
         ]
     },
     {
         q: "회의 중 두 가지 시안을 골라야 한다면?",
         img: "assets/q006.png",
         options: [
-            { text: "\"보통 B가 더 낫다고들 하네요\"\n주어를 뺀다", type: "C" },
-            { text: "\"저는 A보단 B가 괜찮아 보이네요\"\n나를 주어로 쓴다", type: "D" }
+            { text: "\"보통 B가 더 낫다고들 하네요.\"\n주어를 뺀다.", type: "C" },
+            { text: "\"저는 A보단 B가 괜찮아 보이네요.\"\n나를 주어로 쓴다.", type: "D" }
         ]
     },
     {
         q: "누군가 나를 칭찬한다면?",
         img: "assets/q007.png",
         options: [
-            { text: "\"아유 과찬이세요\"\n반사적으로 부정한다", type: "C" },
-            { text: "\"과장님도 오늘 멋지신데요?\"\n칭찬을 되돌려준다", type: "D" }
+            { text: "\"아유 과찬이세요.\"\n반사적으로 부정한다.", type: "C" },
+            { text: "\"과장님도 오늘 멋지신데요?\"\n칭찬을 되돌려준다.", type: "D" }
         ]
     },
     {
         q: "메시지를 보냈는데 n시간째 안 읽는다면?",
         img: "assets/q008.png",
         options: [
-            { text: "\"내가 뭐 실수했나?\"\n불안해서 덧붙일 말을 찾는다", type: "C" },
-            { text: "아무것도 안 하는 것도 방법이니\n그냥 기다린다", type: "D" }
+            { text: "\"내가 뭐 실수했나?\"\n불안해서 덧붙일 말을 찾는다.", type: "C" },
+            { text: "아무것도 안 하는 것도 방법이니\n그냥 기다린다.", type: "D" }
         ]
     },
     {
         q: "다른 팀에 부탁할 일이 생긴다면?",
         img: "assets/q009.png",
         options: [
-            { text: "\"이거 어렵지 않은 부탁입니다, 금방 끝나요!\"\n장점만 어필한다", type: "E" },
-            { text: "\"조금 번거로우실 텐데, 도와주시면 감사하겠습니다\"\n불편함을 인정한다.", type: "F" }
+            { text: "\"이거 어렵지 않은 부탁입니다, 금방 끝나요!\"\n장점만 어필한다.", type: "E" },
+            { text: "\"조금 번거로우실 텐데, 도와주시면 감사하겠습니다.\"\n불편함을 인정한다.", type: "F" }
         ]
     },
     {
         q: "타인이 상식에 어긋나는 행동을 할 때\n드는 생각은?",
         img: "assets/q010.png",
         options: [
-            { text: "'그건 상식적으로 틀린 행동이지'\n도덕적인 관점으로 판단한다", type: "E" },
-            { text: "'내 가치관으로는 그 행동이 좀 불편하네'\n개인의 가치관으로 판단한다", type: "F" }
+            { text: "'그건 상식적으로 틀린 행동이지'\n도덕적인 관점으로 판단한다.", type: "E" },
+            { text: "'내 가치관으로는 그 행동이 좀 불편하네'\n개인의 가치관으로 판단한다.", type: "F" }
         ]
     },
     {
         q: "내 의견을 강하게 주장해야 한다면?",
         img: "assets/q011.png",
         options: [
-            { text: "\"이게 확실히 맞습니다.\"\n흔들림 없이 말한다", type: "E" },
-            { text: "\"의견이 다를 수도 있지만, 제 생각은~\"\n이라며 여지를 둔다", type: "F" }
+            { text: "\"이게 확실히 맞습니다.\"\n흔들림 없이 말한다.", type: "E" },
+            { text: "\"의견이 다를 수도 있지만, 제 생각은~\"\n이라며 여지를 둔다.", type: "F" }
         ]
     },
     {
         q: "인사를 건넨 상사의 표정이\n굳어 있을 때 드는 생각은?",
         img: "assets/q012.png",
         options: [
-            { text: "'내 기획안이 맘에 안 들었나?'\n복잡한 이유들이 떠오른다", type: "E" },
-            { text: "'어제 잠을 못 잤나?'\n단순한 이유를 떠올린다", type: "F" }
+            { text: "'내 기획안이 맘에 안 들었나?'\n복잡한 이유들이 떠오른다.", type: "E" },
+            { text: "'어제 잠을 못 잤나?'\n단순한 이유를 떠올린다.", type: "F" }
         ]
     }
 ];
@@ -165,7 +167,7 @@ backBtn.addEventListener("click", goBack);
 
 function startTest() {
     if (!imagesLoaded) return;
-    window.scrollTo(0, 0); // 화면 최상단으로 스크롤 이동
+    window.scrollTo(0, 0); 
     mainScreen.classList.remove("active");
     qScreen.classList.add("active");
     renderQuestionData();
@@ -212,9 +214,7 @@ function selectOption(type) {
             return;
         }
         
-        // 🌟 새로 추가됨: 다음 문제 렌더링 전 스크롤을 무조건 맨 위로 올려줌
         window.scrollTo(0, 0);
-
         renderQuestionData();
         const qImage = document.getElementById("q-image");
         const showNext = () => {
@@ -233,9 +233,7 @@ function goBack() {
     
     qContent.classList.add("is-hidden");
     setTimeout(() => {
-        // 🌟 새로 추가됨: 이전 문제로 돌아갈 때도 스크롤 맨 위로 올려줌
         window.scrollTo(0, 0);
-
         renderQuestionData();
         const qImage = document.getElementById("q-image");
         const showNext = () => {
@@ -246,19 +244,17 @@ function goBack() {
     }, 250);
 }
 
-// 기존 코드
 function showLoading() {
     updateHeader();
     window.scrollTo(0, 0); 
     qScreen.classList.remove("active");
     loadingScreen.classList.add("active");
     
-    // 로딩 대기 시간을 애니메이션 감상을 위해 3초(3000ms)로 증가
     setTimeout(calculateResult, 3000);
 }
 
 function calculateResult() {
-    // 1. 기존 선택지 버튼 등에 남아있던 포커스 강제 해제 (화면이 아래로 끌려가는 것 방지)
+    // 버튼 눌렀던 위치 기억을 지우기 위해 포커스 해제
     if (document.activeElement) {
         document.activeElement.blur();
     }
@@ -280,20 +276,17 @@ function calculateResult() {
     
     renderOtherTypes();
 
-    // 2. 🌟 브라우저가 화면을 완전히 그린 직후 최상단(헤더)으로 꽂아버리는 3중 강제 스크롤
+    // 🌟 화면이 완전히 렌더링된 직후에 강제로 최상단으로 스크롤 이동
     requestAnimationFrame(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
-        
-        // 상단 헤더 요소를 기준으로 화면 시작점을 강제 정렬
         const header = document.querySelector('.app-header');
         if (header) {
             header.scrollIntoView({ behavior: 'instant', block: 'start' });
         }
     });
 
-    // 모바일 기기 및 사파리 대응용 미세 지연(50ms) 강제 리셋
     setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
