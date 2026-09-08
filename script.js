@@ -271,6 +271,9 @@ function calculateResult() {
     document.getElementById("result-image").src = resData.img;
     
     renderOtherTypes();
+
+    // 🌟 추가됨: 결과 화면이 뜨자마자 무조건 화면 맨 위(최상단)로 강제 고정!
+    window.scrollTo(0, 0);
 }
 
 function saveAsImage() {
