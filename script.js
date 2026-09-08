@@ -1,4 +1,4 @@
-
+// 🌟 여기에 단독으로 가장 먼저 작성합니다!
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
 const questions = [
