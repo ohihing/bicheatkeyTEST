@@ -114,19 +114,28 @@ const results = {
     "BDF": { img: "assets/a008.png", title: "마음 해독 마스터", desc: "멘탈 방어력 만렙! 모두의 워너비\n\n주변에서 '너랑 얘기하면 마음이 편해'라는 소리를 들어본적 있지 않으세요?\n\n당신은 상대방의 숨은 의도와 감정까지 찰떡같이 읽어내면서도, 나만의 경계선은 명확하고 부드럽게 지켜냅니다. 선 넘는 질문을 받아도 당황하지 않고 '그렇게 생각하실 수도 있겠네요'라며 물 흐르듯 넘겨버리는 멘탈 방어력의 소유자! 웬만한 자극에는 끄떡없는 가장 이상적인 커뮤니케이터입니다.", solution: "논리보다 강한 것은 태도다. 그리고 틀릴 수 있음을 인정하는 태도는 어떤 논리보다 사람의 마음을 더 쉽게 연다. (p.67)" }
 };
 
+// 로딩 화면 메시지 (순환)
+const loadingMessages = [
+    "당신의 오피스 멘탈 유형 분석 중...",
+    "선 긋기 방식 데이터 처리 중...",
+    "딱 맞는 결과 찾는 중...",
+    "거의 다 됐어요! 잠깐만요 😊"
+];
+
 let currentQuestion = 0;
 let scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
-let historyLog = []; 
+let historyLog = [];
 let imagesLoaded = false;
 
-const mainScreen = document.getElementById("main-screen");
-const qScreen = document.getElementById("question-screen");
+const mainScreen    = document.getElementById("main-screen");
+const qScreen       = document.getElementById("question-screen");
 const loadingScreen = document.getElementById("loading-screen");
-const resultScreen = document.getElementById("result-screen");
-const qContent = document.getElementById("q-content");
-const backBtn = document.getElementById("back-btn");
-const startBtn = document.getElementById("start-btn");
+const resultScreen  = document.getElementById("result-screen");
+const qContent      = document.getElementById("q-content");
+const backBtn       = document.getElementById("back-btn");
+const startBtn      = document.getElementById("start-btn");
 
+/* ── 이미지 프리로드 ── */
 function preloadAllImages() {
     startBtn.innerText = "이미지 불러오는 중...";
     startBtn.style.opacity = "0.7";
@@ -139,14 +148,14 @@ function preloadAllImages() {
 
     let loadedCount = 0;
     const hiddenContainer = document.createElement("div");
-    hiddenContainer.style.display = "none";
+    hiddenContainer.style.cssText = "display:none;position:absolute;";
     document.body.appendChild(hiddenContainer);
 
     imageUrls.forEach(url => {
         const img = new Image();
         img.onload = img.onerror = () => {
             loadedCount++;
-            if(loadedCount === imageUrls.length) {
+            if (loadedCount === imageUrls.length) {
                 imagesLoaded = true;
                 startBtn.innerText = "테스트 시작하기";
                 startBtn.style.opacity = "1";
@@ -159,207 +168,229 @@ function preloadAllImages() {
 }
 preloadAllImages();
 
-document.getElementById("start-btn").addEventListener("click", startTest);
+/* ── 이벤트 바인딩 ── */
+startBtn.addEventListener("click", startTest);
 document.getElementById("restart-btn").addEventListener("click", () => location.reload());
 document.getElementById("share-btn").addEventListener("click", shareResult);
 document.getElementById("save-img-btn").addEventListener("click", saveAsImage);
 document.getElementById("other-types-btn").addEventListener("click", openModal);
 backBtn.addEventListener("click", goBack);
 
+// 모달 배경 클릭 시 닫기
+document.getElementById("other-modal").addEventListener("click", function (e) {
+    if (e.target === this) closeModal();
+});
+
+/* ── 화면 전환 헬퍼 ── */
+function switchScreen(fromEl, toEl, afterFn) {
+    fromEl.style.animation = "fadeOutDown 0.25s ease forwards";
+    setTimeout(() => {
+        fromEl.classList.remove("active");
+        fromEl.style.animation = "";
+        toEl.classList.add("active");
+        if (afterFn) afterFn();
+    }, 250);
+}
+
+/* ── 테스트 시작 ── */
 function startTest() {
     if (!imagesLoaded) return;
-    
     currentQuestion = 0;
     scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
     historyLog = [];
-    
-    mainScreen.style.animation = "fadeOutDown 0.3s ease forwards";
-    setTimeout(() => {
-        mainScreen.classList.remove("active");
-        mainScreen.style.animation = ""; 
-        qScreen.classList.add("active");
-        qScreen.scrollTo(0, 0); 
-        
-        // 문항 렌더링 호출
+    switchScreen(mainScreen, qScreen, () => {
+        qScreen.scrollTo(0, 0);
         renderNextQuestion();
-    }, 300);
+    });
 }
 
-// 🌟 깜빡임 방지용: 다음 이미지를 완전히 불러온 후 텍스트와 함께 DOM을 교체하는 함수
+/* ── 문항 렌더링 (이미지 로드 후 교체 → 깜빡임 방지) ── */
 function renderNextQuestion() {
     const qData = questions[currentQuestion];
-    
-    // 1. 프로그레스바 및 상단 진행도 즉시 업데이트
+
+    // 진행 상태 업데이트 (현재 문항 번호 기준, 0에서 시작해 자연스럽게)
     document.getElementById("current-q").innerText = currentQuestion + 1;
-    document.getElementById("progress-bar").style.width = ((currentQuestion + 1) / questions.length * 100) + "%";
-    
-    // 2. 이미지를 메모리에 먼저 로딩
+    const pct = (currentQuestion / questions.length) * 100;
+    document.getElementById("progress-bar").style.width = pct + "%";
+
     const imgPreloader = new Image();
-    imgPreloader.onload = () => {
-        // 이미지가 로드되면 화면 텍스트 및 속성 업데이트
+    imgPreloader.onload = imgPreloader.onerror = () => {
         document.getElementById("question-text").innerHTML = qData.q;
         document.getElementById("q-image").src = qData.img;
-        
+
         const btns = document.querySelectorAll(".btn-option");
         btns[0].innerHTML = qData.options[0].text;
         btns[0].onclick = () => selectOption(qData.options[0].type);
-        
         btns[1].innerHTML = qData.options[1].text;
         btns[1].onclick = () => selectOption(qData.options[1].type);
-        
-        updateBackBtn();
-        
-        // 애니메이션 적용
-        qContent.className = "q-content-box fade-in-up"; 
+
+        backBtn.classList.remove("hidden");
+        // is-hidden 제거 후 fadeInUp 적용
+        qContent.className = "q-content-box fade-in-up";
     };
-    // 캐시가 있어도 렌더링 동기화를 위해 src 할당
     imgPreloader.src = qData.img;
 }
 
-function updateBackBtn() {
-    backBtn.classList.remove("hidden");
-}
-
+/* ── 옵션 선택 ── */
 function selectOption(type) {
     historyLog.push(type);
     scores[type]++;
     currentQuestion++;
-    
+
     qContent.className = "q-content-box fade-out-down";
-    
+
     setTimeout(() => {
         if (currentQuestion >= questions.length) {
             showLoading();
             return;
         }
-        qScreen.scrollTo(0,0);
-        // 애니메이션 클래스를 뺀 상태에서 로드 대기 (안정성 확보)
+        qScreen.scrollTo(0, 0);
         qContent.className = "q-content-box is-hidden";
         renderNextQuestion();
-    }, 300);
+    }, 250);
 }
 
+/* ── 뒤로가기 ── */
 function goBack() {
     if (currentQuestion === 0) {
-        qScreen.style.animation = "fadeOutDown 0.3s ease forwards";
-        setTimeout(() => {
-            qScreen.classList.remove("active");
-            qScreen.style.animation = "";
-            mainScreen.classList.add("active");
-        }, 300);
+        switchScreen(qScreen, mainScreen);
         return;
     }
-    
     const lastType = historyLog.pop();
     scores[lastType]--;
     currentQuestion--;
-    
+
     qContent.className = "q-content-box fade-out-down";
-    
     setTimeout(() => {
-        qScreen.scrollTo(0,0);
+        qScreen.scrollTo(0, 0);
         qContent.className = "q-content-box is-hidden";
         renderNextQuestion();
-    }, 300);
+    }, 250);
 }
 
+/* ── 로딩 화면 ── */
 function showLoading() {
-    qScreen.style.animation = "fadeOutDown 0.3s ease forwards";
-    setTimeout(() => {
-        qScreen.classList.remove("active");
-        qScreen.style.animation = "";
-        loadingScreen.classList.add("active");
-        
-        setTimeout(calculateResult, 3000);
-    }, 300);
+    switchScreen(qScreen, loadingScreen, () => {
+        // 메시지 순환 애니메이션
+        const textEl = document.querySelector(".l-spinner-text");
+        let msgIdx = 0;
+        textEl.innerText = loadingMessages[msgIdx];
+
+        const msgInterval = setInterval(() => {
+            msgIdx = (msgIdx + 1) % loadingMessages.length;
+            textEl.style.opacity = "0";
+            setTimeout(() => {
+                textEl.innerText = loadingMessages[msgIdx];
+                textEl.style.opacity = "1";
+            }, 200);
+        }, 900);
+
+        // 진행바 100%로 채우기
+        document.getElementById("progress-bar").style.width = "100%";
+
+        setTimeout(() => {
+            clearInterval(msgInterval);
+            calculateResult();
+        }, 3000);
+    });
 }
 
+/* ── 결과 계산 ── */
 function calculateResult() {
     if (document.activeElement) document.activeElement.blur();
 
-    const type1 = scores.A > scores.B ? "A" : "B";
-    const type2 = scores.C > scores.D ? "C" : "D";
-    const type3 = scores.E > scores.F ? "E" : "F";
+    const type1    = scores.A >= scores.B ? "A" : "B";
+    const type2    = scores.C >= scores.D ? "C" : "D";
+    const type3    = scores.E >= scores.F ? "E" : "F";
     const finalType = type1 + type2 + type3;
 
-    loadingScreen.style.animation = "fadeOutDown 0.3s ease forwards";
-    
-    setTimeout(() => {
-        loadingScreen.classList.remove("active");
-        loadingScreen.style.animation = "";
-        resultScreen.classList.add("active");
-
+    switchScreen(loadingScreen, resultScreen, () => {
         displayResult(finalType);
         renderOtherTypes();
-    }, 300);
+    });
 }
 
+/* ── 결과 표시 ── */
 function displayResult(typeKey) {
     const resData = results[typeKey];
     if (!resData) return;
-
-    document.getElementById("result-title").innerHTML = resData.title;
-    document.getElementById("result-desc").innerHTML = resData.desc;
+    document.getElementById("result-title").innerHTML    = resData.title;
+    document.getElementById("result-desc").innerHTML     = resData.desc;
     document.getElementById("result-solution").innerHTML = resData.solution;
-    document.getElementById("result-image").src = resData.img;
-
-    resultScreen.scrollTo(0,0);
+    document.getElementById("result-image").src          = resData.img;
+    resultScreen.scrollTo(0, 0);
 }
 
 function selectOtherType(typeKey) {
     closeModal();
     displayResult(typeKey);
 }
-window.selectOtherType = selectOtherType; 
+window.selectOtherType = selectOtherType;
 
+/* ── 다른 유형 모달 ── */
 function renderOtherTypes() {
     const grid = document.getElementById("types-grid");
     grid.innerHTML = "";
     for (const [key, val] of Object.entries(results)) {
         grid.innerHTML += `
             <div class="type-card" onclick="selectOtherType('${key}')">
-                <img src="${val.img}" alt="${val.title}">
+                <img src="${val.img}" alt="${val.title}" loading="lazy">
                 <p>${val.title}</p>
-                <span class="type-badge">결과 보기 &gt;</span>
-            </div>
-        `;
+                <span class="type-badge">결과 보기 &rsaquo;</span>
+            </div>`;
     }
 }
 
+function openModal()  { document.getElementById("other-modal").classList.remove("hidden"); }
+function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
+
+/* ── 이미지 저장 ── */
 function saveAsImage() {
     const btn = document.getElementById("save-img-btn");
-    btn.innerText = "저장 중...";
-    
+    const original = btn.innerHTML;
+    btn.innerHTML = "⏳ 저장 중...";
+    btn.disabled = true;
+
     html2canvas(document.getElementById("capture-area"), {
-        useCORS: true, backgroundColor: "#ffffff", scale: 2 
+        useCORS: true,
+        backgroundColor: "#ffffff",
+        scale: 2
     }).then(canvas => {
         const link = document.createElement("a");
         link.download = "나의_선긋기_유형.jpg";
-        link.href = canvas.toDataURL("image/jpeg");
+        link.href = canvas.toDataURL("image/jpeg", 0.92);
         link.click();
-        btn.innerText = "📸 내 유형 이미지로 저장하기";
-    }).catch(err => {
-        alert("이미지 저장에 실패했습니다.");
-        btn.innerText = "📸 내 유형 이미지로 저장하기";
+    }).catch(() => {
+        alert("이미지 저장에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    }).finally(() => {
+        btn.innerHTML = original;
+        btn.disabled = false;
     });
 }
 
+/* ── 공유 ── */
 function shareResult() {
     const url = window.location.href;
     if (navigator.share) {
-        navigator.share({ title: '나의 선 긋기 유형', text: '나의 직장생활 멘탈 보호 유형을 확인해보세요!', url: url });
+        navigator.share({
+            title: '나의 선 긋기 유형',
+            text: '나의 직장생활 멘탈 보호 유형을 확인해보세요!',
+            url
+        }).catch(() => {});
     } else {
-        navigator.clipboard.writeText(url).then(() => alert("링크가 복사되었습니다."));
+        navigator.clipboard.writeText(url)
+            .then(() => alert("링크가 복사됐어요! 어디든 붙여 넣어 공유하세요 😊"))
+            .catch(() => {
+                // 클립보드 실패 시 fallback
+                prompt("아래 링크를 복사하세요:", url);
+            });
     }
 }
 
-function openModal() { document.getElementById("other-modal").classList.remove("hidden"); }
-function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
-
+/* ── 푸터 로고 5번 탭 → 어드민 ── */
 const footerLogo = document.querySelector('.app-footer img');
 let logoClickCount = 0;
 let logoClickTimer;
-
 if (footerLogo) {
     footerLogo.addEventListener('click', () => {
         logoClickCount++;
