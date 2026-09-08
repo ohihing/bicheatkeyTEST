@@ -114,15 +114,25 @@ body {
                floatBook 3s ease-in-out 2s infinite alternate;
 }
 
-/* 로딩 스피너 오버레이 (가운데 살짝 띄움) */
+/* 로딩 스피너 오버레이 (가운데 빨간 원 위치로 이동) */
 .loading-spinner-overlay {
     position: absolute;
-    bottom: 10%; /* 책 이미지 피해서 아래쪽에 배치 */
+    top: 32%; /* 상단 카피와 책 이미지 사이의 빈 공간으로 끌어올림 */
+    left: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     opacity: 0;
+    z-index: 50; /* 책 이미지보다 확실하게 앞으로(위로) 나오도록 설정 */
     animation: fadeInText 0.5s ease 1.5s forwards;
+}
+
+.loading-spinner-overlay p {
+    margin-top: 15px; /* 스피너와 글씨 사이의 간격을 살짝 띄움 */
+    font-size: 15px;
+    font-weight: 800;
+    color: #333;
 }
 
 .loading-spinner-overlay p {
