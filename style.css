@@ -1,182 +1,139 @@
-/* 1. 폰트 세팅 */
+/* =========================================
+   1. 폰트 및 기본 리셋 (벌렁거림 방지 핵심)
+   ========================================= */
 @font-face {
     font-family: 'NanumSquareRound';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    font-weight: normal; font-style: normal;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
     font-family: 'NanumSquareRound', -apple-system, sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
-body {
+/* 🌟 화면 바운스(벌렁거림) 원천 차단 */
+html, body {
+    width: 100%;
+    height: 100%;
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
-    min-height: 100vh;
+    overflow: hidden; /* 전체 페이지 스크롤 차단 */
+    overscroll-behavior-y: none; /* 아이폰 고무줄 효과 방지 */
 }
 
+/* 앱 화면 컨테이너 (고정된 틀) */
 .app-container {
     width: 100%;
     max-width: 480px;
+    height: 100%; /* 화면 높이에 완벽히 맞춤 */
     background-color: #ffffff;
-    min-height: 100vh;
     position: relative;
     box-shadow: 0 0 20px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
+    overflow: hidden; /* 컨테이너 밖으로 삐져나가는 것 방지 */
 }
 
 /* =========================================
-   뒤로가기 버튼 플로팅 (헤더 대체)
+   2. 뒤로가기 버튼 플로팅
    ========================================= */
-#back-btn-wrap {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-}
-.back-btn {
-    width: 40px; height: 40px;
-    background: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 50%;
-    font-size: 20px; color: #333;
-    cursor: pointer; font-weight: bold;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    transition: opacity 0.3s;
-}
+#back-btn-wrap { position: absolute; top: 10px; left: 10px; z-index: 1000; }
+.back-btn { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.95); border: none; border-radius: 50%; font-size: 20px; color: #333; cursor: pointer; font-weight: bold; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.15); transition: opacity 0.3s; }
 .back-btn.hidden { visibility: hidden; opacity: 0; pointer-events: none; }
 
 /* =========================================
-   공통 화면 레이아웃
+   3. 공통 화면 레이아웃 (내부 스크롤 허용)
    ========================================= */
 .screen {
     display: none;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+    height: 100%; /* 부모 높이 꽉 채움 */
     padding: 30px 24px 60px;
     flex: 1;
+    overflow-y: auto; /* 내용이 길면 이 안에서만 스크롤 됨 */
+    -webkit-overflow-scrolling: touch; /* 부드러운 스크롤 */
     animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .screen.active { display: flex; }
 
 /* =========================================
-   🌟 스모어 스타일 하얀 배경 메인 화면 (레퍼런스 핏 적용)
+   🌟 4. 스모어 스타일 메인 화면 (핏하게 고정)
    ========================================= */
 .smore-style-main {
     padding: 0 !important;
-    position: relative;
-    background-color: #ffffff; /* 하얀 배경 */
+    background-color: #ffffff; 
     flex-direction: column;
-    justify-content: flex-start; /* 요소들을 위에서부터 차례대로 배치 */
+    justify-content: space-between;
     align-items: center;
-    overflow-y: auto; /* 세로로 내용이 길면 부드럽게 스크롤 가능 */
+    overflow-y: hidden; /* 메인 화면은 스크롤 아예 막음 */
 }
 
-/* 1. 로고 영역 (정사각형 800px 이미지가 잘 보이도록 크기 대폭 확대) */
-.main-logo-wrap {
-    width: 100%;
-    padding: 30px 0 10px; /* 상단 여백을 주어 답답하지 않게 */
-    text-align: center;
-    animation: fadeIn 1s ease 0.2s forwards;
-    opacity: 0;
+/* 로고 영역 */
+.main-logo-wrap { width: 100%; padding: 40px 0 10px; text-align: center; animation: fadeIn 1s ease 0.2s forwards; opacity: 0; }
+.main-top-logo { width: 90px; height: 90px; object-fit: contain; }
+
+/* 메인 이미지 영역 (적절한 여백 복구) */
+.main-img-wrap { 
+    flex: 1; display: flex; justify-content: center; align-items: center; 
+    width: 100%; 
+    padding: 0 20px; /* 너무 꽉 차지 않게 여백 추가 */
+    margin-bottom: 10px; 
+    animation: zoomInBg 1s ease-out forwards; 
 }
-.main-top-logo {
-    width: 90px; /* 기존 24px 높이 제한을 없애고 90px로 키움 (로고가 너무 크면 80px로 줄이셔도 됩니다) */
-    height: 90px;
-    object-fit: contain;
+.main-center-img { 
+    width: 100%; 
+    max-width: 400px; 
+    max-height: 40vh; /* 화면이 작아도 삐져나가지 않게 높이 제한 */
+    object-fit: contain; 
 }
 
-/* 2. 메인 이미지 (좌우 패딩 없이 꽉 차게 핏 맞춤) */
-.main-img-wrap {
-    width: 100%;
-    padding: 0; /* 좌우 여백을 완전히 없애서 꽉 차게 만듦 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    animation: zoomInBg 1s ease-out forwards;
-    margin-bottom: 20px; /* 이미지와 텍스트 사이 간격 */
-}
-.main-center-img {
-    width: 100%; /* 좌우 폭을 100%로 설정하여 화면에 꽉 차게 */
-    max-width: 100%; /* 기존 320px 제한 해제 */
-    height: auto; /* 원본 비율(Aspect Ratio) 강제 유지 */
-    object-fit: contain;
-}
+/* 텍스트 영역 */
+.main-content-wrap { width: 100%; padding: 10px 24px 20px; text-align: center; opacity: 0; animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
+.main-title { font-size: 28px; font-weight: 800; line-height: 1.4; margin-bottom: 12px; letter-spacing: -0.5px; color: #111; }
+.main-subtitle { font-size: 15px; font-weight: 400; line-height: 1.6; color: #666; margin-bottom: 0; word-break: keep-all; }
 
-/* 3. 텍스트 영역 */
-.main-content-wrap {
-    width: 100%;
-    padding: 10px 24px 30px;
-    text-align: center;
-    color: #333; 
-    opacity: 0;
-    animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
-}
-
-.main-title {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.4;
-    margin-bottom: 12px;
-    letter-spacing: -0.5px;
-    color: #111;
-    text-shadow: none; 
-}
-
-.main-subtitle {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 0;
-}
-
-/* 4. 시작 버튼 영역 */
-.main-btn-wrap {
-    width: 100%;
-    padding: 0 20px 40px; 
-    opacity: 0;
-    animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
-    margin-top: auto; /* 버튼을 항상 화면 맨 하단으로 밀어줌 */
-}
-
-.start-btn-smore {
-    background-color: #28549e; 
-    color: white;
-    font-size: 18px;
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(40, 84, 158, 0.3);
-    letter-spacing: 0.5px;
-    width: 100%;
-    font-weight: 800;
-    cursor: pointer;
-    border: none;
-    transition: transform 0.1s;
-}
+/* 버튼 영역 */
+.main-btn-wrap { width: 100%; padding: 0 24px 40px; opacity: 0; animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards; margin-top: auto; }
+.start-btn-smore { background-color: #28549e; color: white; font-size: 18px; padding: 20px; border-radius: 16px; box-shadow: 0 8px 24px rgba(40, 84, 158, 0.3); letter-spacing: 0.5px; width: 100%; font-weight: 800; cursor: pointer; border: none; transition: transform 0.1s; }
 .start-btn-smore:active { transform: scale(0.98); }
 
 @keyframes zoomInBg { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-   고급스러운 레이어 로딩 화면 애니메이션
+   5. 문항 화면
+   ========================================= */
+#q-content { opacity: 1; transform: translateY(0); transition: opacity 0.25s ease, transform 0.25s ease; width: 100%; }
+#q-content.is-hidden { opacity: 0; transform: translateY(-10px); pointer-events: none; }
+#q-content.is-entering { opacity: 0; transform: translateY(12px); transition: none !important; }
+
+.progress-bar-container { width: 100%; height: 8px; background-color: #eee; border-radius: 4px; margin-bottom: 12px; overflow: hidden; margin-top: 20px; }
+.progress-bar { height: 100%; background-color: #4CAF50; width: 0%; transition: width 0.35s ease; }
+.question-count { font-size: 14px; color: #999; margin-bottom: 25px; }
+.question-text { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 25px; word-break: keep-all; line-height: 1.5; white-space: pre-wrap; }
+
+.question-image-placeholder img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 16px; margin-bottom: 0; }
+.options-container { width: 100%; margin-top: -30px; position: relative; z-index: 10; padding: 0 10px; }
+.btn-option { width: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #333; border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 16px; padding: 22px 20px; font-size: 15px; font-weight: 700; line-height: 1.5; word-break: keep-all; cursor: pointer; margin-bottom: 14px; white-space: pre-wrap; transition: all 0.25s ease; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.btn-option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background-color: rgba(255, 255, 255, 0.95); }
+.btn-option:active { transform: translateY(1px); background-color: rgba(245, 245, 245, 0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+/* =========================================
+   6. 로딩 화면
    ========================================= */
 #loading-screen { padding: 0; justify-content: center; background-color: #e9eaec; overflow: hidden; }
 .custom-loading-container { position: relative; width: 100%; height: 100%; max-width: 480px; aspect-ratio: 9 / 16; display: flex; justify-content: center; align-items: center; }
 .loading-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
 #loading-screen.active .bg-layer { animation: fadeInBg 0.8s ease forwards; }
 #loading-screen.active .copy1-layer { animation: fadeInText 0.8s ease 0.5s forwards; }
-#loading-screen.active .copy2-layer { animation: slideUpText 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards; }
-#loading-screen.active .book-layer { animation: slideUpBook 1s cubic-bezier(0.2, 0.8, 0.2, 1) 1s forwards, floatBook 3s ease-in-out 2s infinite alternate; }
+#loading-screen.active .copy2-layer { animation: slideUpText 0.8s ease 0.8s forwards; }
+#loading-screen.active .book-layer { animation: slideUpBook 1s ease 1s forwards, floatBook 3s ease-in-out 2s infinite alternate; }
 
 .loading-spinner-overlay { position: absolute; top: 32%; left: 0; width: 100%; display: flex; flex-direction: column; align-items: center; opacity: 0; z-index: 100; animation: fadeInText 0.5s ease 1.5s forwards; }
 .spinner { width: 44px; height: 44px; border: 5px solid rgba(0, 0, 0, 0.08); border-top: 5px solid #28549e; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 0 12px 0; }
@@ -190,26 +147,7 @@ body {
 @keyframes floatBook { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
 /* =========================================
-   문항 화면 
-   ========================================= */
-#q-content { opacity: 1; transform: translateY(0); transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
-#q-content.is-hidden { opacity: 0; transform: translateY(-10px); pointer-events: none; }
-#q-content.is-entering { opacity: 0; transform: translateY(12px); transition: none !important; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-
-.progress-bar-container { width: 100%; height: 8px; background-color: #eee; border-radius: 4px; margin-bottom: 12px; overflow: hidden; margin-top: 20px; }
-.progress-bar { height: 100%; background-color: #4CAF50; width: 0%; transition: width 0.35s ease; }
-.question-count { font-size: 14px; color: #999; margin-bottom: 25px; }
-.question-text { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 25px; word-break: keep-all; line-height: 1.5; white-space: pre-wrap; }
-
-.question-image-placeholder img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 16px; margin-bottom: 0; box-shadow: none; }
-.options-container { width: 100%; margin-top: -30px; position: relative; z-index: 10; padding: 0 10px; }
-.btn-option { width: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #333; border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 16px; padding: 22px 20px; font-size: 15px; font-weight: 700; line-height: 1.5; word-break: keep-all; cursor: pointer; margin-bottom: 14px; white-space: pre-wrap; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-.btn-option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background-color: rgba(255, 255, 255, 0.95); }
-.btn-option:active { transform: translateY(1px); background-color: rgba(245, 245, 245, 0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-
-/* =========================================
-   결과 화면 및 버튼
+   7. 결과 화면 및 기타 컴포넌트
    ========================================= */
 .result-image-placeholder img { width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 12px; margin-bottom: 25px; }
 .book-image-placeholder img { width: 55%; max-width: 180px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0; }
@@ -217,11 +155,8 @@ body {
 
 .btn-primary, .btn-secondary, .btn-outline { width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 800; cursor: pointer; border: none; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.1s; }
 .btn-primary { background-color: #333; color: white; }
-.btn-primary:active { transform: scale(0.98); }
 .btn-secondary { background-color: #4CAF50; color: white; }
-.btn-secondary:active { transform: scale(0.98); }
 .btn-outline { background-color: white; color: #333; border: 2px solid #eee; box-shadow: none; }
-.btn-outline:active { background-color: #f9f9f9; transform: scale(0.98); }
 .flex-btn-group { display: flex; gap: 12px; width: 100%; }
 .half-btn { flex: 1; margin-bottom: 0; }
 
@@ -236,39 +171,31 @@ body {
 .bookstore-section h3 { font-size: 18px; font-weight: 800; margin-bottom: 20px; color: #333; }
 .bookstore-links { display: flex; justify-content: center; gap: 12px; }
 .store-btn { flex: 1; border: 1px solid #e0e0e0; border-radius: 12px; padding: 16px 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; background: white; transition: background 0.2s; }
-.store-btn:active { background: #f5f5f5; }
 .store-btn img { max-width: 100%; height: 24px; object-fit: contain; }
 
-/* =========================================
-   하단 푸터
-   ========================================= */
 .app-footer { width: 100%; padding: 24px 20px; text-align: center; background-color: #ffffff; border-top: 1px solid #f9f9f9; margin-top: auto; }
 .app-footer img { height: 11px; margin-bottom: 6px; object-fit: contain; filter: grayscale(100%) opacity(40%); }
 .app-footer p { font-size: 10px; color: #b0b0b0; }
 
 /* =========================================
-   다른 유형 모달창
+   8. 다른 유형 모달창
    ========================================= */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: flex; justify-content: center; align-items: flex-end; opacity: 1; transition: opacity 0.3s; }
 .modal-overlay.hidden { opacity: 0; pointer-events: none; }
 .modal-content { background: white; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 20px 20px 50px; position: relative; max-height: 80vh; overflow-y: auto; }
 .modal-close { position: sticky; top: 0px; float: right; background: rgba(0,0,0,0.3); color: white; width: 32px; height: 32px; border-radius: 50%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .modal-content h3 { clear: both; text-align: center; padding-top: 10px; margin-bottom: 24px; font-size: 20px; font-weight: 800; }
-
 .types-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.type-card { background: #f8f9fa; border-radius: 12px; padding: 16px 12px 14px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; border: 1px solid #f0f0f0; }
-.type-card:hover { background-color: #f1f3f5; transform: translateY(-2px); }
-.type-card:active { transform: scale(0.97); background-color: #e9ecef; }
+.type-card { background: #f8f9fa; border-radius: 12px; padding: 16px 12px 14px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; cursor: pointer; border: 1px solid #f0f0f0; }
 .type-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: top; margin-bottom: 10px; border-radius: 8px; }
 .type-card p { font-size: 14px; font-weight: 700; color: #333; margin: 0 0 6px 0; line-height: 1.4; word-break: keep-all; text-align: center; }
 .type-badge { font-size: 11px; font-weight: 700; color: #28549e; margin-top: auto; }
 
 /* =========================================
-   반응형 최적화 (모바일)
+   9. 반응형 최적화 (모바일)
    ========================================= */
 @media (max-width: 768px) {
     .screen { padding: 20px 20px 40px; }
-    .question-count { margin-bottom: 15px; }
     .question-text { font-size: 18px; margin-bottom: 15px; }
     .options-container { margin-top: -25px; }
     .btn-option { padding: 16px 14px; font-size: 14px; margin-bottom: 10px; }
