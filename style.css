@@ -68,51 +68,55 @@ body {
 .screen.active { display: flex; }
 
 /* =========================================
-   🌟 스모어 스타일 하얀 배경 메인 화면
+   🌟 스모어 스타일 하얀 배경 메인 화면 (레퍼런스 핏 적용)
    ========================================= */
 .smore-style-main {
     padding: 0 !important;
     position: relative;
     background-color: #ffffff; /* 하얀 배경 */
     flex-direction: column;
-    justify-content: space-between; /* 로고, 이미지, 텍스트가 위아래로 골고루 퍼짐 */
+    justify-content: flex-start; /* 요소들을 위에서부터 차례대로 배치 */
     align-items: center;
+    overflow-y: auto; /* 세로로 내용이 길면 부드럽게 스크롤 가능 */
 }
-/* 주의: .smore-style-main에 display: flex;를 박으면 겹침 버그 발생하므로 제외함! */
 
+/* 1. 로고 영역 (정사각형 800px 이미지가 잘 보이도록 크기 대폭 확대) */
 .main-logo-wrap {
     width: 100%;
-    padding: 20px 0 10px;
+    padding: 30px 0 10px; /* 상단 여백을 주어 답답하지 않게 */
     text-align: center;
     animation: fadeIn 1s ease 0.2s forwards;
     opacity: 0;
 }
 .main-top-logo {
-    height: 24px;
+    width: 90px; /* 기존 24px 높이 제한을 없애고 90px로 키움 (로고가 너무 크면 80px로 줄이셔도 됩니다) */
+    height: 90px;
     object-fit: contain;
 }
 
+/* 2. 메인 이미지 (좌우 패딩 없이 꽉 차게 핏 맞춤) */
 .main-img-wrap {
-    flex: 1;
+    width: 100%;
+    padding: 0; /* 좌우 여백을 완전히 없애서 꽉 차게 만듦 */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    padding: 0 30px;
     animation: zoomInBg 1s ease-out forwards;
+    margin-bottom: 20px; /* 이미지와 텍스트 사이 간격 */
 }
 .main-center-img {
-    width: 100%;
-    max-width: 320px;
-    height: auto;
+    width: 100%; /* 좌우 폭을 100%로 설정하여 화면에 꽉 차게 */
+    max-width: 100%; /* 기존 320px 제한 해제 */
+    height: auto; /* 원본 비율(Aspect Ratio) 강제 유지 */
     object-fit: contain;
 }
 
+/* 3. 텍스트 영역 */
 .main-content-wrap {
     width: 100%;
-    padding: 20px 24px 30px;
+    padding: 10px 24px 30px;
     text-align: center;
-    color: #333; /* 하얀 배경이므로 검은 글씨 */
+    color: #333; 
     opacity: 0;
     animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
 }
@@ -135,11 +139,13 @@ body {
     margin-bottom: 0;
 }
 
+/* 4. 시작 버튼 영역 */
 .main-btn-wrap {
     width: 100%;
     padding: 0 20px 40px; 
     opacity: 0;
     animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards;
+    margin-top: auto; /* 버튼을 항상 화면 맨 하단으로 밀어줌 */
 }
 
 .start-btn-smore {
