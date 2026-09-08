@@ -1,3 +1,6 @@
+
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
 const questions = [
     {
         q: "\"연봉 얼마 받아요?\"\n선 넘는 질문을 받는다면?",
@@ -255,6 +258,11 @@ function showLoading() {
 }
 
 function calculateResult() {
+    // 1. 기존 선택지 버튼 등에 남아있던 포커스 강제 해제 (화면이 아래로 끌려가는 것 방지)
+    if (document.activeElement) {
+        document.activeElement.blur();
+    }
+
     const type1 = scores.A > scores.B ? "A" : "B";
     const type2 = scores.C > scores.D ? "C" : "D";
     const type3 = scores.E > scores.F ? "E" : "F";
@@ -272,8 +280,25 @@ function calculateResult() {
     
     renderOtherTypes();
 
-    // 🌟 추가됨: 결과 화면이 뜨자마자 무조건 화면 맨 위(최상단)로 강제 고정!
-    window.scrollTo(0, 0);
+    // 2. 🌟 브라우저가 화면을 완전히 그린 직후 최상단(헤더)으로 꽂아버리는 3중 강제 스크롤
+    requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        
+        // 상단 헤더 요소를 기준으로 화면 시작점을 강제 정렬
+        const header = document.querySelector('.app-header');
+        if (header) {
+            header.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+    });
+
+    // 모바일 기기 및 사파리 대응용 미세 지연(50ms) 강제 리셋
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, 50);
 }
 
 function saveAsImage() {
