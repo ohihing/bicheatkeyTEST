@@ -15,13 +15,19 @@
             <div class="header-btn placeholder"></div>
         </header>
 
-        <section id="main-screen" class="screen active">
-            <div class="main-image-placeholder">
-                <img src="assets/main_image.png" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
+        <section id="main-screen" class="screen active smore-style-main">
+            <img src="assets/main_image.png" class="main-bg-img" alt="메인 배경" onerror="this.src='https://via.placeholder.com/1080x1920?text=Background'">
+            
+            <div class="main-overlay"></div>
+            
+            <div class="main-content-wrap">
+                <h1 class="main-title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
+                <p class="main-subtitle">직장에서 마주하는 무례한 질문과 갈등<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
             </div>
-            <h1 class="title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
-            <p class="subtitle">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
-            <button id="start-btn" class="btn-primary">테스트 시작하기</button>
+            
+            <div class="main-btn-wrap">
+                <button id="start-btn" class="btn-primary start-btn-smore">테스트 시작하기</button>
+            </div>
         </section>
 
         <section id="question-screen" class="screen">
