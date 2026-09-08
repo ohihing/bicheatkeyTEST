@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오피스 생존을 위한 나의 선 긋기 유형</title>
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <header class="app-header">
-            <button id="back-btn" class="header-btn hidden">❮</button>
-            <img src="assets/header.png" class="header-logo" alt="헤더" onerror="this.style.opacity='0'">
-            <div class="header-btn placeholder"></div>
-        </header>
+        
+        <div id="back-btn-wrap">
+            <button id="back-btn" class="back-btn hidden">❮</button>
+        </div>
 
         <section id="main-screen" class="screen active smore-style-main">
-            <img src="assets/main_image.png" class="main-bg-img" alt="메인 배경" onerror="this.src='https://via.placeholder.com/1080x1920?text=Background'">
+            <div class="main-logo-wrap">
+                <img src="assets/header.png" alt="로고" class="main-top-logo" onerror="this.style.opacity='0'">
+            </div>
             
-            <div class="main-overlay"></div>
+            <div class="main-img-wrap">
+                <img src="assets/main_image.png" class="main-center-img" alt="메인 이미지" onerror="this.src='https://via.placeholder.com/400x400?text=Main+Image'">
+            </div>
             
             <div class="main-content-wrap">
                 <h1 class="main-title">오피스 생존을 위한<br>나의 선 긋기 유형</h1>
-                <p class="main-subtitle">직장에서 마주하는 무례한 질문과 갈등<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
+                <p class="main-subtitle">직장 생활 중 마주하는 무례한 질문, 갈등 상황에서<br>나는 어떻게 내 멘탈을 보호하고 있을까?</p>
             </div>
             
             <div class="main-btn-wrap">
@@ -51,13 +54,9 @@
         <section id="loading-screen" class="screen">
             <div class="custom-loading-container">
                 <img src="assets/loading_bg.png" class="loading-layer bg-layer" alt="배경">
-                
                 <img src="assets/loading_copy1.png" class="loading-layer copy1-layer" alt="상단 카피">
-                
                 <img src="assets/loading_copy2.png" class="loading-layer copy2-layer" alt="도서 제목">
-                
                 <img src="assets/loading_book.png" class="loading-layer book-layer" alt="도서 이미지">
-                
                 <div class="loading-spinner-overlay">
                     <div class="spinner"></div>
                     <p>결과 분석 중...</p>
@@ -76,9 +75,9 @@
                     <p id="result-desc">결과 설명이 여기에 들어갑니다.</p>
                 </div>
                 <div class="result-solution-box">
-                    <h3>💊 멘탈을 위한 맞춤 처방전</h3>
+                    <h3>💊 흔들리지 않는 멘탈을 위한 맞춤 처방전</h3>
                     <div class="book-image-placeholder">
-                        <img src="assets/book2.png" alt="도서 이미지" onerror="this.src='https://via.placeholder.com/200x250?text=Book+Image'">
+                        <img src="assets/book.png" alt="도서 이미지" onerror="this.src='https://via.placeholder.com/200x250?text=Book+Image'">
                     </div>
                     <p id="result-solution">책 내용 기반 솔루션</p>
                 </div>
@@ -118,7 +117,7 @@
                 <button class="modal-close" onclick="closeModal()">✕</button>
                 <h3>전체 8가지 유형 보기</h3>
                 <div class="types-grid" id="types-grid">
-                    </div>
+                </div>
             </div>
         </div>
     </div>
