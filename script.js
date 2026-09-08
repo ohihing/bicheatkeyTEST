@@ -22,7 +22,7 @@ const questions = [
         ]
     },
     {
-        q: "지각을 밥 먹듯 하는 후배에게 쓴소리를 한다면?",
+        q: "지각을 밥 먹듯 하는 후배에게\n쓴소리를 한다면?",
         img: "assets/q003.png",
         options: [
             { text: "\"n번이나 늦으셨어요, 시간 지켜주세요.\"\n사실을 짚어 준다.", type: "A" },
@@ -30,7 +30,7 @@ const questions = [
         ]
     },
     {
-        q: "업무 방향을 두고 의견이 갈린다면?",
+        q: "업무 방향을 두고\n의견이 갈린다면?",
         img: "assets/q004.png",
         options: [
             { text: "누구의 논리가\n현실적이고 합리적인지 따져본다.", type: "A" },
@@ -38,7 +38,7 @@ const questions = [
         ]
     },
     {
-        q: "상사가 '오늘 술 한잔하자'며 곤란한 부탁을 한다면?",
+        q: "상사가 '오늘 술 한잔하자'며\n곤란한 부탁을 한다면?",
         img: "assets/q005.png",
         options: [
             { text: "내키지 않아도\n일단 나가는 게 사회생활이다.", type: "C" },
@@ -94,7 +94,7 @@ const questions = [
         ]
     },
     {
-        q: "인사를 건넨 상사의 표정이 굳어 있을 때 드는 생각은?",
+        q: "인사를 건넨 상사의 표정이\n굳어 있을 때 드는 생각은?",
         img: "assets/q012.png",
         options: [
             { text: "'내 기획안이 맘에 안 들었나?'\n복잡한 이유들이 떠오른다.", type: "E" },
@@ -169,15 +169,20 @@ backBtn.addEventListener("click", goBack);
 function startTest() {
     if (!imagesLoaded) return;
     
-    // 상태 초기화
     currentQuestion = 0;
     scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
     historyLog = [];
     
-    window.scrollTo(0, 0); 
-    mainScreen.classList.remove("active");
-    qScreen.classList.add("active");
-    renderQuestionData();
+    // 부드러운 화면 전환
+    mainScreen.style.animation = "fadeOutDown 0.3s ease forwards";
+    setTimeout(() => {
+        mainScreen.classList.remove("active");
+        mainScreen.style.animation = ""; // 초기화
+        qScreen.classList.add("active");
+        qScreen.scrollTo(0, 0); 
+        renderQuestionData();
+        updateBackBtn();
+    }, 300);
 }
 
 
@@ -197,12 +202,19 @@ function renderQuestionData() {
     btns[1].onclick = () => selectOption(qData.options[1].type);
 }
 
+function updateBackBtn() {
+    // 이제 문항 1번에서도 뒤로가기 버튼이 항상 보입니다.
+    backBtn.classList.remove("hidden");
+}
+
 function selectOption(type) {
     historyLog.push(type);
     scores[type]++;
     currentQuestion++;
     
-    qContent.classList.add("is-hidden");
+    // 기존 컨텐츠가 부드럽게 사라짐
+    qContent.className = "q-content-box fade-out-down";
+    
     setTimeout(() => {
         if (currentQuestion >= questions.length) {
             showLoading();
@@ -211,39 +223,48 @@ function selectOption(type) {
         
         qScreen.scrollTo(0,0);
         renderQuestionData();
-        qContent.className = "q-content-area is-entering"; 
-        void qContent.offsetWidth; 
-        qContent.className = "q-content-area";
-    }, 250);
+        updateBackBtn();
+        // 새 컨텐츠가 부드럽게 나타남
+        qContent.className = "q-content-box fade-in-up"; 
+    }, 300);
 }
 
-// 🌟 뒤로가기 로직 수정
 function goBack() {
+    // 1번 문항에서 누르면 메인으로
     if (currentQuestion === 0) {
-        // 1번 문항에서 뒤로가기 누르면 메인 화면으로
-        qScreen.classList.remove("active");
-        mainScreen.classList.add("active");
+        qScreen.style.animation = "fadeOutDown 0.3s ease forwards";
+        setTimeout(() => {
+            qScreen.classList.remove("active");
+            qScreen.style.animation = "";
+            mainScreen.classList.add("active");
+        }, 300);
         return;
     }
+    
+    // 그 외는 이전 문항으로
     const lastType = historyLog.pop();
     scores[lastType]--;
     currentQuestion--;
     
-    qContent.classList.add("is-hidden");
+    qContent.className = "q-content-box fade-out-down";
+    
     setTimeout(() => {
         qScreen.scrollTo(0,0);
         renderQuestionData();
-        qContent.className = "q-content-area is-entering"; 
-        void qContent.offsetWidth; 
-        qContent.className = "q-content-area";
-    }, 250);
+        updateBackBtn();
+        qContent.className = "q-content-box fade-in-up"; 
+    }, 300);
 }
 
 function showLoading() {
-    qScreen.classList.remove("active");
-    loadingScreen.classList.add("active");
-    
-    setTimeout(calculateResult, 3000);
+    qScreen.style.animation = "fadeOutDown 0.3s ease forwards";
+    setTimeout(() => {
+        qScreen.classList.remove("active");
+        qScreen.style.animation = "";
+        loadingScreen.classList.add("active");
+        
+        setTimeout(calculateResult, 3000);
+    }, 300);
 }
 
 function calculateResult() {
@@ -254,11 +275,16 @@ function calculateResult() {
     const type3 = scores.E > scores.F ? "E" : "F";
     const finalType = type1 + type2 + type3;
 
-    loadingScreen.classList.remove("active");
-    resultScreen.classList.add("active");
+    loadingScreen.style.animation = "fadeOutDown 0.3s ease forwards";
+    
+    setTimeout(() => {
+        loadingScreen.classList.remove("active");
+        loadingScreen.style.animation = "";
+        resultScreen.classList.add("active");
 
-    displayResult(finalType);
-    renderOtherTypes();
+        displayResult(finalType);
+        renderOtherTypes();
+    }, 300);
 }
 
 function displayResult(typeKey) {
