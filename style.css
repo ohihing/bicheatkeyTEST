@@ -1,5 +1,5 @@
 /* =========================================
-   1. 폰트 및 기본 초기화 (벌렁거림 방지)
+   1. 폰트 및 기본 초기화
    ========================================= */
 @font-face {
     font-family: 'NanumSquareRound';
@@ -15,9 +15,9 @@
 
 html, body {
     width: 100%; height: 100%;
-    background-color: #f0f2f5; /* 약간의 앱 배경색 */
+    background-color: #f0f2f5; 
     display: flex; justify-content: center;
-    overflow: hidden; overscroll-behavior-y: none; /* 고무줄 바운스 완전 차단 */
+    overflow: hidden; overscroll-behavior-y: none; 
 }
 
 .app-container {
@@ -52,36 +52,36 @@ html, body {
 }
 
 /* =========================================
-   🌟 3. 메인 화면 (스모어 글로시 스타일 & 핏 조정)
+   🌟 3. 메인 화면 (여백 조율 - PC/Mac 기준)
    ========================================= */
 .smore-main {
     background-color: #ffffff;
-    justify-content: space-between; /* 요소들을 위, 중간, 아래로 고르게 분산 */
+    justify-content: space-between; 
     align-items: center;
-    overflow-y: hidden; /* 메인은 스크롤 불가하게 고정 */
+    overflow-y: hidden; 
 }
 
-/* 로고 (헤더 이미지)를 시원하게 키움 */
-.main-logo-area { width: 100%; padding: 50px 15px 15px; text-align: center; animation: fadeInUp 0.6s ease forwards; }
-.main-header-img { width: 100%; max-width: 120px; height: auto; object-fit: contain; } /* 크기 대폭 확대! */
+/* 로고 영역 */
+.main-logo-area { width: 100%; padding: 40px 20px 20px; text-align: center; animation: fadeInUp 0.6s ease forwards; }
+.main-header-img { width: 100%; max-width: 160px; height: auto; object-fit: contain; }
 
-/* 메인 이미지 (꽉 차고 부드러운 등장) */
+/* 🌟 메인 이미지: 텍스트와 버튼 사이 중앙으로 오도록 여백 조율 */
 .main-img-area { 
     flex: 1; width: 100%; display: flex; justify-content: center; align-items: center; 
-    padding: 0 20px; 
+    padding: 20px; 
     animation: zoomInSoft 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
 }
-.main-img { width: 100%; max-width: 360px; max-height: 45vh; object-fit: contain; }
+.main-img { width: 100%; max-width: 360px; max-height: 40vh; object-fit: contain; }
 
-/* 텍스트 영역 */
-.main-text-area { width: 100%; padding: 10px 24px 20px; text-align: center; opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards; }
-.main-title { font-size: 26px; font-weight: 800; line-height: 1.4; color: #111; margin-bottom: 12px; }
+/* 🌟 텍스트 영역: 위아래 여백을 줘서 답답하지 않게 조율 */
+.main-text-area { width: 100%; padding: 20px 24px 30px; text-align: center; opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards; }
+.main-title { font-size: 26px; font-weight: 800; line-height: 1.4; color: #111; margin-bottom: 15px; }
 .main-desc { font-size: 15px; color: #555; line-height: 1.6; word-break: keep-all; }
 
-/* 버튼 (글로시하고 통통 튀는 모션) */
+/* 버튼 영역 */
 .main-btn-area { width: 100%; padding: 0 20px 40px; margin-top: auto; opacity: 0; animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards; }
 .btn-smore {
-    background: linear-gradient(135deg, #28549e 0%, #1e4280 100%); /* 글로시한 그라데이션 */
+    background: linear-gradient(135deg, #28549e 0%, #1e4280 100%); 
     color: white; font-size: 18px; font-weight: 800;
     width: 100%; padding: 18px; border-radius: 16px; border: none; cursor: pointer;
     box-shadow: 0 8px 24px rgba(40, 84, 158, 0.3);
@@ -92,25 +92,21 @@ html, body {
 @keyframes zoomInSoft { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 /* =========================================
-   🌟 4. 문항 화면 (레퍼런스 영상 완벽 구현)
+   🌟 4. 문항 화면 (로고 삭제 및 여백 조정)
    ========================================= */
 .q-layout { padding: 0; background-color: #fff; }
 
 .q-header-box {
-    width: 100%; padding: 25px 20px 10px;
+    width: 100%; padding: 30px 20px 10px; /* 로고가 빠진 만큼 상단 여백을 살짝 늘림 */
     display: flex; flex-direction: column; align-items: center;
     position: sticky; top: 0; background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 50;
 }
-.q-logo-wrap { width: 100%; text-align: center; margin-bottom: 13px; }
-.q-logo { height: 30px; object-fit: contain; } /* 교양툰 스타일 중앙 상단 로고 */
 
-/* 진행바 그룹 (뒤로가기 + 바 + 숫자) */
 .q-progress-wrap {
     width: 100%; display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; /* 요소 간의 핏한 간격 */
+    gap: 12px; 
 }
 
-/* 작고 심플한 뒤로가기 버튼 */
 .q-back-btn {
     background: none; border: none; font-size: 16px; color: #999;
     font-weight: 800; cursor: pointer; padding: 5px; margin-left: -5px;
@@ -119,24 +115,20 @@ html, body {
 .q-back-btn:active { color: #333; }
 .q-back-btn.hidden { opacity: 0; pointer-events: none; }
 
-/* 둥글고 예쁜 프로그레스 바 */
 .progress-bar-container {
     flex: 1; height: 8px; background-color: #f0f0f0; border-radius: 10px;
     overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
-.progress-bar { height: 100%; background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); /* 스모어풍 그라데이션 */ width: 0%; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); border-radius: 10px; }
+.progress-bar { height: 100%; background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); width: 0%; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); border-radius: 10px; }
 
-/* 진행도 숫자 */
 .q-count { font-size: 13px; font-weight: 700; color: #aaa; width: 35px; text-align: right; }
 #current-q { color: #28549e; }
 
-/* 문항 컨텐츠 영역 */
 .q-content-box { width: 100%; padding: 20px 24px 40px; display: flex; flex-direction: column; align-items: center; }
 .q-title { font-size: 21px; font-weight: 800; text-align: center; margin-bottom: 25px; line-height: 1.5; color: #222; white-space: pre-wrap; word-break: keep-all;}
 .q-img-wrap { width: 100%; max-width: 340px; margin-bottom: 30px; text-align: center; }
 .q-img-wrap img { width: 100%; aspect-ratio: 1/1; object-fit: contain; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
 
-/* 선택지 버튼 (글로시 애니메이션 적용) */
 .options-wrap { width: 100%; display: flex; flex-direction: column; gap: 12px; }
 .btn-option {
     width: 100%; background-color: #ffffff; color: #333; border: 2px solid #eef0f2;
@@ -146,7 +138,7 @@ html, body {
 .btn-option:active { background-color: #f4f6f8; border-color: #28549e; transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
 
 /* =========================================
-   🌟 5. 로딩 화면 (구조 단순화로 무조건 보이게 픽스)
+   🌟 5. 로딩 화면 (배경 삭제 및 위치 조정)
    ========================================= */
 .loading-layout { padding: 0; background-color: #e9eaec; overflow: hidden; justify-content: center; }
 .loading-wrapper {
@@ -158,20 +150,37 @@ html, body {
 .l-copy2 { z-index: 3; }
 .l-book { z-index: 4; animation: floatFast 2s infinite alternate ease-in-out; }
 
+/* 🌟 흰색 둥근 배경을 투명하게 제거하고 위치를 위로 올림 */
 .l-spinner-container {
-    position: absolute; top: 35%; z-index: 10; display: flex; flex-direction: column; align-items: center;
-    background: rgba(255,255,255,0.8); padding: 15px 25px; border-radius: 20px; backdrop-filter: blur(5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: absolute; 
+    top: 25%; /* 👈 카피와 책 사이로 위치 상향 조정 */
+    z-index: 10; display: flex; flex-direction: column; align-items: center;
+    background: transparent; /* 흰 배경 제거 */
+    padding: 0; 
+    box-shadow: none; /* 그림자 제거 */
+    backdrop-filter: none;
+    width: 100%; /* 너비를 넓게 잡음 */
 }
-.spinner { width: 36px; height: 36px; border: 4px solid rgba(40, 84, 158, 0.1); border-top: 4px solid #28549e; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 10px; }
-.l-spinner-container p { font-size: 14px; font-weight: 800; color: #28549e; margin: 0; }
+.spinner { width: 36px; height: 36px; border: 4px solid rgba(40, 84, 158, 0.2); border-top: 4px solid #28549e; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 12px; }
+
+/* 🌟 카피 여백 조율: 양 끝에 안 붙게 좌우 패딩을 넉넉히 줌 */
+.l-spinner-text { 
+    font-size: 15px; 
+    font-weight: 800; 
+    color: #28549e; 
+    margin: 0; 
+    text-align: center;
+    padding: 0 30px; /* 좌우 여백 */
+    word-break: keep-all; 
+    line-height: 1.4;
+}
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes floatSlow { from { opacity: 0.8; transform: translateY(0); } to { opacity: 1; transform: translateY(-5px); } }
 @keyframes floatFast { from { transform: translateY(0); } to { transform: translateY(-12px); } }
 
 /* =========================================
-   🌟 6. 결과 화면 (버튼 글로시 추가 및 핏 최적화)
+   6. 결과 화면
    ========================================= */
 .result-layout { padding: 30px 20px 60px; background-color: #fdfdfd; }
 .capture-box { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 25px;}
@@ -185,7 +194,6 @@ html, body {
 .r-book-wrap { text-align: center; margin: 15px 0; }
 .r-book-wrap img { width: 130px; border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
 
-/* 결과창 글로시 버튼 세트 */
 .r-btn-group { width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 35px; }
 .btn-smore-dark, .btn-smore-green, .btn-smore-outline {
     width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 800; cursor: pointer; border: none;
@@ -198,7 +206,6 @@ html, body {
 
 .btn-row { display: flex; gap: 12px; }
 
-/* 도서 섹션 */
 .bookstore-box { width: 100%; border-top: 1px dashed #ddd; padding-top: 30px; text-align: center; }
 .bookstore-box h3 { font-size: 16px; font-weight: 800; margin-bottom: 15px; color: #666;}
 .store-links { display: flex; gap: 12px; justify-content: center; }
@@ -227,29 +234,32 @@ html, body {
 .type-badge { font-size: 12px; font-weight: 700; color: #28549e; }
 
 /* =========================================
-   📱 10. 반응형 최적화 (768px 이하 - 모바일 픽스)
+   📱 8. 반응형 최적화 (768px 이하)
    ========================================= */
 @media (max-width: 768px) {
-    /* 모바일 메인 뷰 극한 압축 (버튼 무조건 보이게 픽스) */
     .smore-main { padding: 0; }
     
     .main-logo-area { padding: 25px 20px 10px; }
-    .main-header-img { max-width: 120px; } /* 모바일에서 로고 크기 축소 */ 
     
-    .main-img-area { padding: 0 15px; }
-    .main-img { max-width: 100%; max-height: 38vh; } /* 썸네일 높이 조절로 버튼 공간 확보 */
+    /* 🌟 모바일 헤더 로고 크기 축소 (기존 100px -> 80px) */
+    .main-header-img { max-width: 80px; } 
     
-    .main-text-area { padding: 5px 20px 15px; }
-    .main-title { font-size: 24px; margin-bottom: 6px; }
+    .main-img-area { padding: 15px; }
+    
+    /* 🌟 모바일 썸네일 높이 약간 축소 */
+    .main-img { max-width: 100%; max-height: 35vh; } 
+    
+    /* 모바일 텍스트 여백 축소 */
+    .main-text-area { padding: 10px 20px 15px; }
+    .main-title { font-size: 24px; margin-bottom: 8px; }
     .main-desc { font-size: 14px; }
     
     .main-btn-area { padding: 0 20px 25px; }
     .btn-smore { padding: 16px; font-size: 16px; }
 
-    /* 모바일 문항 뷰 핏 맞춤 */
+    /* 문항 영역 */
     .q-layout { padding: 0; }
-    .q-header-box { padding: 20px 15px 10px; }
-    .q-logo { height: 20px; margin-bottom: 5px; } 
+    .q-header-box { padding: 25px 15px 10px; }
     .q-content-box { padding: 15px 20px 30px; }
     .q-title { font-size: 18px; margin-bottom: 20px; }
     .q-img-wrap { margin-bottom: 20px; max-width: 280px; }
