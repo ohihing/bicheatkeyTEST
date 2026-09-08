@@ -62,8 +62,8 @@ html, body {
 }
 
 /* 로고 (헤더 이미지)를 시원하게 키움 */
-.main-logo-area { width: 100%; padding: 40px 20px 20px; text-align: center; animation: fadeInUp 0.6s ease forwards; }
-.main-header-img { width: 100%; max-width: 160px; height: auto; object-fit: contain; } /* 크기 대폭 확대! */
+.main-logo-area { width: 100%; padding: 50px 15px 15px; text-align: center; animation: fadeInUp 0.6s ease forwards; }
+.main-header-img { width: 100%; max-width: 120px; height: auto; object-fit: contain; } /* 크기 대폭 확대! */
 
 /* 메인 이미지 (꽉 차고 부드러운 등장) */
 .main-img-area { 
@@ -101,8 +101,8 @@ html, body {
     display: flex; flex-direction: column; align-items: center;
     position: sticky; top: 0; background-color: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 50;
 }
-.q-logo-wrap { width: 100%; text-align: center; margin-bottom: 15px; }
-.q-logo { height: 26px; object-fit: contain; } /* 교양툰 스타일 중앙 상단 로고 */
+.q-logo-wrap { width: 100%; text-align: center; margin-bottom: 13px; }
+.q-logo { height: 30px; object-fit: contain; } /* 교양툰 스타일 중앙 상단 로고 */
 
 /* 진행바 그룹 (뒤로가기 + 바 + 숫자) */
 .q-progress-wrap {
@@ -234,7 +234,7 @@ html, body {
     .smore-main { padding: 0; }
     
     .main-logo-area { padding: 25px 20px 10px; }
-    .main-header-img { max-width: 100px; } /* 모바일에서 로고 크기 축소 */ 
+    .main-header-img { max-width: 120px; } /* 모바일에서 로고 크기 축소 */ 
     
     .main-img-area { padding: 0 15px; }
     .main-img { max-width: 100%; max-height: 38vh; } /* 썸네일 높이 조절로 버튼 공간 확보 */
@@ -249,7 +249,7 @@ html, body {
     /* 모바일 문항 뷰 핏 맞춤 */
     .q-layout { padding: 0; }
     .q-header-box { padding: 20px 15px 10px; }
-    .q-logo { height: 22px; margin-bottom: 10px; } 
+    .q-logo { height: 20px; margin-bottom: 5px; } 
     .q-content-box { padding: 15px 20px 30px; }
     .q-title { font-size: 18px; margin-bottom: 20px; }
     .q-img-wrap { margin-bottom: 20px; max-width: 280px; }
