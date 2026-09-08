@@ -1,4 +1,4 @@
-/* 1. 폰트: 모든 기기(모바일/윈도우/맥)에서 나눔스퀘어라운드 정상 출력 */
+/* 1. 폰트 세팅 */
 @font-face {
     font-family: 'NanumSquareRound';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
@@ -33,34 +33,30 @@ body {
 }
 
 /* =========================================
-   상단 고정 헤더
+   뒤로가기 버튼 플로팅 (헤더 대체)
    ========================================= */
-.app-header {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 60px;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    border-bottom: 1px solid #f0f0f0;
-    z-index: 100;
+#back-btn-wrap {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
 }
-.header-btn {
+.back-btn {
     width: 40px; height: 40px;
-    background: none; border: none;
-    font-size: 22px; color: #333;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 50%;
+    font-size: 20px; color: #333;
     cursor: pointer; font-weight: bold;
     display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: opacity 0.3s;
 }
-.header-btn.hidden { visibility: hidden; opacity: 0; }
-.header-btn.placeholder { visibility: hidden; }
-.header-logo { height: 26px; max-width: 180px; object-fit: contain; }
+.back-btn.hidden { visibility: hidden; opacity: 0; pointer-events: none; }
 
-/* 공통 화면 레이아웃 */
+/* =========================================
+   공통 화면 레이아웃
+   ========================================= */
 .screen {
     display: none;
     flex-direction: column;
@@ -72,78 +68,74 @@ body {
 .screen.active { display: flex; }
 
 /* =========================================
-   🌟 1. 스모어(Smore) 스타일 메인 화면 전용 디자인
+   🌟 스모어 스타일 하얀 배경 메인 화면
    ========================================= */
 .smore-style-main {
-    padding: 0 !important; /* 기존 여백 무시하고 화면 꽉 채움 */
+    padding: 0 !important;
     position: relative;
-    overflow: hidden;
-    display: flex;
+    background-color: #ffffff; /* 하얀 배경 */
     flex-direction: column;
-    justify-content: flex-end; /* 텍스트를 하단으로 밀어냄 */
-    background-color: #111; /* 이미지 로딩 전 검은 배경 */
+    justify-content: space-between; /* 로고, 이미지, 텍스트가 위아래로 골고루 퍼짐 */
+    align-items: center;
 }
+/* 주의: .smore-style-main에 display: flex;를 박으면 겹침 버그 발생하므로 제외함! */
 
-/* 메인 화면일 때 헤더 완벽 투명화 */
-body:has(#main-screen.active) .app-header {
-    background: transparent;
-    border-bottom: none;
-    backdrop-filter: none;
-    box-shadow: none;
-}
-
-.main-bg-img {
-    position: absolute;
-    top: 0;
-    left: 0;
+.main-logo-wrap {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* 여백 없이 꽉 참 */
-    z-index: 1;
-    animation: zoomInBg 4s ease-out forwards; /* 부드러운 줌인 모션 */
+    padding: 20px 0 10px;
+    text-align: center;
+    animation: fadeIn 1s ease 0.2s forwards;
+    opacity: 0;
+}
+.main-top-logo {
+    height: 24px;
+    object-fit: contain;
 }
 
-.main-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.main-img-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    height: 70%; 
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
-    z-index: 2;
+    padding: 0 30px;
+    animation: zoomInBg 1s ease-out forwards;
+}
+.main-center-img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
 }
 
 .main-content-wrap {
-    position: relative;
-    z-index: 3;
-    padding: 0 24px 30px;
     width: 100%;
+    padding: 20px 24px 30px;
     text-align: center;
-    color: white; 
+    color: #333; /* 하얀 배경이므로 검은 글씨 */
     opacity: 0;
     animation: slideUpFade 1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards;
 }
 
 .main-title {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     line-height: 1.4;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     letter-spacing: -0.5px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3); 
+    color: #111;
+    text-shadow: none; 
 }
 
 .main-subtitle {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     line-height: 1.6;
-    color: rgba(255, 255, 255, 0.85); 
+    color: #666;
     margin-bottom: 0;
 }
 
 .main-btn-wrap {
-    position: relative;
-    z-index: 3;
     width: 100%;
     padding: 0 20px 40px; 
     opacity: 0;
@@ -156,7 +148,7 @@ body:has(#main-screen.active) .app-header {
     font-size: 18px;
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(40, 84, 158, 0.4);
+    box-shadow: 0 8px 24px rgba(40, 84, 158, 0.3);
     letter-spacing: 0.5px;
     width: 100%;
     font-weight: 800;
@@ -166,16 +158,15 @@ body:has(#main-screen.active) .app-header {
 }
 .start-btn-smore:active { transform: scale(0.98); }
 
-@keyframes zoomInBg { from { transform: scale(1.05); } to { transform: scale(1); } }
+@keyframes zoomInBg { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-   🌟 2. 고급스러운 레이어 로딩 화면 애니메이션
+   고급스러운 레이어 로딩 화면 애니메이션
    ========================================= */
 #loading-screen { padding: 0; justify-content: center; background-color: #e9eaec; overflow: hidden; }
 .custom-loading-container { position: relative; width: 100%; height: 100%; max-width: 480px; aspect-ratio: 9 / 16; display: flex; justify-content: center; align-items: center; }
 .loading-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
-
 #loading-screen.active .bg-layer { animation: fadeInBg 0.8s ease forwards; }
 #loading-screen.active .copy1-layer { animation: fadeInText 0.8s ease 0.5s forwards; }
 #loading-screen.active .copy2-layer { animation: slideUpText 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.8s forwards; }
@@ -193,27 +184,26 @@ body:has(#main-screen.active) .app-header {
 @keyframes floatBook { from { transform: translateY(0); } to { transform: translateY(-10px); } }
 
 /* =========================================
-   🌟 3. 문항 화면 (1:1 이미지 및 플로팅 버튼)
+   문항 화면 
    ========================================= */
 #q-content { opacity: 1; transform: translateY(0); transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
 #q-content.is-hidden { opacity: 0; transform: translateY(-10px); pointer-events: none; }
 #q-content.is-entering { opacity: 0; transform: translateY(12px); transition: none !important; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.progress-bar-container { width: 100%; height: 8px; background-color: #eee; border-radius: 4px; margin-bottom: 12px; overflow: hidden; }
+.progress-bar-container { width: 100%; height: 8px; background-color: #eee; border-radius: 4px; margin-bottom: 12px; overflow: hidden; margin-top: 20px; }
 .progress-bar { height: 100%; background-color: #4CAF50; width: 0%; transition: width 0.35s ease; }
 .question-count { font-size: 14px; color: #999; margin-bottom: 25px; }
 .question-text { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 25px; word-break: keep-all; line-height: 1.5; white-space: pre-wrap; }
 
 .question-image-placeholder img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 16px; margin-bottom: 0; box-shadow: none; }
-
 .options-container { width: 100%; margin-top: -30px; position: relative; z-index: 10; padding: 0 10px; }
 .btn-option { width: 100%; background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #333; border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 16px; padding: 22px 20px; font-size: 15px; font-weight: 700; line-height: 1.5; word-break: keep-all; cursor: pointer; margin-bottom: 14px; white-space: pre-wrap; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
 .btn-option:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); background-color: rgba(255, 255, 255, 0.95); }
 .btn-option:active { transform: translateY(1px); background-color: rgba(245, 245, 245, 0.9); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
 /* =========================================
-   🌟 4. 결과 화면 및 버튼
+   결과 화면 및 버튼
    ========================================= */
 .result-image-placeholder img { width: 100%; height: auto; max-height: 400px; object-fit: contain; border-radius: 12px; margin-bottom: 25px; }
 .book-image-placeholder img { width: 55%; max-width: 180px; height: auto; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0; }
@@ -230,7 +220,7 @@ body:has(#main-screen.active) .app-header {
 .half-btn { flex: 1; margin-bottom: 0; }
 
 .capture-wrap { width: 100%; background-color: #ffffff; padding: 10px 0 20px; border-radius: 16px; display: flex; flex-direction: column; align-items: center; }
-.result-title { font-size: 28px; font-weight: 800; color: #4CAF50; margin-bottom: 24px; text-align: center; }
+.result-title { font-size: 28px; font-weight: 800; color: #4CAF50; margin-bottom: 24px; text-align: center; margin-top: 20px;}
 .result-desc-box, .result-solution-box { background-color: #f8f9fa; border-radius: 16px; padding: 28px 24px; width: 100%; margin-bottom: 24px; }
 .result-desc-box h3, .result-solution-box h3 { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: #222; text-align: center; }
 .result-solution-box p, .result-desc-box p { font-size: 15px; line-height: 1.7; color: #555; white-space: pre-wrap; text-align: center; }
@@ -251,12 +241,11 @@ body:has(#main-screen.active) .app-header {
 .app-footer p { font-size: 10px; color: #b0b0b0; }
 
 /* =========================================
-   🌟 5. 다른 유형 모달창 및 버튼 디자인
+   다른 유형 모달창
    ========================================= */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 999; display: flex; justify-content: center; align-items: flex-end; opacity: 1; transition: opacity 0.3s; }
 .modal-overlay.hidden { opacity: 0; pointer-events: none; }
 .modal-content { background: white; width: 100%; max-width: 480px; border-radius: 24px 24px 0 0; padding: 20px 20px 50px; position: relative; max-height: 80vh; overflow-y: auto; }
-
 .modal-close { position: sticky; top: 0px; float: right; background: rgba(0,0,0,0.3); color: white; width: 32px; height: 32px; border-radius: 50%; border: none; font-size: 16px; font-weight: bold; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
 .modal-content h3 { clear: both; text-align: center; padding-top: 10px; margin-bottom: 24px; font-size: 20px; font-weight: 800; }
 
@@ -269,20 +258,12 @@ body:has(#main-screen.active) .app-header {
 .type-badge { font-size: 11px; font-weight: 700; color: #28549e; margin-top: auto; }
 
 /* =========================================
-   📱 6. 모바일 반응형 최적화 (768px 이하 적용)
+   반응형 최적화 (모바일)
    ========================================= */
 @media (max-width: 768px) {
-    /* 모바일에서는 헤더 영역을 공간 차지 없이 투명하게 띄움 */
-    .app-header { position: absolute; top: 10px; left: 10px; width: auto; height: auto; background: transparent; border: none; backdrop-filter: none; padding: 0; z-index: 100; }
-    .header-logo, .placeholder { display: none; } /* 모바일에서 헤더 로고 숨김 */
-    
-    /* 뒤로가기 버튼을 떠있는 둥근 버튼 형태로 변경 */
-    .header-btn { background-color: rgba(255, 255, 255, 0.95); border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.15); width: 38px; height: 38px; font-size: 18px; }
-    
     .screen { padding: 20px 20px 40px; }
     .question-count { margin-bottom: 15px; }
     .question-text { font-size: 18px; margin-bottom: 15px; }
-    
     .options-container { margin-top: -25px; }
     .btn-option { padding: 16px 14px; font-size: 14px; margin-bottom: 10px; }
 }
