@@ -135,37 +135,43 @@ const qContent      = document.getElementById("q-content");
 const backBtn       = document.getElementById("back-btn");
 const startBtn      = document.getElementById("start-btn");
 
-/* ── 이미지 프리로드 ── */
+/* ── 이미지 프리로드 ──
+   PC에서 느린 원인: 결과 이미지 8장 + 문항 이미지 12장을 한 번에 모두 로드.
+   개선: 시작 전에는 문항 이미지만 로드, 결과 이미지는 백그라운드에서 지연 로드. */
 function preloadAllImages() {
-    startBtn.innerText = "이미지 불러오는 중...";
-    startBtn.style.opacity = "0.7";
-    startBtn.disabled = true;
-
-    const imageUrls = [];
-    questions.forEach(q => imageUrls.push(q.img));
-    Object.values(results).forEach(r => imageUrls.push(r.img));
-    imageUrls.push("assets/main_image.png", "assets/book.png", "assets/header.png");
+    // 1단계: 문항 이미지 + 필수 에셋만 먼저 로드 (빠른 시작 가능하게)
+    const criticalUrls = [];
+    questions.forEach(q => criticalUrls.push(q.img));
+    criticalUrls.push("assets/main_image.png", "assets/book.png", "assets/header.png");
 
     let loadedCount = 0;
-    const hiddenContainer = document.createElement("div");
-    hiddenContainer.style.cssText = "display:none;position:absolute;";
-    document.body.appendChild(hiddenContainer);
+    const total = criticalUrls.length;
 
-    imageUrls.forEach(url => {
+    criticalUrls.forEach(url => {
         const img = new Image();
         img.onload = img.onerror = () => {
             loadedCount++;
-            if (loadedCount === imageUrls.length) {
+            if (loadedCount === total) {
                 imagesLoaded = true;
                 startBtn.innerText = "테스트 시작하기";
                 startBtn.style.opacity = "1";
                 startBtn.disabled = false;
+                // 2단계: 결과 이미지는 테스트 시작 후 백그라운드 로드
+                preloadResultImages();
             }
         };
         img.src = url;
-        hiddenContainer.appendChild(img);
     });
 }
+
+function preloadResultImages() {
+    // 결과 이미지 8장을 백그라운드에서 조용히 로드
+    Object.values(results).forEach(r => {
+        const img = new Image();
+        img.src = r.img;
+    });
+}
+
 preloadAllImages();
 
 /* ── 이벤트 바인딩 ── */
@@ -181,14 +187,9 @@ document.getElementById("other-modal").addEventListener("click", function (e) {
     if (e.target === this) closeModal();
 });
 
-/* ── 스크롤 최상단 이동 (PC: window / 모바일: 요소 내부) ── */
+/* ── 스크롤 최상단 이동 — PC/모바일 모두 요소 내부 스크롤 ── */
 function scrollTop(el) {
-    // PC(430px 초과)는 body가 스크롤, 모바일은 화면 요소가 스크롤
-    if (window.innerWidth > 430) {
-        window.scrollTo(0, 0);
-    } else {
-        el.scrollTo(0, 0);
-    }
+    try { el.scrollTo(0, 0); } catch(e) {}
 }
 
 /* ── 화면 전환 헬퍼 ── */
