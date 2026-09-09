@@ -341,7 +341,7 @@ html, body {
 /* 스피너 — 카피 이미지 아래, 책 이미지 위 공간 */
 .l-spinner-container {
     position: absolute;
-    top: 38%;                      /* 카피 아래, 책 위 공간 */
+    top: 28%;                      /* PC 기준: 카피 아래, 책 위 — 겹치지 않게 */
     z-index: 10;
     display: flex;
     flex-direction: column;
@@ -557,6 +557,9 @@ html, body {
     .main-desc       { font-size: 13px; }
     .main-btn-area   { padding: 0 20px; }
     .btn-smore       { padding: 15px; font-size: 16px; }
+
+    /* 로딩 스피너 — 모바일은 책이 더 크게 보여서 더 위로 */
+    .l-spinner-container { top: 22%; }
 
     /* 문항 */
     .q-header-box  { padding: 18px 16px 10px; }
