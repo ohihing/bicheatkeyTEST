@@ -74,65 +74,62 @@ html, body {
 
 /* =========================================
    3. 메인 화면
-   레퍼런스 기준:
-   [로고] → [썸네일] → [카피] → [버튼]
-   이미지~버튼 사이에 카피가 중앙에 위치
+   구조: [로고 영역] [이미지 영역] [카피 영역] [버튼 영역]
+   각 영역에 flex 비율로 공간 분배 → 레퍼런스처럼 균형 있게 배치
    ========================================= */
 .smore-main {
     background-color: #ffffff;
-    /* space-between: 로고·이미지 상단고정, 버튼 하단고정, 카피 사이 중앙 */
-    justify-content: space-between;
+    justify-content: flex-start; /* 위에서부터 쌓되 각 자식 flex로 제어 */
     align-items: center;
-    height: 100%;              /* screen의 flex:1 높이 전부 사용 */
-    overflow: hidden;          /* 절대 스크롤 안 됨 */
-    flex-shrink: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
-/* 로고 */
+/* 로고: 고정 높이, 상단 여백 확보 */
 .main-logo-area {
     width: 100%;
-    padding: 28px 20px 10px;
+    padding: 24px 20px 0;
     text-align: center;
-    flex-shrink: 0;
+    flex: 0 0 auto;            /* 고정 크기 */
     animation: fadeInUp 0.6s ease forwards;
 }
 .main-header-img {
     width: 100%;
-    max-width: 100px;          /* 2/3 크기 유지 */
+    max-width: 100px;
     height: auto;
     object-fit: contain;
 }
 
-/* 썸네일 */
+/* 썸네일: flex 비율로 40% 할당 */
 .main-img-area {
     width: 100%;
+    flex: 0 0 38%;             /* 전체 높이의 38% */
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 24px 0;
-    flex-shrink: 0;
+    padding: 12px 24px 8px;
     animation: zoomInSoft 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    min-height: 0;
 }
 .main-img {
     width: 100%;
     max-width: 320px;
-    max-height: 34vh;
+    height: 100%;              /* 부모 높이 꽉 채움 */
     object-fit: contain;
     border-radius: 12px;
 }
 
-/* 카피 — 이미지와 버튼 사이 남은 공간, 세로 중앙 */
+/* 카피: 남은 공간 차지, 세로 가운데 */
 .main-text-area {
     flex: 1;
     width: 100%;
-    padding: 0 24px;
+    padding: 0 28px;
     text-align: center;
     opacity: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 0;
-    max-height: 28vh;         /* 카피 영역이 과도하게 커지지 않도록 제한 */
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
 }
 .main-title {
@@ -144,11 +141,11 @@ html, body {
 }
 .main-desc { font-size: 14px; color: #666; line-height: 1.65; word-break: keep-all; }
 
-/* 버튼 */
+/* 버튼: 고정, 하단 여백 */
 .main-btn-area {
     width: 100%;
-    padding: 0 20px 32px;
-    flex-shrink: 0;
+    padding: 0 20px 30px;
+    flex: 0 0 auto;            /* 고정 크기 */
     opacity: 0;
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
 }
@@ -259,7 +256,7 @@ html, body {
 }
 .q-img-wrap img {
     width: 100%; height: auto;
-    max-height: 52vh;
+    max-height: 44vh;          /* 얼빡 클로즈업 이미지 여유 확보 */
     object-fit: contain;
     border-radius: 0; box-shadow: none;
     display: block;
@@ -550,12 +547,11 @@ html, body {
    ========================================= */
 @media (max-width: 430px) {
     /* 메인 */
-    .smore-main      { overflow-y: hidden; }       /* 모바일도 메인은 스크롤 없음 */
-    .main-logo-area  { padding: 16px 20px 6px; }
+    .smore-main      { overflow: hidden; }
+    .main-logo-area  { padding: 18px 20px 0; }
     .main-header-img { max-width: 76px; }
-    .main-img-area   { padding: 6px 16px 0; }
-    .main-img        { max-height: 30vh; }
-    .main-text-area  { padding: 0 20px; max-height: 24vh; }
+    .main-img-area   { flex: 0 0 34%; padding: 8px 16px 6px; }
+    .main-text-area  { padding: 0 20px; }
     .main-title      { font-size: 21px; margin-bottom: 6px; }
     .main-desc       { font-size: 13px; }
     .main-btn-area   { padding: 0 20px 22px; }
@@ -566,7 +562,7 @@ html, body {
     .q-content-box { padding: 14px 0 0 0; }
     .q-title       { font-size: 17px; margin-bottom: 14px; }
     .q-img-wrap    { max-width: 100%; }
-    .q-img-wrap img { max-height: 46vh; }
+    .q-img-wrap img { max-height: 40vh; }
     .options-wrap  { gap: 8px; margin-top: -20px; padding: 0 16px 24px; }
     .btn-option    { padding: 14px; font-size: 13px; }
 
