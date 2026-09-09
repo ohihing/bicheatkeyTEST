@@ -126,7 +126,11 @@ html, body {
     text-align: center;
     opacity: 0;
     flex-shrink: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
+    animation-name: fadeInUp;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
 }
 .main-title {
     font-size: 24px;
@@ -143,7 +147,11 @@ html, body {
     padding: 0 20px;
     flex-shrink: 0;
     opacity: 0;
-    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+    animation-name: fadeInUp;
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+    animation-delay: 0.4s;
+    animation-fill-mode: forwards;  /* 애니메이션 후 opacity:1 유지 보장 */
 }
 .btn-smore {
     background: linear-gradient(135deg, #28549e 0%, #1e3f7a 100%);
@@ -155,6 +163,9 @@ html, body {
     border-radius: 16px;
     border: none;
     cursor: pointer;
+    position: relative;
+    z-index: 10;            /* 다른 요소에 가려지지 않게 */
+    pointer-events: auto;   /* 클릭 항상 허용 */
     box-shadow: 0 8px 24px rgba(40, 84, 158, 0.30);
     transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.15s ease,
