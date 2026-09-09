@@ -6,27 +6,27 @@ try {
 
 const questions = [
     {
-        q: "\"연봉 얼마예요?\"\n선 넘는 질문을 받는다면?",
+        q: '"연봉 얼마예요?"\n선 넘는 질문을 받는다면?',
         img: "assets/q001.png",
         options: [
-            { text: "\"그게 왜 궁금한데요?\"<br>불쾌함을 표현한다", type: "A" },
-            { text: "\"글쎄요 남는 게 만 원쯤 되려나?\"<br>말을 돌린다", type: "B" }
+            { text: '"그게 왜 궁금한데요?"<br>불쾌함을 표현한다', type: "A" },
+            { text: '"글쎄요 남는 게 만 원쯤 되려나?"<br>말을 돌린다', type: "B" }
         ]
     },
     {
         q: "상대가 나에게 언성을 높인다면?",
         img: "assets/q002.png",
         options: [
-            { text: "\"제가 잘못했다는 건가요?\"<br>맞받아친다", type: "A" },
-            { text: "\"자리를 좀 옮기실까요?\"<br>감정 흐름을 정돈한다", type: "B" }
+            { text: '"제가 잘못했다는 건가요?"<br>맞받아친다', type: "A" },
+            { text: '"자리를 좀 옮기실까요?"<br>감정 흐름을 정돈한다', type: "B" }
         ]
     },
     {
         q: "지각을 밥 먹듯 하는 후배에게\n쓴소리를 한다면?",
         img: "assets/q003.png",
         options: [
-            { text: '팩트 체크<br>\"오늘까지 세 번쨉니다'\", type: "A" },
-            { text: '감정 전달<br>\"요즘 뭔 일 있어요? 걱정되네\"', type: "B" }
+            { text: '팩트 체크<br>"오늘까지 세 번쨉니다"', type: "A" },
+            { text: '감정 전달<br>"요즘 뭔 일 있어요? 걱정되네"', type: "B" }
         ]
     },
     {
@@ -42,30 +42,30 @@ const questions = [
         img: "assets/q005.png",
         options: [
             { text: "내키지 않아도 사회생활이니 일단 나간다", type: "C" },
-            { text: "\"오늘은 안 되고 다음 주는 괜찮습니다.\"<br>역으로 일정을 제안", type: "D" }
+            { text: '"오늘은 안 되고 다음 주는 괜찮습니다."<br>역으로 일정을 제안', type: "D" }
         ]
     },
     {
         q: "회의 중 두 가지 시안을 골라야 한다면?",
         img: "assets/q006.png",
         options: [
-            { text: "\"B가 더 낫다고 하네요?\"<br>주어를 뺀다", type: "C" },
-            { text: "\"저는 A보단 B가 좋아요\"<br>나를 주어로 쓴다", type: "D" }
+            { text: '"B가 더 낫다고 하네요?"<br>주어를 뺀다', type: "C" },
+            { text: '"저는 A보단 B가 좋아요"<br>나를 주어로 쓴다', type: "D" }
         ]
     },
     {
         q: "누군가 나를 칭찬한다면?",
         img: "assets/q007.png",
         options: [
-            { text: "\"아유 과찬이세요~\"\<br>반사적으로 부정", type: "C" },
-            { text: "\"과장님도 오늘 멋지신데요?\"<br>칭찬을 되돌려준다", type: "D" }
+            { text: '"아유 과찬이세요~"<br>반사적으로 부정', type: "C" },
+            { text: '"과장님도 오늘 멋지신데요?"<br>칭찬을 되돌려준다', type: "D" }
         ]
     },
     {
         q: "메시지를 보냈는데 안 읽는다면?",
         img: "assets/q008.png",
         options: [
-            { text: "\"내가 실수했나?\"<br>불안해서 덧붙일 말을 찾는다", type: "C" },
+            { text: '"내가 실수했나?"<br>불안해서 덧붙일 말을 찾는다', type: "C" },
             { text: "그냥 기다린다.", type: "D" }
         ]
     },
@@ -73,8 +73,8 @@ const questions = [
         q: "다른 팀에 부탁할 일이 생긴다면?",
         img: "assets/q009.png",
         options: [
-            { text: "\"이거 금방 끝나요!\"<br>장점만 어필해서 넘긴다", type: "E" },
-            { text: "\"조금 번거로우실 텐데 부탁드리겠습니다!\"<br>불편함을 인정한다", type: "F" }
+            { text: '"이거 금방 끝나요!"<br>장점만 어필해서 넘긴다', type: "E" },
+            { text: '"조금 번거로우실 텐데 부탁드리겠습니다!"<br>불편함을 인정한다', type: "F" }
         ]
     },
     {
@@ -89,8 +89,8 @@ const questions = [
         q: "내 의견을 강하게 주장해야 한다면?",
         img: "assets/q011.png",
         options: [
-            { text: "\"이게 맞겠습니다\"<br>흔들림 없이 말한다", type: "E" },
-            { text: "\"그럴 수도 있지만, 제 생각은~\"<br>여지를 둔다", type: "F" }
+            { text: '"이게 맞겠습니다"<br>흔들림 없이 말한다', type: "E" },
+            { text: '"그럴 수도 있지만, 제 생각은~"<br>여지를 둔다', type: "F" }
         ]
     },
     {
@@ -135,16 +135,12 @@ const qContent      = document.getElementById("q-content");
 const backBtn       = document.getElementById("back-btn");
 const startBtn      = document.getElementById("start-btn");
 
-/* ── 이미지 프리로드 ──
-   PC에서 느린 원인: 결과 이미지 8장 + 문항 이미지 12장을 한 번에 모두 로드.
-   개선: 시작 전에는 문항 이미지만 로드, 결과 이미지는 백그라운드에서 지연 로드. */
+/* ── 이미지 프리로드 ── */
 function preloadAllImages() {
-    // 로드 완료 전 버튼 비활성화
     startBtn.innerText = "잠깐, 준비 중...";
     startBtn.style.opacity = "0.6";
     startBtn.disabled = true;
 
-    // 1단계: 문항 이미지 + 필수 에셋만 먼저 로드 (빠른 시작 가능하게)
     const criticalUrls = [];
     questions.forEach(q => criticalUrls.push(q.img));
     criticalUrls.push("assets/main_image.png", "assets/book.png", "assets/header.png");
@@ -161,7 +157,6 @@ function preloadAllImages() {
                 startBtn.innerText = "테스트 시작하기";
                 startBtn.style.opacity = "1";
                 startBtn.disabled = false;
-                // 2단계: 결과 이미지는 테스트 시작 후 백그라운드 로드
                 preloadResultImages();
             }
         };
@@ -170,7 +165,6 @@ function preloadAllImages() {
 }
 
 function preloadResultImages() {
-    // 결과 이미지 8장을 백그라운드에서 조용히 로드
     Object.values(results).forEach(r => {
         const img = new Image();
         img.src = r.img;
@@ -186,17 +180,14 @@ document.getElementById("share-btn").addEventListener("click", shareResult);
 document.getElementById("other-types-btn").addEventListener("click", openModal);
 backBtn.addEventListener("click", goBack);
 
-// 모달 배경 클릭 시 닫기
 document.getElementById("other-modal").addEventListener("click", function (e) {
     if (e.target === this) closeModal();
 });
 
-/* ── 스크롤 최상단 이동 — PC/모바일 모두 요소 내부 스크롤 ── */
 function scrollTop(el) {
     try { el.scrollTo(0, 0); } catch(e) {}
 }
 
-/* ── 화면 전환 헬퍼 ── */
 function switchScreen(fromEl, toEl, afterFn) {
     fromEl.style.animation = "fadeOutDown 0.25s ease forwards";
     setTimeout(() => {
@@ -208,7 +199,6 @@ function switchScreen(fromEl, toEl, afterFn) {
     }, 250);
 }
 
-/* ── 테스트 시작 ── */
 function startTest() {
     if (!imagesLoaded) return;
     currentQuestion = 0;
@@ -219,13 +209,11 @@ function startTest() {
     });
 }
 
-/* ── 문항 렌더링 (이미지 로드 후 교체 → 깜빡임 방지) ── */
 function renderNextQuestion() {
     const qData = questions[currentQuestion];
 
-    // 진행 상태 업데이트 (현재 문항 번호 기준, 0에서 시작해 자연스럽게)
     document.getElementById("current-q").innerText = currentQuestion + 1;
-    const pct = (currentQuestion / questions.length) * 100;
+    const pct = ((currentQuestion + 1) / questions.length) * 100;
     document.getElementById("progress-bar").style.width = pct + "%";
 
     const imgPreloader = new Image();
@@ -234,7 +222,6 @@ function renderNextQuestion() {
 
         const qImg = document.getElementById("q-image");
         qImg.src = qData.img;
-        // 5번 문항(index 4)은 클로즈업 이미지라 별도로 축소
         if (currentQuestion === 4) {
             qImg.classList.add("q-img-small");
         } else {
@@ -248,13 +235,11 @@ function renderNextQuestion() {
         btns[1].onclick = () => selectOption(qData.options[1].type);
 
         backBtn.classList.remove("hidden");
-        // is-hidden 제거 후 fadeInUp 적용
         qContent.className = "q-content-box fade-in-up";
     };
     imgPreloader.src = qData.img;
 }
 
-/* ── 옵션 선택 ── */
 function selectOption(type) {
     historyLog.push(type);
     scores[type]++;
@@ -273,7 +258,6 @@ function selectOption(type) {
     }, 250);
 }
 
-/* ── 뒤로가기 ── */
 function goBack() {
     if (currentQuestion === 0) {
         switchScreen(qScreen, mainScreen);
@@ -291,10 +275,8 @@ function goBack() {
     }, 250);
 }
 
-/* ── 로딩 화면 ── */
 function showLoading() {
     switchScreen(qScreen, loadingScreen, () => {
-        // 메시지 순환 애니메이션
         const textEl = document.querySelector(".l-spinner-text");
         let msgIdx = 0;
         textEl.innerText = loadingMessages[msgIdx];
@@ -308,7 +290,6 @@ function showLoading() {
             }, 200);
         }, 900);
 
-        // 진행바 100%로 채우기
         document.getElementById("progress-bar").style.width = "100%";
 
         setTimeout(() => {
@@ -318,7 +299,6 @@ function showLoading() {
     });
 }
 
-/* ── 결과 계산 ── */
 function calculateResult() {
     if (document.activeElement) document.activeElement.blur();
 
@@ -333,7 +313,6 @@ function calculateResult() {
     });
 }
 
-/* ── 결과 표시 ── */
 function displayResult(typeKey) {
     const resData = results[typeKey];
     if (!resData) return;
@@ -350,7 +329,6 @@ function selectOtherType(typeKey) {
 }
 window.selectOtherType = selectOtherType;
 
-/* ── 다른 유형 모달 ── */
 function renderOtherTypes() {
     const grid = document.getElementById("types-grid");
     grid.innerHTML = "";
@@ -367,8 +345,6 @@ function renderOtherTypes() {
 function openModal()  { document.getElementById("other-modal").classList.remove("hidden"); }
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
 
-
-/* ── 공유 ── */
 function shareResult() {
     const url = window.location.href;
     if (navigator.share) {
@@ -381,13 +357,11 @@ function shareResult() {
         navigator.clipboard.writeText(url)
             .then(() => alert("링크가 복사됐어요! 어디든 붙여 넣어 공유하세요 😊"))
             .catch(() => {
-                // 클립보드 실패 시 fallback
                 prompt("아래 링크를 복사하세요:", url);
             });
     }
 }
 
-/* ── 푸터 로고 5번 탭 → 어드민 ── */
 const footerLogo = document.querySelector('.app-footer img');
 let logoClickCount = 0;
 let logoClickTimer;
@@ -400,20 +374,10 @@ if (footerLogo) {
     });
 }
 
-/* ── 마우스 휠 라우터 ──
-   사이드 배경 영역에서 휠을 굴려도 현재 활성 화면이 스크롤되도록.
-   app-container 안을 클릭하면 자연스럽게 동작하지만,
-   양옆 배경(body)을 클릭하면 포커스가 벗어나 휠이 안 먹힘.
-   → window의 wheel 이벤트를 가로채서 항상 현재 활성 .screen으로 전달. */
 window.addEventListener('wheel', (e) => {
-    // 이미 app-container 안에서 발생한 휠은 그대로 두고
     if (document.querySelector('.app-container').contains(e.target)) return;
-
-    // 현재 활성화된 .screen 요소 찾기
     const activeScreen = document.querySelector('.screen.active');
     if (!activeScreen) return;
-
-    // 스크롤 가능한 화면(문항·결과)만 처리 — 메인·로딩은 스크롤 불필요
     if (activeScreen.classList.contains('smore-main')) return;
 
     e.preventDefault();
