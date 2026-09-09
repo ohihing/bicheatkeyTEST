@@ -418,3 +418,23 @@ if (footerLogo) {
         logoClickTimer = setTimeout(() => { logoClickCount = 0; }, 2000);
     });
 }
+
+/* ── 마우스 휠 라우터 ──
+   사이드 배경 영역에서 휠을 굴려도 현재 활성 화면이 스크롤되도록.
+   app-container 안을 클릭하면 자연스럽게 동작하지만,
+   양옆 배경(body)을 클릭하면 포커스가 벗어나 휠이 안 먹힘.
+   → window의 wheel 이벤트를 가로채서 항상 현재 활성 .screen으로 전달. */
+window.addEventListener('wheel', (e) => {
+    // 이미 app-container 안에서 발생한 휠은 그대로 두고
+    if (document.querySelector('.app-container').contains(e.target)) return;
+
+    // 현재 활성화된 .screen 요소 찾기
+    const activeScreen = document.querySelector('.screen.active');
+    if (!activeScreen) return;
+
+    // 스크롤 가능한 화면(문항·결과)만 처리 — 메인·로딩은 스크롤 불필요
+    if (activeScreen.classList.contains('smore-main')) return;
+
+    e.preventDefault();
+    activeScreen.scrollBy({ top: e.deltaY, behavior: 'auto' });
+}, { passive: false });
