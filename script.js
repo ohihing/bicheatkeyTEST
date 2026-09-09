@@ -227,7 +227,15 @@ function renderNextQuestion() {
     const imgPreloader = new Image();
     imgPreloader.onload = imgPreloader.onerror = () => {
         document.getElementById("question-text").innerHTML = qData.q;
-        document.getElementById("q-image").src = qData.img;
+
+        const qImg = document.getElementById("q-image");
+        qImg.src = qData.img;
+        // 5번 문항(index 4)은 클로즈업 이미지라 별도로 축소
+        if (currentQuestion === 4) {
+            qImg.classList.add("q-img-small");
+        } else {
+            qImg.classList.remove("q-img-small");
+        }
 
         const btns = document.querySelectorAll(".btn-option");
         btns[0].innerHTML = qData.options[0].text;
