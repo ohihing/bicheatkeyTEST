@@ -364,6 +364,12 @@ function openModal()  { document.getElementById("other-modal").classList.remove(
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
 
 /* ── 이미지 저장 ── */
+function isIOS() {
+    // iPad도 포함 (iPadOS는 UA에서 Mac으로 표시되므로 터치 여부로 구분)
+    return /iPhone|iPod/.test(navigator.userAgent) ||
+           (navigator.userAgent.includes('Mac') && navigator.maxTouchPoints > 1);
+}
+
 function saveAsImage() {
     const btn = document.getElementById("save-img-btn");
     const original = btn.innerHTML;
@@ -372,13 +378,40 @@ function saveAsImage() {
 
     html2canvas(document.getElementById("capture-area"), {
         useCORS: true,
+        allowTaint: true,       // iOS에서 CORS 이미지 렌더링 허용
         backgroundColor: "#ffffff",
-        scale: 2
+        scale: 2,
+        logging: false
     }).then(canvas => {
-        const link = document.createElement("a");
-        link.download = "나의_선긋기_유형.jpg";
-        link.href = canvas.toDataURL("image/jpeg", 0.92);
-        link.click();
+        if (isIOS()) {
+            // iOS: <a download>가 동작 안 하므로 새 탭에 이미지 열고 저장 안내
+            const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+            const newTab = window.open();
+            if (newTab) {
+                newTab.document.write(
+                    '<html><head><title>이미지 저장</title>' +
+                    '<meta name="viewport" content="width=device-width,initial-scale=1">' +
+                    '<style>body{margin:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;}' +
+                    'img{max-width:100%;display:block;}' +
+                    'p{color:#fff;font-size:15px;margin-top:16px;text-align:center;padding:0 20px;line-height:1.6;font-family:sans-serif;}' +
+                    '</style></head><body>' +
+                    '<img src="' + dataUrl + '">' +
+                    '<p>이미지를 <strong>길게 눌러</strong><br>사진 앱에 저장하세요 📸</p>' +
+                    '</body></html>'
+                );
+                newTab.document.close();
+            } else {
+                // 팝업 차단된 경우 fallback
+                alert("팝업이 차단되어 있습니다.
+브라우저 설정에서 팝업을 허용해주세요.");
+            }
+        } else {
+            // PC/Android: 기존 방식 (자동 다운로드)
+            const link = document.createElement("a");
+            link.download = "나의_선긋기_유형.jpg";
+            link.href = canvas.toDataURL("image/jpeg", 0.92);
+            link.click();
+        }
     }).catch(() => {
         alert("이미지 저장에 실패했습니다. 잠시 후 다시 시도해주세요.");
     }).finally(() => {
