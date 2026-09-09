@@ -139,6 +139,11 @@ const startBtn      = document.getElementById("start-btn");
    PC에서 느린 원인: 결과 이미지 8장 + 문항 이미지 12장을 한 번에 모두 로드.
    개선: 시작 전에는 문항 이미지만 로드, 결과 이미지는 백그라운드에서 지연 로드. */
 function preloadAllImages() {
+    // 로드 완료 전 버튼 비활성화
+    startBtn.innerText = "잠깐, 준비 중...";
+    startBtn.style.opacity = "0.6";
+    startBtn.disabled = true;
+
     // 1단계: 문항 이미지 + 필수 에셋만 먼저 로드 (빠른 시작 가능하게)
     const criticalUrls = [];
     questions.forEach(q => criticalUrls.push(q.img));
