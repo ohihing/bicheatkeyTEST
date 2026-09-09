@@ -181,6 +181,16 @@ document.getElementById("other-modal").addEventListener("click", function (e) {
     if (e.target === this) closeModal();
 });
 
+/* ── 스크롤 최상단 이동 (PC: window / 모바일: 요소 내부) ── */
+function scrollTop(el) {
+    // PC(430px 초과)는 body가 스크롤, 모바일은 화면 요소가 스크롤
+    if (window.innerWidth > 430) {
+        window.scrollTo(0, 0);
+    } else {
+        el.scrollTo(0, 0);
+    }
+}
+
 /* ── 화면 전환 헬퍼 ── */
 function switchScreen(fromEl, toEl, afterFn) {
     fromEl.style.animation = "fadeOutDown 0.25s ease forwards";
@@ -188,6 +198,7 @@ function switchScreen(fromEl, toEl, afterFn) {
         fromEl.classList.remove("active");
         fromEl.style.animation = "";
         toEl.classList.add("active");
+        scrollTop(toEl);
         if (afterFn) afterFn();
     }, 250);
 }
@@ -199,7 +210,6 @@ function startTest() {
     scores = { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 };
     historyLog = [];
     switchScreen(mainScreen, qScreen, () => {
-        qScreen.scrollTo(0, 0);
         renderNextQuestion();
     });
 }
@@ -244,7 +254,7 @@ function selectOption(type) {
             showLoading();
             return;
         }
-        qScreen.scrollTo(0, 0);
+        scrollTop(qScreen);
         qContent.className = "q-content-box is-hidden";
         renderNextQuestion();
     }, 250);
@@ -262,7 +272,7 @@ function goBack() {
 
     qContent.className = "q-content-box fade-out-down";
     setTimeout(() => {
-        qScreen.scrollTo(0, 0);
+        scrollTop(qScreen);
         qContent.className = "q-content-box is-hidden";
         renderNextQuestion();
     }, 250);
@@ -318,7 +328,7 @@ function displayResult(typeKey) {
     document.getElementById("result-desc").innerHTML     = resData.desc;
     document.getElementById("result-solution").innerHTML = resData.solution;
     document.getElementById("result-image").src          = resData.img;
-    resultScreen.scrollTo(0, 0);
+    scrollTop(resultScreen);
 }
 
 function selectOtherType(typeKey) {
