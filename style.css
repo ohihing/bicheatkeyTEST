@@ -47,10 +47,15 @@ html, body {
     flex-direction: column;
     width: 100%;
     flex: 1;                   /* app-container 남은 공간 전부 차지 */
+    /* overflow는 각 화면(smore-main, q-layout, result-layout)에서 개별 지정 */
+}
+.screen.active { display: flex; }
+
+/* 스크롤 필요한 화면: 문항·결과 */
+.q-layout, .result-layout, .loading-layout {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
-.screen.active { display: flex; }
 
 /* is-hidden: 문항 전환 중 깜빡임 방지 */
 .is-hidden { opacity: 0; pointer-events: none; }
@@ -75,10 +80,12 @@ html, body {
    ========================================= */
 .smore-main {
     background-color: #ffffff;
-    justify-content: flex-start;
+    /* space-between: 로고·이미지 상단고정, 버튼 하단고정, 카피 사이 중앙 */
+    justify-content: space-between;
     align-items: center;
-    height: 100%;              /* screen 안에서 꽉 채움 */
-    overflow: hidden;          /* 메인은 스크롤 없이 한 화면에 */
+    height: 100%;              /* screen의 flex:1 높이 전부 사용 */
+    overflow: hidden;          /* 절대 스크롤 안 됨 */
+    flex-shrink: 0;
 }
 
 /* 로고 */
@@ -114,7 +121,7 @@ html, body {
     border-radius: 12px;
 }
 
-/* 카피 — 이미지와 버튼 사이 남은 공간에서 세로 중앙 */
+/* 카피 — 이미지와 버튼 사이 남은 공간, 세로 중앙 */
 .main-text-area {
     flex: 1;
     width: 100%;
@@ -125,6 +132,7 @@ html, body {
     flex-direction: column;
     justify-content: center;
     min-height: 0;
+    max-height: 28vh;         /* 카피 영역이 과도하게 커지지 않도록 제한 */
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
 }
 .main-title {
@@ -542,14 +550,15 @@ html, body {
    ========================================= */
 @media (max-width: 430px) {
     /* 메인 */
-    .main-logo-area  { padding: 18px 20px 8px; }
-    .main-header-img { max-width: 80px; }
-    .main-img-area   { padding: 8px 16px 0; }
+    .smore-main      { overflow-y: hidden; }       /* 모바일도 메인은 스크롤 없음 */
+    .main-logo-area  { padding: 16px 20px 6px; }
+    .main-header-img { max-width: 76px; }
+    .main-img-area   { padding: 6px 16px 0; }
     .main-img        { max-height: 30vh; }
-    .main-text-area  { padding: 0 20px; }
+    .main-text-area  { padding: 0 20px; max-height: 24vh; }
     .main-title      { font-size: 21px; margin-bottom: 6px; }
     .main-desc       { font-size: 13px; }
-    .main-btn-area   { padding: 0 20px 24px; }
+    .main-btn-area   { padding: 0 20px 22px; }
     .btn-smore       { padding: 15px; font-size: 16px; }
 
     /* 문항 */
