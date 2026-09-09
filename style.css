@@ -74,23 +74,23 @@ html, body {
 
 /* =========================================
    3. 메인 화면
-   구조: [로고 영역] [이미지 영역] [카피 영역] [버튼 영역]
-   각 영역에 flex 비율로 공간 분배 → 레퍼런스처럼 균형 있게 배치
+   전략: 모든 요소 고정 크기(vh/px), 남은 공간만 카피가 채움
+   브라우저 높이가 달라도 요소 크기는 변하지 않음
    ========================================= */
 .smore-main {
     background-color: #ffffff;
-    justify-content: flex-start; /* 위에서부터 쌓되 각 자식 flex로 제어 */
+    justify-content: flex-start;
     align-items: center;
     height: 100%;
     overflow: hidden;
 }
 
-/* 로고: 고정 높이, 상단 여백 확보 */
+/* 로고: 고정 */
 .main-logo-area {
     width: 100%;
-    padding: 24px 20px 0;
+    padding: 20px 20px 0;
     text-align: center;
-    flex: 0 0 auto;            /* 고정 크기 */
+    flex-shrink: 0;
     animation: fadeInUp 0.6s ease forwards;
 }
 .main-header-img {
@@ -100,26 +100,26 @@ html, body {
     object-fit: contain;
 }
 
-/* 썸네일: flex 비율로 40% 할당 */
+/* 썸네일: vh로 고정 높이 지정 */
 .main-img-area {
     width: 100%;
-    flex: 0 0 38%;             /* 전체 높이의 38% */
+    height: 38vh;              /* 고정 높이 — 브라우저 높이 변해도 이 크기 유지 */
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 12px 24px 8px;
+    padding: 16px 24px;
     animation: zoomInSoft 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    min-height: 0;
 }
 .main-img {
     width: 100%;
     max-width: 320px;
-    height: 100%;              /* 부모 높이 꽉 채움 */
+    height: 100%;
     object-fit: contain;
     border-radius: 12px;
 }
 
-/* 카피: 남은 공간 차지, 세로 가운데 */
+/* 카피: 남은 공간만 차지, 세로 가운데 정렬 */
 .main-text-area {
     flex: 1;
     width: 100%;
@@ -141,11 +141,11 @@ html, body {
 }
 .main-desc { font-size: 14px; color: #666; line-height: 1.65; word-break: keep-all; }
 
-/* 버튼: 고정, 하단 여백 */
+/* 버튼: 고정 */
 .main-btn-area {
     width: 100%;
-    padding: 0 20px 30px;
-    flex: 0 0 auto;            /* 고정 크기 */
+    padding: 0 20px 28px;
+    flex-shrink: 0;
     opacity: 0;
     animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
 }
@@ -548,13 +548,13 @@ html, body {
 @media (max-width: 430px) {
     /* 메인 */
     .smore-main      { overflow: hidden; }
-    .main-logo-area  { padding: 18px 20px 0; }
+    .main-logo-area  { padding: 16px 20px 0; }
     .main-header-img { max-width: 76px; }
-    .main-img-area   { flex: 0 0 34%; padding: 8px 16px 6px; }
+    .main-img-area   { height: 34vh; padding: 12px 16px; } /* 모바일은 34vh */
     .main-text-area  { padding: 0 20px; }
     .main-title      { font-size: 21px; margin-bottom: 6px; }
     .main-desc       { font-size: 13px; }
-    .main-btn-area   { padding: 0 20px 22px; }
+    .main-btn-area   { padding: 0 20px 20px; }
     .btn-smore       { padding: 15px; font-size: 16px; }
 
     /* 문항 */
