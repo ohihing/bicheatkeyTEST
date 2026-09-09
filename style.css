@@ -252,10 +252,17 @@ html, body {
 }
 .q-img-wrap img {
     width: 100%; height: auto;
-    max-height: 44vh;          /* 얼빡 클로즈업 이미지 여유 확보 */
+    max-height: 44vh;
     object-fit: contain;
     border-radius: 0; box-shadow: none;
     display: block;
+}
+
+/* 5번 문항: 상반신 클로즈업이라 별도 축소 */
+.q-img-wrap img.q-img-small {
+    max-height: 32vh;
+    max-width: 70%;
+    margin: 0 auto;
 }
 
 /* 선택지 — 이미지 하단을 살짝 덮음 */
