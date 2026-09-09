@@ -445,7 +445,7 @@ html, body {
 /* 버튼 그룹 */
 .r-btn-group { width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
 
-.btn-smore-dark, .btn-smore-green, .btn-smore-outline {
+.btn-smore-green, .btn-smore-outline {
     width: 100%; padding: 17px; border-radius: 16px;
     font-size: 15px; font-weight: 800; cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
@@ -454,20 +454,14 @@ html, body {
     background-color: #fff; border: 2px solid #dde0e4 !important;
     color: #444; box-shadow: none;
 }
-.btn-smore-dark {
-    background: linear-gradient(135deg, #2c2c2c 0%, #111 100%);
-    color: white; border: none;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-}
 .btn-smore-green {
     background: linear-gradient(135deg, #43b049 0%, #338a38 100%);
     color: white; border: none;
     box-shadow: 0 6px 18px rgba(67,176,73,0.28);
 }
-.btn-smore-dark:hover  { filter: brightness(1.12); transform: translateY(-1px); }
 .btn-smore-green:hover { filter: brightness(1.08); transform: translateY(-1px); }
 .btn-smore-outline:hover { background-color: #f5f6f8; border-color: #bbb !important; }
-.btn-smore-dark:active, .btn-smore-green:active, .btn-smore-outline:active { transform: scale(0.97); }
+.btn-smore-green:active, .btn-smore-outline:active { transform: scale(0.97); }
 
 .btn-row { display: flex; gap: 12px; }
 .btn-row .btn-smore-outline { flex: 1; }
@@ -586,7 +580,7 @@ html, body {
     .r-img-wrap { max-width: 190px; }
     .r-img-wrap img { max-height: 230px; }
     .r-desc-box p, .r-solution-box p { font-size: 13px; }
-    .btn-smore-dark, .btn-smore-green, .btn-smore-outline { padding: 15px; font-size: 14px; }
+    .btn-smore-green, .btn-smore-outline { padding: 15px; font-size: 14px; }
 
     /* 푸터 */
     .app-footer { padding: 9px 16px; }
@@ -602,7 +596,7 @@ html, body {
 /* 호버 효과: 마우스 있는 환경에서만 */
 @media (hover: none) {
     .btn-smore:hover, .btn-option:hover,
-    .btn-smore-dark:hover, .btn-smore-green:hover, .btn-smore-outline:hover,
+    .btn-smore-green:hover, .btn-smore-outline:hover,
     .store-item:hover, .type-card:hover,
     .r-book-wrap img:hover { transform: none; filter: none; }
 }
