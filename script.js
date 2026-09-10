@@ -394,18 +394,22 @@ function openModal()  { document.getElementById("other-modal").classList.remove(
 function closeModal() { document.getElementById("other-modal").classList.add("hidden"); }
 
 function shareResult() {
-    const url = window.location.href;
+    // URL을 항상 루트로 고정 — 결과 파라미터나 텍스트가 붙지 않게
+    const shareUrl = window.location.origin + '/';
+    const shareText = '나의 직장생활 멘탈 보호 유형을 확인해보세요!';
+
     if (navigator.share) {
         navigator.share({
             title: '나의 선 긋기 유형',
-            text: '나의 직장생활 멘탈 보호 유형을 확인해보세요!',
-            url
+            text: shareText,
+            url: shareUrl
         }).catch(() => {});
     } else {
-        navigator.clipboard.writeText(url)
+        // PC: URL만 클립보드에 복사 (텍스트 제외)
+        navigator.clipboard.writeText(shareUrl)
             .then(() => alert("링크가 복사됐어요! 어디든 붙여 넣어 공유하세요 😊"))
             .catch(() => {
-                prompt("아래 링크를 복사하세요:", url);
+                prompt("아래 링크를 복사하세요:", shareUrl);
             });
     }
 }
