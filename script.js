@@ -4,12 +4,12 @@ import { getFirestore, doc, getDoc, updateDoc, setDoc, increment } from "https:/
 
 // 사용자가 제공한 Firebase Config 설정
 const firebaseConfig = {
-    apiKey: "AIzaSyAW3-B_e6yP2XbVpU-Bw6o0nJ04Rk71I-k",
-    authDomain: "office-test-6d4ad.firebaseapp.com",
-    projectId: "office-test-6d4ad",
-    storageBucket: "office-test-6d4ad.appspot.com",
-    messagingSenderId: "302820542385",
-    appId: "1:302820542385:web:a6d36e8b4eeb8fb4b281b3"
+    apiKey: "AIzaSy8b8jjYHPMujf1TVfpAJlus30ftqYVwvLU",
+    authDomain: "bicheatkey.firebaseapp.com",
+    projectId: "bicheatkey",
+    storageBucket: "bicheatkey.firebasestorage.app",
+    messagingSenderId: "969350953002",
+    appId: "1:969350953002:web:b98f2251853b01957d2b53"
 };
 
 // Firebase 초기화
