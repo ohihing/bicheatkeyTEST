@@ -310,6 +310,13 @@ html, body {
     background-color: #eaf0fb; border-color: #28549e;
     transform: scale(0.975); box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
+/* 클릭 후 포커스 테두리 제거 — iOS에서 선택한 것처럼 파란 테두리 남는 현상 방지 */
+.btn-option:focus,
+.btn-option:focus-visible {
+    outline: none;
+    border-color: #eaecef;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
 
 /* =========================================
    5. 로딩 화면
