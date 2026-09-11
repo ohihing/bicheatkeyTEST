@@ -602,10 +602,63 @@ html, body {
     .btn-option { font-size: 12px; padding: 12px 10px; }
 }
 
-/* 호버 효과: 마우스 있는 환경에서만 */
+/* =========================================
+   호버 효과: 마우스가 있는 환경에서만 적용
+   터치 기기(hover:none)에서는 :hover 스타일을
+   완전히 무력화 — 손가락이 지나간 버튼에
+   파란 테두리가 남는 현상 방지
+   ========================================= */
 @media (hover: none) {
-    .btn-smore:hover, .btn-option:hover,
-    .btn-smore-green:hover, .btn-smore-outline:hover,
-    .store-item:hover, .type-card:hover,
-    .r-book-wrap img:hover { transform: none; filter: none; }
+    /* 문항 선택지 — 기본 상태로 완전 복귀 */
+    .btn-option:hover {
+        border-color: #eaecef !important;
+        background-color: rgba(255,255,255,0.97) !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+        transform: none !important;
+    }
+    /* 메인 시작 버튼 */
+    .btn-smore:hover {
+        background: linear-gradient(135deg, #28549e 0%, #1e3f7a 100%) !important;
+        box-shadow: 0 8px 24px rgba(40, 84, 158, 0.30) !important;
+        transform: none !important;
+    }
+    /* 결과 화면 버튼들 */
+    .btn-smore-green:hover {
+        background: linear-gradient(135deg, #43b049 0%, #338a38 100%) !important;
+        filter: none !important;
+        transform: none !important;
+    }
+    .btn-smore-outline:hover {
+        background-color: #fff !important;
+        border-color: #dde0e4 !important;
+        transform: none !important;
+    }
+    /* 서점 링크 */
+    .store-item:hover {
+        background: #fff !important;
+        border-color: #e4e4e4 !important;
+        transform: none !important;
+    }
+    /* 유형 카드 */
+    .type-card:hover {
+        border-color: #eee !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+    /* 뒤로가기 버튼 */
+    .q-back-btn:hover {
+        color: #999 !important;
+        background: none !important;
+    }
+    /* 책 이미지 */
+    .r-book-wrap img:hover { transform: none !important; }
+    /* 모달 닫기 */
+    .modal-close:hover { background: #f0f0f0 !important; }
+
+    /* :active는 누르는 순간에만 — 터치 후 잔상 방지를 위해
+       transition을 짧게 해서 빠르게 원상복귀 */
+    .btn-option {
+        transition: background-color 0.1s ease, border-color 0.1s ease,
+                    box-shadow 0.1s ease, transform 0.1s ease;
+    }
 }
