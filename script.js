@@ -261,6 +261,8 @@ function renderNextQuestion() {
 function selectOption(type) {
     // 클릭한 버튼 포커스 즉시 해제 — iOS 파란 테두리 잔상 방지
     if (document.activeElement) document.activeElement.blur();
+    // 눌림 상태 정리 — 다음 문항으로 잔상이 넘어가지 않게
+    document.querySelectorAll('.is-pressed').forEach(el => el.classList.remove('is-pressed'));
 
     historyLog.push(type);
     scores[type]++;
@@ -438,3 +440,32 @@ window.addEventListener('wheel', (e) => {
     e.preventDefault();
     activeScreen.scrollBy({ top: e.deltaY, behavior: 'auto' });
 }, { passive: false });
+
+/* ── 터치 눌림 효과 (iOS Safari 대응) ──
+   iOS Safari는 touchstart 리스너가 없으면 :active를 무시한다.
+   JS로 .is-pressed 클래스를 직접 토글해 눌림 효과를 보장한다. */
+(function initPressEffect() {
+    // 눌림 효과를 적용할 요소 선택자
+    const PRESSABLE = '.btn-option, .btn-smore, .btn-smore-green, .btn-smore-outline, .store-item, .type-card';
+
+    function addPress(e) {
+        const target = e.target.closest(PRESSABLE);
+        if (target) target.classList.add('is-pressed');
+    }
+
+    function removePress() {
+        document.querySelectorAll('.is-pressed').forEach(el => {
+            el.classList.remove('is-pressed');
+        });
+    }
+
+    // passive: true — 스크롤 성능 유지
+    document.addEventListener('touchstart', addPress, { passive: true });
+    document.addEventListener('touchend', removePress, { passive: true });
+    document.addEventListener('touchcancel', removePress, { passive: true });
+
+    // 마우스 환경에서도 동일하게 동작
+    document.addEventListener('mousedown', addPress);
+    document.addEventListener('mouseup', removePress);
+    document.addEventListener('mouseleave', removePress);
+})();
