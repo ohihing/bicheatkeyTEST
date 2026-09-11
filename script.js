@@ -159,7 +159,7 @@ function preloadAllImages() {
 
     const criticalUrls = [];
     questions.forEach(q => criticalUrls.push(q.img));
-    criticalUrls.push("assets/main_image.png", "assets/book.png", "assets/book2.png", "assets/header.png");
+    criticalUrls.push("assets/main_image.png", "assets/book2.png", "assets/header.png");
 
     let loadedCount = 0;
     const total = criticalUrls.length;
