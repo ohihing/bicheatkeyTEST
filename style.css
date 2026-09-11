@@ -687,7 +687,38 @@ html, body {
     transform: scale(0.95) !important;
 }
 
-/* ── 3) 미디어쿼리 백업 ──
+/* ── 3) 눌림 효과 (.is-pressed) ──
+   iOS Safari는 :active를 무시하므로 JS가 붙이는
+   .is-pressed 클래스로 눌림 효과를 보장한다.
+   :hover 무력화 규칙보다 뒤에 선언해 우선순위 확보. */
+.btn-option.is-pressed {
+    background-color: #eaf0fb !important;
+    border-color: #28549e !important;
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 6px rgba(40,84,158,0.15) !important;
+}
+.btn-smore.is-pressed {
+    transform: scale(0.96) !important;
+    box-shadow: 0 4px 12px rgba(40, 84, 158, 0.2) !important;
+    filter: brightness(0.95);
+}
+.btn-smore-green.is-pressed,
+.btn-smore-outline.is-pressed {
+    transform: scale(0.97) !important;
+    filter: brightness(0.95);
+}
+.btn-smore-outline.is-pressed {
+    background-color: #f0f1f4 !important;
+}
+.store-item.is-pressed {
+    background: #f0f1f4 !important;
+    transform: scale(0.97) !important;
+}
+.type-card.is-pressed {
+    transform: scale(0.95) !important;
+}
+
+/* ── 4) 미디어쿼리 백업 ──
    JS가 실행되기 전이나 실패한 경우를 대비 */
 @media (hover: none) {
     .btn-option:hover {
