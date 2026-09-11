@@ -616,78 +616,89 @@ html, body {
 }
 
 /* =========================================
-   호버 효과: 마우스가 있는 환경에서만 적용
-   터치 기기(hover:none)에서는 :hover 스타일을
-   완전히 무력화 — 손가락이 지나간 버튼에
-   파란 테두리가 남는 현상 방지
+   터치 기기 전용 스타일
+   JS가 <html>에 .is-touch 클래스를 부여한다.
+   미디어쿼리(hover:none)는 iOS에서 신뢰할 수 없어
+   클래스 기반으로 판정한다.
    ========================================= */
+
+/* ── 1) 터치 기기: :hover 효과 완전 무력화 ──
+   손가락이 지나간 요소에 hover가 남아
+   "이미 선택된 것처럼" 보이는 현상 방지 */
+.is-touch .btn-option:hover {
+    border-color: #eaecef !important;
+    background-color: rgba(255,255,255,0.97) !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
+    transform: none !important;
+}
+.is-touch .btn-smore:hover {
+    background: linear-gradient(135deg, #28549e 0%, #1e3f7a 100%) !important;
+    box-shadow: 0 8px 24px rgba(40, 84, 158, 0.30) !important;
+    transform: none !important;
+}
+.is-touch .btn-smore-green:hover {
+    background: linear-gradient(135deg, #43b049 0%, #338a38 100%) !important;
+    filter: none !important;
+    transform: none !important;
+}
+.is-touch .btn-smore-outline:hover {
+    background-color: #fff !important;
+    border-color: #dde0e4 !important;
+    transform: none !important;
+}
+.is-touch .store-item:hover {
+    background: #fff !important;
+    border-color: #e4e4e4 !important;
+    transform: none !important;
+}
+.is-touch .type-card:hover {
+    border-color: #eee !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.is-touch .q-back-btn:hover {
+    color: #999 !important;
+    background: none !important;
+}
+.is-touch .r-book-wrap img:hover { transform: none !important; }
+.is-touch .modal-close:hover { background: #f0f0f0 !important; }
+
+/* ── 2) 터치 기기: :active(누르는 순간) 효과는 유지 ──
+   hover 무력화보다 뒤에 선언해 우선순위 확보 */
+.is-touch .btn-option:active {
+    background-color: #eaf0fb !important;
+    border-color: #28549e !important;
+    transform: scale(0.97) !important;
+    box-shadow: 0 2px 6px rgba(40,84,158,0.15) !important;
+}
+.is-touch .btn-smore:active {
+    transform: scale(0.96) !important;
+    box-shadow: 0 4px 12px rgba(40, 84, 158, 0.2) !important;
+}
+.is-touch .btn-smore-green:active,
+.is-touch .btn-smore-outline:active {
+    transform: scale(0.97) !important;
+}
+.is-touch .store-item:active {
+    background: #f0f1f4 !important;
+    transform: scale(0.97) !important;
+}
+.is-touch .type-card:active {
+    transform: scale(0.95) !important;
+}
+
+/* ── 3) 미디어쿼리 백업 ──
+   JS가 실행되기 전이나 실패한 경우를 대비 */
 @media (hover: none) {
-    /* 문항 선택지 — 기본 상태로 완전 복귀 */
     .btn-option:hover {
         border-color: #eaecef !important;
         background-color: rgba(255,255,255,0.97) !important;
         box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
         transform: none !important;
     }
-    /* 메인 시작 버튼 */
-    .btn-smore:hover {
-        background: linear-gradient(135deg, #28549e 0%, #1e3f7a 100%) !important;
-        box-shadow: 0 8px 24px rgba(40, 84, 158, 0.30) !important;
-        transform: none !important;
-    }
-    /* 결과 화면 버튼들 */
-    .btn-smore-green:hover {
-        background: linear-gradient(135deg, #43b049 0%, #338a38 100%) !important;
-        filter: none !important;
-        transform: none !important;
-    }
-    .btn-smore-outline:hover {
-        background-color: #fff !important;
-        border-color: #dde0e4 !important;
-        transform: none !important;
-    }
-    /* 서점 링크 */
-    .store-item:hover {
-        background: #fff !important;
-        border-color: #e4e4e4 !important;
-        transform: none !important;
-    }
-    /* 유형 카드 */
-    .type-card:hover {
-        border-color: #eee !important;
-        box-shadow: none !important;
-        transform: none !important;
-    }
-    /* 뒤로가기 버튼 */
-    .q-back-btn:hover {
-        color: #999 !important;
-        background: none !important;
-    }
-    /* 책 이미지 */
-    .r-book-wrap img:hover { transform: none !important; }
-    /* 모달 닫기 */
-    .modal-close:hover { background: #f0f0f0 !important; }
-
-    /* ✅ :active(누르는 순간)는 그대로 살림 — hover보다 우선순위 높게 */
     .btn-option:active {
         background-color: #eaf0fb !important;
         border-color: #28549e !important;
         transform: scale(0.97) !important;
-        box-shadow: 0 2px 6px rgba(40,84,158,0.15) !important;
-    }
-    .btn-smore:active {
-        transform: scale(0.96) !important;
-        box-shadow: 0 4px 12px rgba(40, 84, 158, 0.2) !important;
-    }
-    .btn-smore-green:active,
-    .btn-smore-outline:active {
-        transform: scale(0.97) !important;
-    }
-    .store-item:active {
-        background: #f0f1f4 !important;
-        transform: scale(0.97) !important;
-    }
-    .type-card:active {
-        transform: scale(0.95) !important;
     }
 }
