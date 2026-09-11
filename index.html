@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>오피스 생존을 위한 인간관계 선 긋기 유형</title>
-    <link rel="stylesheet" href="style.css?v=28">
+    <script>
+        // 터치 기기 감지 — CSS 로드 전에 즉시 실행해 깜빡임 방지
+        (function() {
+            var isTouch = ('ontouchstart' in window) ||
+                          (navigator.maxTouchPoints > 0) ||
+                          (navigator.msMaxTouchPoints > 0);
+            document.documentElement.className += isTouch ? ' is-touch' : ' is-mouse';
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css?v=29">
 </head>
 <body>
     <div class="app-container">
